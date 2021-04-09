@@ -1,0 +1,176 @@
+,type,ontime,overdue
+0,Rental Unit Delivery Conditions,4,20
+1,Heat - Excessive  Insufficient,32,63
+2,Unsafe Dangerous Conditions,4,62
+3,Rodent Activity,255,414
+4,Pick up Dead Animal,537,36
+5,Unsatisfactory Living Conditions,95,99
+6,Request for Pothole Repair,663,335
+7,Electrical,3,31
+8,Traffic Signal Inspection,380,111
+9,Parking Enforcement,3055,83
+10,Missed Trash/Recycling/Yard Waste/Bulk Item,747,23
+11,Pigeon Infestation,0,0
+12,CE Collection,1095,9
+13,Requests for Street Cleaning,1223,128
+14,Request for Recycling Cart,991,168
+15,Street Light Outages,175,168
+16,Sidewalk Repair (Make Safe),80,158
+17,Animal Generic Request,244,0
+18,Recycling Cart Return,441,184
+19,Graffiti Removal,121,110
+20,Needle Pickup,1413,0
+21,Sign Repair,366,162
+22,Abandoned Vehicles,137,290
+23,Abandoned Bicycle,117,0
+24,Improper Storage of Trash (Barrels),962,34
+25,Tree Maintenance Requests,497,0
+26,Request for Snow Plowing (Emergency Responder),4,0
+27,PWD Graffiti,96,43
+28,Poor Conditions of Property,771,39
+29,BWSC General Request,20,0
+30,Public Works General Request,41,0
+31,Contractors Complaint,88,0
+32,Schedule a Bulk Item Pickup,819,0
+33,Unshoveled Sidewalk,208,7
+34,Overflowing or Un-kept Dumpster,4,15
+35,Schedule a Bulk Item Pickup SS,566,0
+36,Maintenance - Homeowner,2,20
+37,Unsanitary Conditions - Establishment,64,10
+38,Illegal Dumping,128,7
+39,Ground Maintenance,257,91
+40,Working Beyond Hours,77,0
+41,Empty Litter Basket,138,8
+42,New Tree Requests,90,0
+43,Animal Found,24,0
+44,Requests for Traffic Signal Studies or Reviews,44,14
+45,General Comments For An Employee,26,0
+46,Notification,78,0
+47,Protection of Adjoining Property,8,26
+48,Building Inspection Request,7,61
+49,Space Savers,11,0
+50,New Sign  Crosswalk or Pavement Marking,34,20
+51,Unsanitary Conditions - Food,10,2
+52,Animal Lost,14,0
+53,Squalid Living Conditions,4,2
+54,General Comments For a Program or Policy,0,2
+55,Rooftop & Mechanical Disturbances,5,0
+56,Request for Litter Basket Installation,14,6
+57,Parks General Request,43,0
+58,Equipment Repair,87,75
+59,Request for Snow Plowing,42,4
+60,No Utilities Residential - Electricity,1,7
+61,Mice Infestation - Residential,15,17
+62,Chronic Dampness/Mold,4,11
+63,Illegal Posting of Signs,7,1
+64,Catchbasin,42,0
+65,Street Light Knock Downs,51,7
+66,Knockdown Replacement,19,7
+67,Utility Casting Repair,10,0
+68,Sticker Request,231,2
+69,Missing Sign,55,42
+70,Tree Emergencies,148,16
+71,BWSC Pothole,2,0
+72,Parks Lighting/Electrical Issues,5,18
+73,Sidewalk Repair,13,0
+74,Contractor Complaints,33,20
+75,General Lighting Request,57,9
+76,Construction Debris,12,0
+77,Illegal Auto Body Shop,1,11
+78,StreetLight Pole WO,1,21
+79,Pavement Marking Inspection,5,2
+80,Bed Bugs,2,2
+81,Illegal Occupancy,1,15
+82,Exceeding Terms of Permit,7,31
+83,Work w/out Permit,18,142
+84,Fire Hydrant,20,0
+85,Pavement Marking Maintenance,0,1
+86,Parking on Front/Back Yards (Illegal Parking),22,2
+87,Big Buildings Recycling (INTERNAL),3,2
+88,Pest Infestation - Residential,149,68
+89,Item Price Missing,1,1
+90,Major System Failure,23,14
+91,Poor Ventilation,1,1
+92,Unit Pricing Wrong/Missing,0,0
+93,Overcrowding,2,5
+94,Egress,4,0
+95,Illegal Rooming House,3,14
+96,Maintenance Complaint - Residential,14,23
+97,No Utilities Residential - Water,4,1
+98,Animal Noise Disturbances,9,0
+99,Undefined Noise Disturbance,5,0
+100,Park Improvement Requests,0,0
+101,Misc. Snow Complaint,18,0
+102,Transportation General Request,25,1
+103,Work Hours-Loud Noise Complaints,23,12
+104,News Boxes,1,0
+105,Traffic Signal Repair,14,0
+106,Cross Metering - Sub-Metering,7,8
+107,Litter Basket Maintenance,10,0
+108,No Utilities Residential - Gas,1,0
+109,Loud Parties/Music/People,62,0
+110,General Traffic Engineering Request,1,4
+111,Sidewalk Cover / Manhole,28,0
+112,Sewage/Septic Back-Up,2,1
+113,Parking Meter Repairs,0,2
+114,No Utilities - Food Establishment - Water,0,1
+115,Roadway Repair,25,0
+116,Tree in Park,3,0
+117,Public Events Noise Disturbances,4,0
+118,No Utilities - Food Establishment - Sewer,1,0
+119,Plumbing,0,6
+120,Food Alert - Unconfirmed,5,2
+121,Zoning,0,5
+122,Pole Compliance,5,20
+123,Food Alert - Confirmed,3,1
+124,Trash on Vacant Lot,2,5
+125,Scale Not Visible,0,0
+126,Unsatisfactory Utilities - Electrical  Plumbing,2,5
+127,Automotive Noise Disturbance,3,0
+128,Bicycle Issues,2,0
+129,Mechanical,0,1
+130,Unsanitary Conditions - Employees,61,13
+131,Illegal Vending,1,0
+132,Upgrade Existing Lighting,1,0
+133,Utility Call-In,0,1
+134,No-Tow Complaint Confirmation,2,0
+135,Install New Lighting,4,2
+136,Scanning Overcharge,3,0
+137,Abandoned Building,1,2
+138,Billing Complaint,0,0
+139,Fire in Food Establishment,1,1
+140,New Tree Warrantee Inspection,0,0
+141,No Utilities - Food Establishment - Flood,0,0
+142,Walk-In Service Inquiry,0,0
+143,Student Overcrowding,2,0
+144,Dumpster & Loading Noise Disturbances,6,0
+145,Carbon Monoxide,0,0
+146,Cemetery Maintenance Request,0,0
+147,Valet Parking Problems,0,0
+148,Aircraft Noise Disturbance,0,0
+149,Phone Bank Service Inquiry,0,0
+150,Requests for Directional or Roadway Changes,5,0
+151,No Price on Gas/Wrong Price,0,0
+152,Municipal Parking Lot Complaints,1,0
+153,Planting,0,0
+154,Big Buildings Online Request,1,1
+155,Bridge Maintenance,0,0
+156,Lead,0,1
+157,Private Parking Lot Complaints,0,0
+158,No Utilities - Food Establishment - Electricity,1,0
+159,Mosquitoes (West Nile),0,0
+160,Sign Shop WO,0,0
+161,Occupying W/Out A Valid CO/CI,0,0
+162,Rat Bite,3,0
+163,Illegal Use,0,0
+164,Product Short Measure,0,0
+165,Student Move-in Issues,32,15
+166,Pickup/Clear Conduit,0,0
+167,Fire Department Request,0,0
+168,City/State Snow Issues,2,0
+169,Short Measure - Gas,0,0
+170,Street Light Longterm Repair,1,0
+171,Alert Boston,0,0
+172,Heat/Fuel Assistance,0,0
+173,Water in Gas - High Priority,0,0
+174,Snow/Ice Control,0,0

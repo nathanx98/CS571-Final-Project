@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>311 Calls</title>
+		<script src="https://d3js.org/d3.v6.min.js"></script>
+        <style>
+
+      
+            circle {
+              opacity: 0.5;
+            }
+      
+          </style>
+	</head>
+	<body>
+    <span>
+      <h2>City Council District</h2>
+      <ul>
+        <button onclick="switchDistrict(0)">1</button>
+        <button onclick="switchDistrict(1)">2</button>
+        <button onclick="switchDistrict(2)">3</button>
+        <button onclick="switchDistrict(3)">4</button>
+        <button onclick="switchDistrict(4)">5</button>
+        <button onclick="switchDistrict(5)">6</button>
+        <button onclick="switchDistrict(6)">7</button>
+        <button onclick="switchDistrict(7)">8</button>
+        <button onclick="switchDistrict(8)">9</button>
+      </ul>
+    </span>
+		<script type="text/javascript">
+
+    // i use this later on
+    const clamp = (num, min, max) => { return Math.min(Math.max(num, min), max) }
+
+    var ccd_data_overdue = [];
+    var ccd_data_total = [];
+    allXScalesTotal = [];
+    allXScalesOverdue = [];
+    var subgroups = [];
+    var groups = [];
+    var onTimelabels = [];
+    var xScaleOnTime;
+    var yScalesOnTime = [];
+    var onTimeData;
+    var x, y, color, svg;
+
+    // set the dimensions and margins of the graph
+    var margin = {top: 10, right: 30, bottom: 100, left: 50},
+        w = 600 - margin.left - margin.right,
+        h = 600 - margin.top - margin.bottom;
+    Promise.all([
+      d3.csv("./csv/1.csv", type),
+      d3.csv("./csv/2.csv", type),
+      d3.csv("./csv/3.csv", type),
+      d3.csv("./csv/4.csv", type),
+      d3.csv("./csv/5.csv", type),
+      d3.csv("./csv/6.csv", type),
+      d3.csv("./csv/7.csv", type),
+      d3.csv("./csv/8.csv", type),
+      d3.csv("./csv/9.csv", type),
+    ]).then(function(allData) {
+      subgroups = allData[0].columns.slice(1).slice(1,3)
+
+
+      
+
+      // Add Y axis
+      let y0 = d3.scaleLinear()
+        .domain([0, 10000])
+        .range([ h - margin.bottom, 0 ]);
+      let y1 = d3.scaleLinear()
+        .domain([0, 10000])
+        .range([ h - margin.bottom, 0]);
+
+      y = [y0, y1];
+
+      // color palette = one color per subgroup
+      color = d3.scaleOrdinal()
+        .domain([0,1])
+        .range(['#377eb8','#4daf4a'])
+
+      for(var i=0; i < allData.length; i++) {
+          
+          sortedDataOverdue = allData[i].sort(function(x,y) {
+            return d3.descending(x.overdue, y.overdue)
+          })
+          groupsOverdue = d3.map(sortedDataOverdue.slice(0,10), (d) => {return d.type});
+
+
+          var stackedDataOverdue = d3.stack()
+            .keys(subgroups)
+            (sortedDataOverdue)
+
+            sortedDataTotal = allData[i].sort(function(x,y) {
+            return d3.descending(x.overdue + x.ontime, y.overdue + y.ontime)
+          })
+          groupsTotal = d3.map(sortedDataTotal.slice(0,10), (d) => {return d.type})
+
+          
+          var stackedDataTotal = d3.stack()
+            .keys(subgroups)
+            (sortedDataTotal)
+
+          // Add X axis
+          xTotal = d3.scaleBand()
+              .domain(groupsTotal)
+              .range([0, w])
+              .padding([0.5]);
+
+              // Add X axis
+          xOverdue = d3.scaleBand()
+              .domain(groupsOverdue)
+              .range([0, w])
+              .padding([0.5]);
+
+          allXScalesTotal.push(xTotal)
+          allXScalesOverdue.push(xOverdue)
+          console.log(groupsOverdue)
+          console.log(groupsTotal)
+          
+          ccd_data_overdue.push(stackedDataOverdue.map((d) => d.slice(0, 10)))
+          ccd_data_total.push(stackedDataTotal.map((d) => d.slice(0, 10)))
+          
+      }
+      render(ccd_data_total, 0, allXScalesTotal, 0 )
+      render(ccd_data_overdue, 0, allXScalesOverdue, 1)
+    });
+    
+    Promise.all([
+      d3.csv("./csv/ontime1.csv", typeOnTime),
+      d3.csv("./csv/ontime2.csv", typeOnTime),
+      d3.csv("./csv/ontime3.csv", typeOnTime),
+      d3.csv("./csv/ontime4.csv", typeOnTime),
+      d3.csv("./csv/ontime5.csv", typeOnTime),
+      d3.csv("./csv/ontime6.csv", typeOnTime),
+      d3.csv("./csv/ontime7.csv", typeOnTime),
+      d3.csv("./csv/ontime8.csv", typeOnTime),
+      d3.csv("./csv/ontime9.csv", typeOnTime),
+    ]).then(function(allData) {
+      onTimeData = type(allData)
+      xScaleOnTime = d3.scaleBand()
+        .domain(["Ontime", "Overdue"])
+        .range([0, w])
+        .padding([0.5])
+
+      for(var i = 0; i < onTimeData.length; i++)
+      {
+        let y = d3.scaleLinear()
+          .domain([0, onTimeData[i][0].count + onTimeData[i][1].count])
+          .range([0, h - margin.bottom])
+        yScalesOnTime.push(y)
+        console.log(yScalesOnTime)
+      }
+      
+    });
+			
+    function switchDistrict(district)
+    {
+      
+      d3.select("body").selectAll("svg").remove()
+      render(ccd_data_total, district, allXScalesTotal, 0 )
+      render(ccd_data_overdue, district, allXScalesOverdue, 1)
+      renderOnTime(onTimeData, district);
+    }
+
+      function renderOnTime(data, district)
+      {
+        svg = d3.select("body")
+          .append("svg")
+            .attr("width", w + margin.left + margin.right)
+            .attr("height", h + margin.top + margin.bottom)
+          .append("g")
+            .attr("transform",
+                  "translate(" + margin.left + "," + margin.top + ")");
+      
+        svg.append("g")
+          .call(d3.axisLeft(yScalesOnTime[district]));
+        // append the svg object to the body of the page
+
+        // Show the bars
+        svg.append("g")
+          .selectAll("g")
+          // Enter in the stack data = loop key per key = group per group
+          .data(data[district])
+          .enter().append("rect")
+            .attr("fill", function(d) { return color(d.x); })
+            .attr("x", function(d) {  return xScaleOnTime(d.time); })
+            .attr("y", function(d) { return h - margin.bottom - yScalesOnTime[district](d.count)})
+            .attr("height", function(d) { return yScalesOnTime[district](d.count); })
+            .attr("width",xScaleOnTime.bandwidth())
+
+        
+        svg.append("g")
+          .attr("transform", "translate(0," + (h - margin.bottom)  + ")")
+          .call(d3.axisBottom(xScaleOnTime).tickSizeOuter(0))
+          .selectAll("text")  
+              .style("text-anchor", "end")
+              .attr("dx", "-.8em")
+              .attr("dy", ".15em")
+              .attr("transform", "rotate(-40)" );
+      }
+      // renders the points
+      function render(data, district, xScales, index) {
+
+        svg = d3.select("body")
+          .append("svg")
+            .attr("width", w + margin.left + margin.right)
+            .attr("height", h + margin.top + margin.bottom)
+          .append("g")
+            .attr("transform",
+                  "translate(" + margin.left + "," + margin.top + ")");
+      
+        svg.append("g")
+          .call(d3.axisLeft(y[index]));
+        // append the svg object to the body of the page
+
+        // Show the bars
+        svg.append("g")
+          .selectAll("g")
+          // Enter in the stack data = loop key per key = group per group
+          .data(data[district])
+          .enter().append("g")
+            .attr("fill", function(d) { return color(clamp(d[0][0], 0, 1)); })
+            .selectAll("rect")
+            // enter a second time = loop subgroup per subgroup to add all rectangles
+            .data(function(d) { return d; })
+            .enter().append("rect")
+              .attr("x", function(d) { if(xScales[district](d.data.type) == undefined) console.log(d.data.type); return xScales[district](d.data.type); })
+              .attr("y", function(d) {  return y[index](d[1]); })
+              .attr("height", function(d) { return y[index](d[0]) - y[index](d[1]); })
+              .attr("width",xScales[district].bandwidth())
+
+        
+        svg.append("g")
+          .attr("transform", "translate(0," + (h - margin.bottom)  + ")")
+          .call(d3.axisBottom(xScales[district]).tickSizeOuter(0))
+          .selectAll("text")  
+              .style("text-anchor", "end")
+              .attr("dx", "-.8em")
+              .attr("dy", ".15em")
+              .attr("transform", "rotate(-40)" );
+        
+              
+      }
+      
+      // this is necessary to turn these numeric attributes to js number types, and on time into a boolean
+      function type(d) {
+          d.type = d.type;
+          d.ontime = +d.ontime
+          d.overdue = +d.overdue
+          
+          return d;
+      } 
+
+      function typeOnTime(d) {
+          d.time = (d.ontime == "ONTIME") ? "Ontime" : "Overdue";
+          d.count = +d.count;
+          return d;
+      } 
+
+		</script>
+	</body>
+</html>

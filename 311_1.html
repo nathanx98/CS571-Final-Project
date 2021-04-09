@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>311 Calls</title>
+		<script type="text/javascript" src="./d3.js"></script>
+        <style>
+
+      
+            circle {
+              opacity: 0.5;
+            }
+      
+          </style>
+	</head>
+	<body>
+    <div>
+      <h2>Case Status</h2>
+      <ul>
+        <li><span id="_open">Open</li></span>
+        <li><span id="_closed">Closed</li></span>
+      </ul>
+    </div>
+		<script type="text/javascript">
+
+      case_status = ""
+
+			_open = document.getElementById("_open")
+      _open.addEventListener("mouseenter", () => { onMouseEnter("Open") })
+      _open.addEventListener("mouseleave", onMouseLeave)
+
+        
+			_closed = document.getElementById("_closed")
+      _closed.addEventListener("mouseenter", () => { onMouseEnter("Closed") })
+      _closed.addEventListener("mouseleave", onMouseLeave())
+
+      
+      data = d3.csv("./2021.csv", type)
+      displayed_data = data
+
+			//Width and height of svg element (arbitrary)
+			var w = 700;
+			var h = 700;
+			//Data
+			
+			
+			//Create SVG element
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+
+      //dimensions of map (given by file on wikimedia)
+      // https://commons.wikimedia.org/wiki/File:Map_Of_Boston.svg
+      var innerWidth = 684;
+      var innerHeight = 576;
+
+      // margin decided on dimensions of map
+      var margin = { left: (w - innerWidth) / 2, top: (h - innerHeight) / 2, right: (w - innerWidth) / 2, bottom: (h - innerHeight) / 2 };
+      
+      
+      // append group for points
+      var g = svg.append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      g.append('image')
+        .attr('xlink:href', 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Map_Of_Boston.svg')
+        .attr("width", innerWidth)
+        .attr("height", innerHeight)
+        
+      // builds scale for points
+      // these values were found by me on google maps, cross referencing the map as best i could
+      var xScale = d3.scaleLinear().domain([-71.21146, -70.85966]).range([0, innerWidth]);
+      var yScale = d3.scaleLinear().domain([42.22153, 42.44069]).range([innerHeight, 0]);
+
+      // chooses colors for color scale
+      var colorScale = d3.scaleQuantize()
+          .range(["#5E4FA2", "#3288BD", "#66C2A5", "#ABDDA4", "#E6F598", 
+          "#FFFFBF", "#FEE08B", "#FDAE61", "#F46D43", "#D53E4F", "#9E0142"].reverse());
+
+      // renders the points
+      function render(d) {
+
+        // adds circles, sets latitude, longitude, radius, and color
+        // radius is set to 5 if there is are any reviews, and 0 if not
+        var circles = g.selectAll("circle").data(d);
+        
+        circles.enter().append("circle")
+            .attr("cx", d => xScale(d.longitude))
+            .attr("cy", d=> yScale(d.latitude))
+            .attr("r", 2);
+
+        circles.exit().remove();
+      }
+
+      function renderFilter(d) {
+        
+        // adds circles, sets latitude, longitude, radius, and color
+        // radius is set to 5 if there is are any reviews, and 0 if not
+        var circles = g.selectAll("circle").data(d);
+        
+        circles.enter().append("circle")
+            .filter(filterCaseStatus)
+            .attr("cx", d => xScale(d.longitude))
+            .attr("cy", d=> yScale(d.latitude))
+            .attr("r", 2);
+
+        circles.exit().remove();
+      }
+      
+
+      // this is necessary to turn these numeric attributes to js number types
+      function type(d) {
+          d.latitude = +d.latitude;
+          d.longitude = +d.longitude;
+          return d;
+      } 
+
+      function filterCaseStatus(d)
+      {
+        if(case_status != "")
+          if(d.case_status == case_status)
+            return d
+        else
+          return d
+      }
+
+      function onMouseEnter(cat) {
+        case_status = cat
+        renderFilter(data)
+        console.log(cat)
+      }
+      function onMouseLeave() {
+      }
+
+      // loads listings.csv and renders it
+      displayed_data.then(render)
+      
+
+		</script>
+	</body>
+</html>

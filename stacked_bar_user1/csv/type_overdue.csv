@@ -1,0 +1,842 @@
+city_council_district,type,count,ontime
+1,Street Light Outages,612,1
+1,Request for Pothole Repair,487,1
+1,Recycling Cart Return,394,1
+1,Graffiti Removal,389,1
+1,Work w/out Permit,372,1
+1,Requests for Street Cleaning,302,1
+1,Parking Enforcement,293,1
+1,Sign Repair,229,1
+1,Abandoned Vehicles,212,1
+1,Sidewalk Repair (Make Safe),199,1
+1,Rodent Activity,196,1
+1,Unsafe Dangerous Conditions,192,1
+1,Equipment Repair,173,1
+1,Request for Recycling Cart,152,1
+1,Ground Maintenance,141,1
+1,Building Inspection Request,113,1
+1,Unsatisfactory Living Conditions,96,1
+1,Pick up Dead Animal,89,1
+1,Empty Litter Basket,85,1
+1,Traffic Signal Inspection,85,1
+1,PWD Graffiti,81,1
+1,Exceeding Terms of Permit,70,1
+1,Protection of Adjoining Property,70,1
+1,Contractor Complaints,68,1
+1,Pest Infestation - Residential,50,1
+1,Parks Lighting/Electrical Issues,43,1
+1,Electrical,42,1
+1,General Lighting Request,39,1
+1,Tree Emergencies,35,1
+1,Rental Unit Delivery Conditions,34,1
+1,Work Hours-Loud Noise Complaints,34,1
+1,Missing Sign,32,1
+1,Pole Compliance,32,1
+1,Heat - Excessive  Insufficient,31,1
+1,Unsanitary Conditions - Employees,30,1
+1,Maintenance - Homeowner,24,1
+1,Improper Storage of Trash (Barrels),22,1
+1,New Sign  Crosswalk or Pavement Marking,20,1
+1,Illegal Occupancy,19,1
+1,Unsanitary Conditions - Establishment,19,1
+1,Major System Failure,18,1
+1,Maintenance Complaint - Residential,16,1
+1,Overflowing or Un-kept Dumpster,16,1
+1,Illegal Auto Body Shop,15,1
+1,Street Light Knock Downs,15,1
+1,StreetLight Pole WO,15,1
+1,Mice Infestation - Residential,13,1
+1,Abandoned Building,12,1
+1,CE Collection,12,1
+1,Chronic Dampness/Mold,12,1
+1,Knockdown Replacement,12,1
+1,Illegal Dumping,11,1
+1,Request for Snow Plowing,11,1
+1,Trash on Vacant Lot,11,1
+1,Missed Trash/Recycling/Yard Waste/Bulk Item,10,1
+1,Poor Conditions of Property,10,1
+1,Cross Metering - Sub-Metering,9,1
+1,Illegal Rooming House,8,1
+1,Unshoveled Sidewalk,8,1
+1,Scanning Overcharge,7,1
+1,No Utilities Residential - Water,6,1
+1,Sidewalk Repair,6,1
+1,Sticker Request,5,1
+1,Student Move-in Issues,5,1
+1,Mosquitoes (West Nile),4,1
+1,Pavement Marking Maintenance,4,1
+1,Plumbing,4,1
+1,Sewage/Septic Back-Up,4,1
+1,Zoning,4,1
+1,Bed Bugs,3,1
+1,Food Alert - Unconfirmed,3,1
+1,Parking Meter Repairs,3,1
+1,Parking on Front/Back Yards (Illegal Parking),3,1
+1,Request for Litter Basket Installation,3,1
+1,Requests for Traffic Signal Studies or Reviews,3,1
+1,Squalid Living Conditions,3,1
+1,Tree Maintenance Requests,3,1
+1,Unsanitary Conditions - Food,3,1
+1,Unsatisfactory Utilities - Electrical  Plumbing,3,1
+1,Upgrade Existing Lighting,3,1
+1,Illegal Posting of Signs,2,1
+1,Illegal Vending,2,1
+1,No Utilities Residential - Electricity,2,1
+1,No-Tow Complaint Confirmation,2,1
+1,Occupying W/Out A Valid CO/CI,2,1
+1,Poor Ventilation,2,1
+1,Fire in Food Establishment,1,1
+1,Food Alert - Confirmed,1,1
+1,General Comments For An Employee,1,1
+1,General Comments For a Program or Policy,1,1
+1,Illegal Use,1,1
+1,Install New Lighting,1,1
+1,Item Price Missing,1,1
+1,Mechanical,1,1
+1,No Utilities Residential - Gas,1,1
+1,Overcrowding,1,1
+1,Pavement Marking Inspection,1,1
+1,Pigeon Infestation,1,1
+1,Valet Parking Problems,1,1
+2,Request for Pothole Repair,570,1
+2,Requests for Street Cleaning,562,1
+2,Street Light Outages,515,1
+2,Work w/out Permit,476,1
+2,Sidewalk Repair (Make Safe),356,1
+2,Ground Maintenance,324,1
+2,Graffiti Removal,317,1
+2,Abandoned Vehicles,262,1
+2,Recycling Cart Return,253,1
+2,Traffic Signal Inspection,247,1
+2,Unsafe Dangerous Conditions,231,1
+2,Rodent Activity,226,1
+2,Parking Enforcement,204,1
+2,Equipment Repair,198,1
+2,Sign Repair,182,1
+2,PWD Graffiti,176,1
+2,Building Inspection Request,114,1
+2,Exceeding Terms of Permit,114,1
+2,Unsatisfactory Living Conditions,101,1
+2,Pick up Dead Animal,94,1
+2,Empty Litter Basket,90,1
+2,Protection of Adjoining Property,82,1
+2,Request for Recycling Cart,57,1
+2,Pole Compliance,56,1
+2,Unsanitary Conditions - Establishment,53,1
+2,Work Hours-Loud Noise Complaints,53,1
+2,Contractor Complaints,41,1
+2,Pest Infestation - Residential,39,1
+2,Electrical,38,1
+2,Unsanitary Conditions - Employees,35,1
+2,Maintenance - Homeowner,32,1
+2,Missing Sign,32,1
+2,Parks Lighting/Electrical Issues,30,1
+2,Heat - Excessive  Insufficient,29,1
+2,Tree Emergencies,26,1
+2,General Lighting Request,25,1
+2,Poor Conditions of Property,21,1
+2,StreetLight Pole WO,20,1
+2,Overflowing or Un-kept Dumpster,19,1
+2,Parking Meter Repairs,19,1
+2,CE Collection,17,1
+2,Maintenance Complaint - Residential,17,1
+2,Illegal Rooming House,13,1
+2,Major System Failure,13,1
+2,Mice Infestation - Residential,13,1
+2,New Sign  Crosswalk or Pavement Marking,13,1
+2,Rental Unit Delivery Conditions,13,1
+2,Chronic Dampness/Mold,12,1
+2,Bed Bugs,11,1
+2,Illegal Occupancy,11,1
+2,Unsanitary Conditions - Food,11,1
+2,Cross Metering - Sub-Metering,10,1
+2,Requests for Traffic Signal Studies or Reviews,9,1
+2,Abandoned Building,8,1
+2,Request for Snow Plowing,8,1
+2,Improper Storage of Trash (Barrels),7,1
+2,Missed Trash/Recycling/Yard Waste/Bulk Item,7,1
+2,Knockdown Replacement,6,1
+2,Unsatisfactory Utilities - Electrical  Plumbing,6,1
+2,Food Alert - Confirmed,5,1
+2,Plumbing,5,1
+2,Street Light Knock Downs,5,1
+2,Illegal Auto Body Shop,4,1
+2,Overcrowding,4,1
+2,Scanning Overcharge,4,1
+2,Trash on Vacant Lot,4,1
+2,Unshoveled Sidewalk,4,1
+2,Zoning,4,1
+2,Food Alert - Unconfirmed,3,1
+2,General Traffic Engineering Request,3,1
+2,Illegal Dumping,3,1
+2,Illegal Vending,3,1
+2,No Utilities Residential - Electricity,3,1
+2,No Utilities Residential - Water,3,1
+2,No-Tow Complaint Confirmation,3,1
+2,Parking on Front/Back Yards (Illegal Parking),3,1
+2,Pavement Marking Maintenance,3,1
+2,Poor Ventilation,3,1
+2,Request for Litter Basket Installation,3,1
+2,Sticker Request,3,1
+2,Student Move-in Issues,3,1
+2,Unit Pricing Wrong/Missing,3,1
+2,Item Price Missing,2,1
+2,Lead,2,1
+2,Pavement Marking Inspection,2,1
+2,Squalid Living Conditions,2,1
+2,Utility Call-In,2,1
+2,Carbon Monoxide,1,1
+2,Construction Debris,1,1
+2,General Comments For a Program or Policy,1,1
+2,Illegal Use,1,1
+2,Install New Lighting,1,1
+2,Mechanical,1,1
+2,Mosquitoes (West Nile),1,1
+2,New Tree Requests,1,1
+2,No Price on Gas/Wrong Price,1,1
+2,Pigeon Infestation,1,1
+2,Planting,1,1
+2,Private Parking Lot Complaints,1,1
+2,Sewage/Septic Back-Up,1,1
+2,Sidewalk Repair,1,1
+2,Upgrade Existing Lighting,1,1
+2,Valet Parking Problems,1,1
+3,Abandoned Vehicles,590,1
+3,Request for Recycling Cart,374,1
+3,Ground Maintenance,242,1
+3,Work w/out Permit,238,1
+3,Request for Pothole Repair,236,1
+3,Requests for Street Cleaning,235,1
+3,Rodent Activity,217,1
+3,Street Light Outages,205,1
+3,Parking Enforcement,201,1
+3,Recycling Cart Return,200,1
+3,Sidewalk Repair (Make Safe),164,1
+3,Equipment Repair,121,1
+3,Sign Repair,101,1
+3,Traffic Signal Inspection,94,1
+3,Building Inspection Request,85,1
+3,Unsafe Dangerous Conditions,81,1
+3,Unsatisfactory Living Conditions,79,1
+3,Missed Trash/Recycling/Yard Waste/Bulk Item,77,1
+3,Graffiti Removal,57,1
+3,Pick up Dead Animal,56,1
+3,Pest Infestation - Residential,55,1
+3,Exceeding Terms of Permit,51,1
+3,Heat - Excessive  Insufficient,37,1
+3,Empty Litter Basket,35,1
+3,PWD Graffiti,34,1
+3,Protection of Adjoining Property,34,1
+3,Illegal Rooming House,27,1
+3,Tree Emergencies,26,1
+3,Contractor Complaints,21,1
+3,Maintenance - Homeowner,19,1
+3,Rental Unit Delivery Conditions,19,1
+3,Illegal Occupancy,18,1
+3,Maintenance Complaint - Residential,18,1
+3,Parks Lighting/Electrical Issues,18,1
+3,Overflowing or Un-kept Dumpster,16,1
+3,New Sign  Crosswalk or Pavement Marking,15,1
+3,StreetLight Pole WO,15,1
+3,Electrical,14,1
+3,Illegal Auto Body Shop,14,1
+3,Missing Sign,14,1
+3,Unsanitary Conditions - Establishment,14,1
+3,Mice Infestation - Residential,13,1
+3,Poor Conditions of Property,13,1
+3,General Lighting Request,11,1
+3,Knockdown Replacement,10,1
+3,Bed Bugs,9,1
+3,Pole Compliance,9,1
+3,Unshoveled Sidewalk,9,1
+3,Work Hours-Loud Noise Complaints,9,1
+3,CE Collection,8,1
+3,Street Light Knock Downs,8,1
+3,Unsanitary Conditions - Employees,7,1
+3,Chronic Dampness/Mold,6,1
+3,Cross Metering - Sub-Metering,6,1
+3,Sticker Request,6,1
+3,Abandoned Building,5,1
+3,No Utilities Residential - Electricity,5,1
+3,Request for Snow Plowing,5,1
+3,Illegal Dumping,4,1
+3,Request for Litter Basket Installation,4,1
+3,Trash on Vacant Lot,4,1
+3,Zoning,4,1
+3,Food Alert - Confirmed,3,1
+3,Illegal Vending,3,1
+3,Improper Storage of Trash (Barrels),3,1
+3,Major System Failure,3,1
+3,Pigeon Infestation,3,1
+3,Unsatisfactory Utilities - Electrical  Plumbing,3,1
+3,Mosquitoes (West Nile),2,1
+3,Needle Pickup,2,1
+3,Overcrowding,2,1
+3,Requests for Traffic Signal Studies or Reviews,2,1
+3,Unsanitary Conditions - Food,2,1
+3,Carbon Monoxide,1,1
+3,Install New Lighting,1,1
+3,Item Price Missing,1,1
+3,Mechanical,1,1
+3,No Utilities Residential - Gas,1,1
+3,No Utilities Residential - Water,1,1
+3,Plumbing,1,1
+3,Poor Ventilation,1,1
+3,Traffic Signal Repair,1,1
+3,Unit Pricing Wrong/Missing,1,1
+3,Utility Call-In,1,1
+4,Abandoned Vehicles,656,1
+4,Request for Recycling Cart,293,1
+4,Unsatisfactory Living Conditions,227,1
+4,Street Light Outages,217,1
+4,Recycling Cart Return,215,1
+4,Sidewalk Repair (Make Safe),170,1
+4,Rodent Activity,160,1
+4,Request for Pothole Repair,144,1
+4,Work w/out Permit,135,1
+4,Requests for Street Cleaning,117,1
+4,Parking Enforcement,115,1
+4,Missed Trash/Recycling/Yard Waste/Bulk Item,95,1
+4,Heat - Excessive  Insufficient,90,1
+4,Traffic Signal Inspection,83,1
+4,Building Inspection Request,80,1
+4,Unsafe Dangerous Conditions,74,1
+4,Ground Maintenance,68,1
+4,Sign Repair,68,1
+4,Graffiti Removal,50,1
+4,Illegal Auto Body Shop,49,1
+4,Tree Emergencies,47,1
+4,Pest Infestation - Residential,46,1
+4,Equipment Repair,45,1
+4,Mice Infestation - Residential,41,1
+4,Rental Unit Delivery Conditions,34,1
+4,Protection of Adjoining Property,31,1
+4,Electrical,30,1
+4,Overflowing or Un-kept Dumpster,27,1
+4,New Sign  Crosswalk or Pavement Marking,25,1
+4,PWD Graffiti,25,1
+4,Contractor Complaints,24,1
+4,Maintenance Complaint - Residential,24,1
+4,Chronic Dampness/Mold,23,1
+4,Exceeding Terms of Permit,22,1
+4,Illegal Rooming House,21,1
+4,Missing Sign,18,1
+4,Pick up Dead Animal,18,1
+4,Maintenance - Homeowner,17,1
+4,Cross Metering - Sub-Metering,16,1
+4,Requests for Traffic Signal Studies or Reviews,16,1
+4,Illegal Occupancy,15,1
+4,No Utilities Residential - Water,15,1
+4,Abandoned Building,14,1
+4,General Lighting Request,14,1
+4,StreetLight Pole WO,14,1
+4,No Utilities Residential - Electricity,12,1
+4,Bed Bugs,11,1
+4,Unsatisfactory Utilities - Electrical  Plumbing,11,1
+4,Poor Conditions of Property,10,1
+4,Empty Litter Basket,9,1
+4,Street Light Knock Downs,9,1
+4,Trash on Vacant Lot,9,1
+4,Knockdown Replacement,8,1
+4,Unsanitary Conditions - Establishment,8,1
+4,Work Hours-Loud Noise Complaints,8,1
+4,Zoning,8,1
+4,Request for Snow Plowing,7,1
+4,Major System Failure,6,1
+4,Parks Lighting/Electrical Issues,6,1
+4,General Traffic Engineering Request,5,1
+4,Improper Storage of Trash (Barrels),5,1
+4,No Utilities Residential - Gas,5,1
+4,Sewage/Septic Back-Up,5,1
+4,Squalid Living Conditions,5,1
+4,CE Collection,4,1
+4,Carbon Monoxide,4,1
+4,Illegal Dumping,4,1
+4,Install New Lighting,4,1
+4,Overcrowding,4,1
+4,Sticker Request,4,1
+4,Unit Pricing Wrong/Missing,4,1
+4,Plumbing,3,1
+4,Pole Compliance,3,1
+4,Request for Litter Basket Installation,3,1
+4,Unshoveled Sidewalk,3,1
+4,Lead,2,1
+4,No-Tow Complaint Confirmation,2,1
+4,Unsanitary Conditions - Employees,2,1
+4,Upgrade Existing Lighting,2,1
+4,Utility Call-In,2,1
+4,Food Alert - Unconfirmed,1,1
+4,Illegal Vending,1,1
+4,Item Price Missing,1,1
+4,Mechanical,1,1
+4,New Tree Requests,1,1
+4,No Utilities - Food Establishment - Water,1,1
+4,Occupying W/Out A Valid CO/CI,1,1
+4,Parking on Front/Back Yards (Illegal Parking),1,1
+4,Pavement Marking Inspection,1,1
+4,Planting,1,1
+4,Poor Ventilation,1,1
+4,Schedule a Bulk Item Pickup,1,1
+4,Short Measure - Gas,1,1
+4,Traffic Signal Repair,1,1
+4,Transportation General Request,1,1
+4,Unsanitary Conditions - Food,1,1
+5,Recycling Cart Return,837,1
+5,Abandoned Vehicles,616,1
+5,Request for Recycling Cart,574,1
+5,Street Light Outages,271,1
+5,Request for Pothole Repair,223,1
+5,Sidewalk Repair (Make Safe),184,1
+5,Work w/out Permit,170,1
+5,Traffic Signal Inspection,151,1
+5,Requests for Street Cleaning,117,1
+5,Parking Enforcement,112,1
+5,Ground Maintenance,95,1
+5,Sign Repair,93,1
+5,Tree Emergencies,85,1
+5,Unsatisfactory Living Conditions,81,1
+5,Unsafe Dangerous Conditions,80,1
+5,Building Inspection Request,77,1
+5,Missed Trash/Recycling/Yard Waste/Bulk Item,77,1
+5,Rodent Activity,76,1
+5,Equipment Repair,63,1
+5,Graffiti Removal,57,1
+5,Illegal Auto Body Shop,56,1
+5,Protection of Adjoining Property,43,1
+5,Pick up Dead Animal,38,1
+5,Heat - Excessive  Insufficient,35,1
+5,New Sign  Crosswalk or Pavement Marking,35,1
+5,Pest Infestation - Residential,33,1
+5,Exceeding Terms of Permit,31,1
+5,PWD Graffiti,30,1
+5,Street Light Knock Downs,25,1
+5,Contractor Complaints,24,1
+5,Electrical,21,1
+5,Illegal Occupancy,19,1
+5,Illegal Rooming House,18,1
+5,Poor Conditions of Property,18,1
+5,Chronic Dampness/Mold,17,1
+5,Rental Unit Delivery Conditions,16,1
+5,Abandoned Building,15,1
+5,Cross Metering - Sub-Metering,15,1
+5,Overflowing or Un-kept Dumpster,15,1
+5,Request for Snow Plowing,15,1
+5,Requests for Traffic Signal Studies or Reviews,15,1
+5,Maintenance Complaint - Residential,14,1
+5,Missing Sign,14,1
+5,No Utilities Residential - Water,13,1
+5,Unshoveled Sidewalk,13,1
+5,General Lighting Request,12,1
+5,Mice Infestation - Residential,12,1
+5,Maintenance - Homeowner,11,1
+5,CE Collection,10,1
+5,Parks Lighting/Electrical Issues,9,1
+5,Empty Litter Basket,8,1
+5,Major System Failure,8,1
+5,General Traffic Engineering Request,7,1
+5,Illegal Dumping,7,1
+5,Unsanitary Conditions - Employees,7,1
+5,Bed Bugs,6,1
+5,Scanning Overcharge,6,1
+5,Sticker Request,6,1
+5,StreetLight Pole WO,6,1
+5,Trash on Vacant Lot,6,1
+5,Unsatisfactory Utilities - Electrical  Plumbing,6,1
+5,Sewage/Septic Back-Up,5,1
+5,Squalid Living Conditions,5,1
+5,Work Hours-Loud Noise Complaints,5,1
+5,Illegal Posting of Signs,4,1
+5,Improper Storage of Trash (Barrels),4,1
+5,No Utilities Residential - Electricity,4,1
+5,Pole Compliance,4,1
+5,Request for Litter Basket Installation,4,1
+5,Unsanitary Conditions - Establishment,4,1
+5,Knockdown Replacement,3,1
+5,No Utilities Residential - Gas,3,1
+5,Parking on Front/Back Yards (Illegal Parking),3,1
+5,Plumbing,3,1
+5,Illegal Vending,2,1
+5,Overcrowding,2,1
+5,Planting,2,1
+5,Unit Pricing Wrong/Missing,2,1
+5,Unsanitary Conditions - Food,2,1
+5,Zoning,2,1
+5,General Comments For a Program or Policy,1,1
+5,Item Price Missing,1,1
+5,Litter Basket Maintenance,1,1
+5,Mosquitoes (West Nile),1,1
+5,New Tree Requests,1,1
+5,No Price on Gas/Wrong Price,1,1
+5,Occupying W/Out A Valid CO/CI,1,1
+5,Pavement Marking Maintenance,1,1
+5,Private Parking Lot Complaints,1,1
+5,Schedule a Bulk Item Pickup,1,1
+5,Upgrade Existing Lighting,1,1
+6,Request for Pothole Repair,540,1
+6,Sidewalk Repair (Make Safe),305,1
+6,Street Light Outages,282,1
+6,Abandoned Vehicles,281,1
+6,Traffic Signal Inspection,227,1
+6,Recycling Cart Return,176,1
+6,Requests for Street Cleaning,164,1
+6,Sign Repair,159,1
+6,Work w/out Permit,152,1
+6,Equipment Repair,142,1
+6,Request for Recycling Cart,138,1
+6,Ground Maintenance,133,1
+6,Tree Emergencies,126,1
+6,Rodent Activity,114,1
+6,Unsafe Dangerous Conditions,105,1
+6,Parking Enforcement,96,1
+6,Unsatisfactory Living Conditions,93,1
+6,Missed Trash/Recycling/Yard Waste/Bulk Item,82,1
+6,Building Inspection Request,77,1
+6,Pick up Dead Animal,75,1
+6,Graffiti Removal,74,1
+6,Exceeding Terms of Permit,48,1
+6,Heat - Excessive  Insufficient,48,1
+6,Protection of Adjoining Property,46,1
+6,PWD Graffiti,38,1
+6,Parks Lighting/Electrical Issues,33,1
+6,Electrical,31,1
+6,Contractor Complaints,30,1
+6,New Sign  Crosswalk or Pavement Marking,28,1
+6,Unshoveled Sidewalk,24,1
+6,Missing Sign,22,1
+6,Overflowing or Un-kept Dumpster,19,1
+6,Chronic Dampness/Mold,18,1
+6,Maintenance - Homeowner,17,1
+6,Street Light Knock Downs,16,1
+6,Pest Infestation - Residential,15,1
+6,StreetLight Pole WO,15,1
+6,Rental Unit Delivery Conditions,14,1
+6,Illegal Dumping,13,1
+6,Work Hours-Loud Noise Complaints,13,1
+6,Abandoned Building,12,1
+6,General Lighting Request,12,1
+6,Request for Snow Plowing,12,1
+6,Mice Infestation - Residential,11,1
+6,No Utilities Residential - Water,10,1
+6,Unsanitary Conditions - Establishment,10,1
+6,CE Collection,9,1
+6,Requests for Traffic Signal Studies or Reviews,9,1
+6,Cross Metering - Sub-Metering,8,1
+6,Empty Litter Basket,8,1
+6,Illegal Occupancy,8,1
+6,Improper Storage of Trash (Barrels),7,1
+6,Major System Failure,7,1
+6,Sticker Request,7,1
+6,Plumbing,6,1
+6,Poor Conditions of Property,6,1
+6,Unsatisfactory Utilities - Electrical  Plumbing,6,1
+6,Illegal Auto Body Shop,5,1
+6,Illegal Rooming House,5,1
+6,Overcrowding,5,1
+6,New Tree Requests,4,1
+6,No-Tow Complaint Confirmation,4,1
+6,Squalid Living Conditions,4,1
+6,Trash on Vacant Lot,4,1
+6,Zoning,4,1
+6,Knockdown Replacement,3,1
+6,Lead,3,1
+6,Maintenance Complaint - Residential,3,1
+6,No Utilities Residential - Electricity,3,1
+6,General Comments For a Program or Policy,2,1
+6,General Traffic Engineering Request,2,1
+6,Illegal Use,2,1
+6,Install New Lighting,2,1
+6,Pavement Marking Maintenance,2,1
+6,Pole Compliance,2,1
+6,Request for Litter Basket Installation,2,1
+6,Sewage/Septic Back-Up,2,1
+6,Unsanitary Conditions - Employees,2,1
+6,Unsanitary Conditions - Food,2,1
+6,Utility Call-In,2,1
+6,Bed Bugs,1,1
+6,Illegal Vending,1,1
+6,Item Price Missing,1,1
+6,Mechanical,1,1
+6,Mosquitoes (West Nile),1,1
+6,No Utilities Residential - Gas,1,1
+6,Occupying W/Out A Valid CO/CI,1,1
+6,Pavement Marking Inspection,1,1
+6,Planting,1,1
+6,Product Short Measure,1,1
+7,Request for Pothole Repair,502,1
+7,Abandoned Vehicles,415,1
+7,Street Light Outages,309,1
+7,Requests for Street Cleaning,230,1
+7,Graffiti Removal,222,1
+7,Sidewalk Repair (Make Safe),210,1
+7,Unsatisfactory Living Conditions,208,1
+7,Sign Repair,196,1
+7,Rodent Activity,192,1
+7,Ground Maintenance,176,1
+7,Traffic Signal Inspection,157,1
+7,Work w/out Permit,157,1
+7,Request for Recycling Cart,126,1
+7,Equipment Repair,108,1
+7,PWD Graffiti,107,1
+7,Parking Enforcement,103,1
+7,Unsafe Dangerous Conditions,88,1
+7,Heat - Excessive  Insufficient,82,1
+7,Recycling Cart Return,78,1
+7,Building Inspection Request,77,1
+7,Pick up Dead Animal,64,1
+7,Pest Infestation - Residential,63,1
+7,Rental Unit Delivery Conditions,43,1
+7,Tree Emergencies,40,1
+7,Chronic Dampness/Mold,32,1
+7,Contractor Complaints,32,1
+7,Maintenance Complaint - Residential,32,1
+7,Missing Sign,32,1
+7,Missed Trash/Recycling/Yard Waste/Bulk Item,31,1
+7,Protection of Adjoining Property,31,1
+7,Exceeding Terms of Permit,28,1
+7,Mice Infestation - Residential,28,1
+7,Overflowing or Un-kept Dumpster,28,1
+7,New Sign  Crosswalk or Pavement Marking,25,1
+7,Pole Compliance,24,1
+7,StreetLight Pole WO,24,1
+7,General Lighting Request,22,1
+7,Empty Litter Basket,21,1
+7,Electrical,19,1
+7,Maintenance - Homeowner,19,1
+7,Improper Storage of Trash (Barrels),18,1
+7,Unshoveled Sidewalk,18,1
+7,Cross Metering - Sub-Metering,16,1
+7,Illegal Rooming House,16,1
+7,Abandoned Building,15,1
+7,Unsanitary Conditions - Establishment,14,1
+7,Illegal Auto Body Shop,13,1
+7,Parks Lighting/Electrical Issues,13,1
+7,Request for Snow Plowing,13,1
+7,Unsatisfactory Utilities - Electrical  Plumbing,13,1
+7,CE Collection,12,1
+7,Trash on Vacant Lot,12,1
+7,Work Hours-Loud Noise Complaints,12,1
+7,Illegal Dumping,11,1
+7,Street Light Knock Downs,11,1
+7,Illegal Occupancy,10,1
+7,Knockdown Replacement,8,1
+7,Major System Failure,8,1
+7,Poor Conditions of Property,8,1
+7,Requests for Traffic Signal Studies or Reviews,8,1
+7,Unsanitary Conditions - Employees,8,1
+7,Illegal Posting of Signs,7,1
+7,No Utilities Residential - Electricity,7,1
+7,Parking Meter Repairs,7,1
+7,Bed Bugs,6,1
+7,No Utilities Residential - Water,6,1
+7,Squalid Living Conditions,6,1
+7,Food Alert - Unconfirmed,4,1
+7,Plumbing,4,1
+7,Sewage/Septic Back-Up,4,1
+7,Unsanitary Conditions - Food,4,1
+7,General Traffic Engineering Request,3,1
+7,Parking on Front/Back Yards (Illegal Parking),3,1
+7,No Utilities Residential - Gas,2,1
+7,Overcrowding,2,1
+7,Poor Ventilation,2,1
+7,Request for Litter Basket Installation,2,1
+7,Scanning Overcharge,2,1
+7,Sticker Request,2,1
+7,Unit Pricing Wrong/Missing,2,1
+7,Zoning,2,1
+7,Carbon Monoxide,1,1
+7,General Comments For a Program or Policy,1,1
+7,Install New Lighting,1,1
+7,Mechanical,1,1
+7,Mosquitoes (West Nile),1,1
+7,New Tree Requests,1,1
+7,No Price on Gas/Wrong Price,1,1
+7,Notification,1,1
+7,Pavement Marking Inspection,1,1
+7,Pigeon Infestation,1,1
+7,Planting,1,1
+7,Scale Not Visible,1,1
+7,Student Move-in Issues,1,1
+7,Student Overcrowding,1,1
+7,Transportation General Request,1,1
+7,Utility Call-In,1,1
+8,Street Light Outages,470,1
+8,Request for Pothole Repair,413,1
+8,Graffiti Removal,258,1
+8,Sidewalk Repair (Make Safe),173,1
+8,Sign Repair,170,1
+8,Rodent Activity,142,1
+8,Work w/out Permit,138,1
+8,Requests for Street Cleaning,137,1
+8,Traffic Signal Inspection,104,1
+8,Abandoned Vehicles,98,1
+8,Equipment Repair,86,1
+8,PWD Graffiti,84,1
+8,Unsafe Dangerous Conditions,75,1
+8,Unsatisfactory Living Conditions,64,1
+8,Parking Enforcement,59,1
+8,Pick up Dead Animal,57,1
+8,Ground Maintenance,48,1
+8,Heat - Excessive  Insufficient,39,1
+8,Pole Compliance,33,1
+8,Electrical,28,1
+8,Missing Sign,26,1
+8,Building Inspection Request,25,1
+8,Parks Lighting/Electrical Issues,25,1
+8,Tree Emergencies,25,1
+8,Contractor Complaints,22,1
+8,General Lighting Request,22,1
+8,Pest Infestation - Residential,22,1
+8,Recycling Cart Return,20,1
+8,Rental Unit Delivery Conditions,19,1
+8,Maintenance - Homeowner,17,1
+8,Protection of Adjoining Property,17,1
+8,Empty Litter Basket,16,1
+8,Unsanitary Conditions - Employees,16,1
+8,Exceeding Terms of Permit,15,1
+8,Parking Meter Repairs,15,1
+8,CE Collection,14,1
+8,Maintenance Complaint - Residential,14,1
+8,New Sign  Crosswalk or Pavement Marking,14,1
+8,Work Hours-Loud Noise Complaints,14,1
+8,Mice Infestation - Residential,13,1
+8,Chronic Dampness/Mold,12,1
+8,Missed Trash/Recycling/Yard Waste/Bulk Item,12,1
+8,Poor Conditions of Property,11,1
+8,Improper Storage of Trash (Barrels),10,1
+8,Unsanitary Conditions - Establishment,9,1
+8,Unshoveled Sidewalk,9,1
+8,Major System Failure,8,1
+8,Illegal Occupancy,7,1
+8,No Utilities Residential - Water,7,1
+8,Sewage/Septic Back-Up,7,1
+8,Illegal Rooming House,6,1
+8,Request for Snow Plowing,6,1
+8,Street Light Knock Downs,6,1
+8,StreetLight Pole WO,6,1
+8,Overflowing or Un-kept Dumpster,5,1
+8,No-Tow Complaint Confirmation,4,1
+8,Overcrowding,4,1
+8,Abandoned Building,3,1
+8,Illegal Dumping,3,1
+8,Knockdown Replacement,3,1
+8,No Utilities Residential - Electricity,3,1
+8,Poor Ventilation,3,1
+8,Requests for Traffic Signal Studies or Reviews,3,1
+8,Student Move-in Issues,3,1
+8,Tree Maintenance Requests,3,1
+8,Unsatisfactory Utilities - Electrical  Plumbing,3,1
+8,Zoning,3,1
+8,Abandoned Bicycle,2,1
+8,Big Buildings Recycling (INTERNAL),2,1
+8,Cross Metering - Sub-Metering,2,1
+8,Illegal Auto Body Shop,2,1
+8,Illegal Posting of Signs,2,1
+8,Mechanical,2,1
+8,New Tree Requests,2,1
+8,Request for Recycling Cart,2,1
+8,Unsanitary Conditions - Food,2,1
+8,Carbon Monoxide,1,1
+8,Food Alert - Confirmed,1,1
+8,Food Alert - Unconfirmed,1,1
+8,Illegal Vending,1,1
+8,No Price on Gas/Wrong Price,1,1
+8,No Utilities - Food Establishment - Water,1,1
+8,Pavement Marking Maintenance,1,1
+8,Request for Litter Basket Installation,1,1
+8,Sidewalk Repair,1,1
+8,Sticker Request,1,1
+8,Trash on Vacant Lot,1,1
+8,Upgrade Existing Lighting,1,1
+9,Rodent Activity,414,1
+9,Request for Pothole Repair,335,1
+9,Abandoned Vehicles,290,1
+9,Recycling Cart Return,184,1
+9,Request for Recycling Cart,168,1
+9,Street Light Outages,168,1
+9,Sign Repair,162,1
+9,Sidewalk Repair (Make Safe),158,1
+9,Work w/out Permit,142,1
+9,Requests for Street Cleaning,128,1
+9,Traffic Signal Inspection,111,1
+9,Graffiti Removal,110,1
+9,Unsatisfactory Living Conditions,99,1
+9,Ground Maintenance,91,1
+9,Parking Enforcement,83,1
+9,Equipment Repair,75,1
+9,Pest Infestation - Residential,68,1
+9,Heat - Excessive  Insufficient,63,1
+9,Unsafe Dangerous Conditions,62,1
+9,Building Inspection Request,61,1
+9,PWD Graffiti,43,1
+9,Missing Sign,42,1
+9,Poor Conditions of Property,39,1
+9,Pick up Dead Animal,36,1
+9,Improper Storage of Trash (Barrels),34,1
+9,Electrical,31,1
+9,Exceeding Terms of Permit,31,1
+9,Protection of Adjoining Property,26,1
+9,Maintenance Complaint - Residential,23,1
+9,Missed Trash/Recycling/Yard Waste/Bulk Item,23,1
+9,StreetLight Pole WO,21,1
+9,Contractor Complaints,20,1
+9,Maintenance - Homeowner,20,1
+9,New Sign  Crosswalk or Pavement Marking,20,1
+9,Pole Compliance,20,1
+9,Rental Unit Delivery Conditions,20,1
+9,Parks Lighting/Electrical Issues,18,1
+9,Mice Infestation - Residential,17,1
+9,Tree Emergencies,16,1
+9,Illegal Occupancy,15,1
+9,Overflowing or Un-kept Dumpster,15,1
+9,Student Move-in Issues,15,1
+9,Illegal Rooming House,14,1
+9,Major System Failure,14,1
+9,Requests for Traffic Signal Studies or Reviews,14,1
+9,Unsanitary Conditions - Employees,13,1
+9,Work Hours-Loud Noise Complaints,12,1
+9,Chronic Dampness/Mold,11,1
+9,Illegal Auto Body Shop,11,1
+9,Unsanitary Conditions - Establishment,10,1
+9,CE Collection,9,1
+9,General Lighting Request,9,1
+9,Cross Metering - Sub-Metering,8,1
+9,Empty Litter Basket,8,1
+9,Illegal Dumping,7,1
+9,Knockdown Replacement,7,1
+9,No Utilities Residential - Electricity,7,1
+9,Street Light Knock Downs,7,1
+9,Unshoveled Sidewalk,7,1
+9,Plumbing,6,1
+9,Request for Litter Basket Installation,6,1
+9,Overcrowding,5,1
+9,Trash on Vacant Lot,5,1
+9,Unsatisfactory Utilities - Electrical  Plumbing,5,1
+9,Zoning,5,1
+9,General Traffic Engineering Request,4,1
+9,Request for Snow Plowing,4,1
+9,Abandoned Building,2,1
+9,Bed Bugs,2,1
+9,Big Buildings Recycling (INTERNAL),2,1
+9,Food Alert - Unconfirmed,2,1
+9,General Comments For a Program or Policy,2,1
+9,Install New Lighting,2,1
+9,Parking Meter Repairs,2,1
+9,Parking on Front/Back Yards (Illegal Parking),2,1
+9,Pavement Marking Inspection,2,1
+9,Squalid Living Conditions,2,1
+9,Sticker Request,2,1
+9,Unsanitary Conditions - Food,2,1
+9,Big Buildings Online Request,1,1
+9,Fire in Food Establishment,1,1
+9,Food Alert - Confirmed,1,1
+9,Illegal Posting of Signs,1,1
+9,Item Price Missing,1,1
+9,Lead,1,1
+9,Mechanical,1,1
+9,No Utilities - Food Establishment - Water,1,1
+9,No Utilities Residential - Water,1,1
+9,Pavement Marking Maintenance,1,1
+9,Poor Ventilation,1,1
+9,Sewage/Septic Back-Up,1,1
+9,Transportation General Request,1,1
+9,Utility Call-In,1,1
