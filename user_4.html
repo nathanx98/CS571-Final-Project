@@ -10,132 +10,15 @@
 	</head>
 	<body>
 		<script type="text/javascript">
+			var w = 600;
+			var h = 500;
+			var padding = 20;				
 			
-			function randomData(){
-				let data = [];
-				for(let i=0; i<5; i++){
-					data.push({ apples: Math.round(3 + Math.random()*5),
-											oranges: Math.round(3 + Math.random()*10),
-											grapes: Math.round(5 + Math.random()*25)});
-				}
-				return data;
-			}
-			//Width and height
-			var w = 500;
-			var h = 300;
-
-			//Original data
-			var dataset = randomData();
-			console.log(dataset);
-			//Set up stack method
-			var stack = d3.stack()
-						  .keys([ "apples", "oranges", "grapes" ])
-						  .order(d3.stackOrderDescending);  // <-- Flipped stacking order
-
-			//Data, stacked
-			var series = stack(dataset);
-
-			//Set up scales
-			var xScale = d3.scaleBand()
-				.domain(d3.range(dataset.length))
-				.range([0, w])
-				.paddingInner(0.05);
-		
-			var yScale = d3.scaleLinear()
-				.domain([0,				
-					d3.max(dataset, function(d) {
-						return d.apples + d.oranges + d.grapes;
-					})
-				])
-				.range([h, 0]);  // <-- Flipped vertical scale
-				
-			//Easy colors accessible via a 10-step ordinal scale
-			var colors = d3.scaleOrdinal(d3.schemeCategory10);
-		
-			//Create SVG element
-			var svg = d3.select("body")
-						.append("svg")
-						.attr("width", w)
-						.attr("height", h);
-	
-			// Add a group for each row of data
-			var groups = svg.selectAll("g")
-				.data(series)
-				.enter()
-				.append("g")
-				.style("fill", function(d, i) {
-					return colors(i);
-				});
-	
-			// Add a rect for each data value
-			var rects = groups.selectAll("rect")
-				.data(function(d) { return d; })
-				.enter()
-				.append("rect")
-				.attr("x", function(d, i) {
-					return xScale(i);
-				})
-				.attr("y", function(d) {
-					return yScale(d[1]);  // <-- Changed y value
-				})
-				.attr("height", function(d) {
-					return yScale(d[0]) - yScale(d[1]);  // <-- Changed height value
-				})
-				.attr("width", xScale.bandwidth())
-				.on("mouseover",function(){
-					d3.select(this)
-						.attr('fill','red');
-				})
-				.on('mouseout',function(){
-					d3.select(this)
-						.attr('fill',function(d,i){
-						})
-				});
-						
-
-				//------------------------------------------
-				d3.selectAll('rect')
-					.on('click',function(){
-						dataset = randomData();
-						
-						var xScale = d3.scaleBand()
-				.domain(d3.range(dataset.length))
-				.range([0, w])
-				.paddingInner(0.05);
-		
-			var yScale = d3.scaleLinear()
-				.domain([0,				
-					d3.max(dataset, function(d) {
-						return d.apples + d.oranges + d.grapes;
-					})
-				])
-				.range([h, 0]);  // <-- Flipped vertical scale
+			var xScale = d3.scaleBand().range ([0, width]).padding(0.4);
+        	var yScale = d3.scaleLinear().range ([height, 0]);
 
 
-					var series = stack(dataset);
-					groups = svg.selectAll("g")
-						.data(series)
-						.style("fill", function(d, i) {
-							return colors(i);
-						});
 
-					// Add a rect for each data value
-					var rects = groups.selectAll("rect")
-						.data(function(d){return d;})
-						.transition()
-						.duration(1000)
-						.attr("x", function(d, i) {
-							return xScale(i);
-						})
-						.attr("y", function(d) {
-							return yScale(d[1]);  // <-- Changed y value
-						})
-						.attr("height", function(d) {
-							return yScale(d[0]) - yScale(d[1]);  // <-- Changed height value
-						})
-						.attr("width", xScale.bandwidth())
-						
-					});
 		</script>
 	</body>
 </html>
