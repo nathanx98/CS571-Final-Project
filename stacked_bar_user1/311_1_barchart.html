@@ -4,15 +4,59 @@
 		<meta charset="utf-8">
 		<title>311 Calls</title>
 		<script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <style>
 
             @font-face {
               font-family: Karrik;
-              src: url(https://gitlab.com/phantomfoundry/karrik_fonts/-/raw/main/fonts/Web/WOFF/Karrik-Regular.woff?inline=false);
+              src: "./fonts/Karrik-Regular.woff";
+            }
+
+            @media (max-width: 1200px)
+            {
+              #top_map {
+                visibility: visible;
+              }
+
+              #scroll_map {
+                visibility: hidden;
+              }
+
+              .button_container > div {
+                width: 80% !important;
+                margin: auto;
+              }
+
+              
+              #sidebar {
+                left: 0vw !important;
+                width: 20% !important;
+              }
+
             }
 
             h1, h2, h3 {
               font-family: Karrik;
+            }
+
+            button {
+              font-family: Karrik;
+              border-radius: 8px;
+              
+              border: 2px solid darkgoldenrod;
+              color: darkgoldenrod;
+              background-color: white;
+              border: none;
+            }
+
+            button:hover {
+              border: 2px solid darkgoldenrod;
+            }
+
+            button:active {
+              color: coral;
+              border: 2px solid coral;
+              
             }
                   
             circle {
@@ -20,8 +64,8 @@
             }
 
             #container {
-              min-width: 100vw;
-              max-width: 800px;
+              min-width: 350px;
+              max-width: 700px;
               margin: auto;
               display: flex;   
               justify-content: center;
@@ -29,7 +73,6 @@
             }
 
             #container > div {
-              margin: auto;
               flex-direction: column;
             }
 
@@ -38,47 +81,76 @@
               display: -moz-inline-box;
               *display: inline; /* For IE7 */
               zoom: 1; /* Trigger hasLayout */
-              width: 10%;
+              width: 9%;
               text-align: center;
+            }
+
+            #viz_container {
+              display: flex;
+              flex-flow: column;
+              
             }
 
             .button_container {
               display: inline-block;
               display: -moz-inline-box;
               *display: inline; /* For IE7 */
-              width: 50%;
-              min-width: 400px;
+              padding-left: 10%;
+              padding-right: 10%;
             }
 
             button {
               width: 80%;
             }
+
+            #sidebar {
+              display: inline-block;
+              position: fixed;
+              left: 5vw;
+              width: 20vw;
+            }
+
+            .title {
+              text-align: center;
+            }
+
       
           </style>
 	</head>
 	<body>
-
+    
     <div id="container"> 
-      
-      <div><h2>choose city council district</h2></div>
-      <div class="button_container">
+
+      <div id="sidebar">
+        <div class="title"><h2>choose city council district</h2></div>
+        <div class="button_container">
+          
+          <div><button onclick="switchDistrict(0)">1</button></div>
+          <div><button onclick="switchDistrict(1)">2</button></div>
+          <div><button onclick="switchDistrict(2)">3</button></div>
+          <div><button onclick="switchDistrict(3)">4</button></div>
+          <div><button onclick="switchDistrict(4)">5</button></div>
+          <div><button onclick="switchDistrict(5)">6</button></div>
+          <div><button onclick="switchDistrict(6)">7</button></div>
+          <div><button onclick="switchDistrict(7)">8</button></div>
+          <div><button onclick="switchDistrict(8)">9</button></div>
+          
+        </div>
         
-        <div><button onclick="switchDistrict(0)">1</button></div>
-        <div><button onclick="switchDistrict(1)">2</button></div>
-        <div><button onclick="switchDistrict(2)">3</button></div>
-        <div><button onclick="switchDistrict(3)">4</button></div>
-        <div><button onclick="switchDistrict(4)">5</button></div>
-        <div><button onclick="switchDistrict(5)">6</button></div>
-        <div><button onclick="switchDistrict(6)">7</button></div>
-        <div><button onclick="switchDistrict(7)">8</button></div>
-        <div><button onclick="switchDistrict(8)">9</button></div>
+        <img id="scroll_map" src="img/citycouncil.jpg" width="100%">
         
       </div>
+      
+      <div id="viz_container">
+
+      </div>
+        
 
     </div>
     
 		<script type="text/javascript">
 
+    //D3 CODE
     // i use this later on
     const clamp = (num, min, max) => { return Math.min(Math.max(num, min), max) }
 
@@ -105,8 +177,8 @@
 
 
     // set the dimensions and margins of the graph
-    var margin = {top: 10, right: 30, bottom: 100, left: 50},
-        w = 600 - margin.left - margin.right,
+    var margin = {top: 40, right: 100, bottom: 40, left: 100},
+        w = 700 - margin.left - margin.right,
         h = 600 - margin.top - margin.bottom;
     Promise.all([
       d3.csv("./csv/1.csv", type),
@@ -123,10 +195,10 @@
 
       // Add Y axis
       let y0 = d3.scaleLinear()
-        .domain([0, 10000])
+        .domain([0, 11000])
         .range([ h - margin.bottom, 0 ]);
       let y1 = d3.scaleLinear()
-        .domain([0, 10000])
+        .domain([0, 11000])
         .range([ h - margin.bottom, 0]);
 
       y = [y0, y1];
@@ -223,12 +295,11 @@
     function renderOnTime(data, district)
     {
       //selects container and appends SVG and a group inside the SVG
-      svg = d3.select("#container")
+      svg = d3.select("#viz_container")
         .append("div")
         .attr("id", "ontime")
           .append("svg")
-            .attr("width", w + margin.left + margin.right)
-            .attr("height", h + margin.top + margin.bottom)
+            .attr("viewBox", "0 0 " + " " + (h + margin.top + margin.bottom) +  " " + (w + margin.left + margin.right))
           .append("g")
             .attr("transform",
                   "translate(" + margin.left + "," + margin.top + ")");
@@ -265,12 +336,11 @@
     function render(data, district, xScales, index) {
       console.log(data);
       // selects container and adds a div with ID and and SVG
-      svg = d3.select("#container")
+      svg = d3.select("#viz_container")
         .append("div")
         .attr("id", "top10_" + index)
           .append("svg")
-            .attr("width", w + margin.left + margin.right)
-            .attr("height", h + margin.top + margin.bottom)
+            .attr("viewBox", "0 0 " + " " + (h + margin.top + margin.bottom) +  " " + (w + margin.left + margin.right))
           .append("g")
             .attr("transform",
                   "translate(" + margin.left + "," + margin.top + ")");
@@ -387,6 +457,35 @@
         d.count = +d.count;
         return d;
     } 
+    </script>
+
+    <script type="text/javascript">
+
+    // JQUERY CODE for scrolling section
+    $(document).scroll(function() {
+    var wrapper = $('#container');
+    var box = $('#sidebar');
+
+    var offsetTop = - wrapper.offset().top + $(window).scrollTop();
+    var offsetBottom = wrapper.offset().top - $(window).scrollTop() + wrapper.outerHeight() - box.outerHeight();
+    console.log("height:" + wrapper.outerHeight());
+    console.log("b:" + offsetBottom);
+    console.log("t:" + offsetTop);
+    if (offsetBottom > 0 && offsetTop < 0) {
+      box.css({
+        'top': 0
+      });
+    } else if (offsetBottom > 0 && offsetTop > 0) {
+      box.css({
+        'top': 0 + 'px'
+      });
+    } else {
+      box.offset({
+        'top': $(window).scrollTop() + offsetBottom
+      });
+    }
+
+  });
 
 		</script>
 	</body>
