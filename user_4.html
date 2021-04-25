@@ -45,11 +45,11 @@
 				var xAxis = d3.axisTop()
 								.scale(xScale)
 								.tickValues([]);
+
 								// .tickFormat(function(d){
 								// 	return data[d][0];
 								// })
 
-				console.log(data);
 				svg.selectAll('rect')
 					.data(data)
 					.enter()
@@ -81,12 +81,12 @@
 					.attr('y',40)
 					.attr('class','xlabel');
 
-				//styleing x-label
+				//styling x-label
 				svg.selectAll('text')
-					.style("text-anchor", "end")
+					.style("text-anchor", "middle")
 					.attr("dx", "-.8em")
 					.attr("dy", ".15em")
-					.attr("transform", "rotate(10)");
+					.attr("transform", "rotate(0)");
 
 				//append axis 
 				svg.append('g')
@@ -99,12 +99,6 @@
 					.attr('transform','translate(40,49)')
 					.call(xAxis);
 				
-				// xAxis.selectAll("text")
-				// 	.style("font-size", "1.5em")
-				// 	.style("text-anchor", "end")
-				// 	.attr("dx", "-.8em")
-				// 	.attr("dy", ".15em")
-				// 	.attr("transform", "rotate(-40)" );
 
 				// svg.selectAll("text")
 				// 	.data(data)
