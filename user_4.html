@@ -29,11 +29,15 @@
 							.range([0,width-padding]);
 			var yScale = d3.scaleLinear()
 							.range([height - padding,0]);
+			
+			
 							
 
 			d_pairs.then(function(data){
 				yScale.domain([35000,0]);
-				xScale.domain([0,26]);
+				xScale.domain([0,10]);
+				var yAixs = d3.axisLeft()
+								.scale(yScale);
 
 				console.log(data);
 				svg.selectAll('rect')
@@ -41,11 +45,11 @@
 					.enter()
 					.append('rect')
 					.attr('x',function(d,i){
-						return xScale(i)+padding;
+						return xScale(i)+padding+10;
 					})
 					.attr('y',50)
 					.attr('width',function(d,i){
-						return width/35;
+						return width/15;
 					})
 					.attr('height',function(d){
 						return yScale(d[1]);
@@ -63,9 +67,15 @@
 						return xScale(i)+padding;
 					})
 					.attr('y',10)
-					.attr('font-size','5px')
+					.attr('font-size','10px')
 					.attr('fill','blue');
 
+
+				//append axis 
+				svg.append('g')
+					.attr('class','axis')
+					.attr("transform","translate(40,50)")
+					.call(yAixs);
 				// svg.selectAll("text")
 				// 	.data(data)
 				// 	.enter()
