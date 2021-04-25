@@ -4,32 +4,153 @@
 		<meta charset="utf-8">
 		<title>311 Calls</title>
 		<script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <style>
 
-      
+            @font-face {
+              font-family: Karrik;
+              src: "./fonts/Karrik-Regular.woff";
+            }
+
+            @media (max-width: 1200px)
+            {
+              #top_map {
+                visibility: visible;
+              }
+
+              #scroll_map {
+                visibility: hidden;
+              }
+
+              .button_container > div {
+                width: 80% !important;
+                margin: auto;
+              }
+
+              
+              #sidebar {
+                left: 0vw !important;
+                width: 20% !important;
+              }
+
+            }
+
+            h1, h2, h3 {
+              font-family: Karrik;
+            }
+
+            button {
+              font-family: Karrik;
+              border-radius: 8px;
+              
+              border: 2px solid darkgoldenrod;
+              color: darkgoldenrod;
+              background-color: white;
+              border: none;
+            }
+
+            button:hover {
+              border: 2px solid darkgoldenrod;
+            }
+
+            button:active {
+              color: coral;
+              border: 2px solid coral;
+              
+            }
+                  
             circle {
               opacity: 0.5;
             }
+
+            #container {
+              min-width: 350px;
+              max-width: 700px;
+              margin: auto;
+              display: flex;   
+              justify-content: center;
+              flex-flow: column wrap;
+            }
+
+            #container > div {
+              flex-direction: column;
+            }
+
+            .button_container > div {
+              display: inline-block;
+              display: -moz-inline-box;
+              *display: inline; /* For IE7 */
+              zoom: 1; /* Trigger hasLayout */
+              width: 9%;
+              text-align: center;
+            }
+
+            #viz_container {
+              display: flex;
+              flex-flow: column;
+              
+            }
+
+            .button_container {
+              display: inline-block;
+              display: -moz-inline-box;
+              *display: inline; /* For IE7 */
+              padding-left: 10%;
+              padding-right: 10%;
+            }
+
+            button {
+              width: 80%;
+            }
+
+            #sidebar {
+              display: inline-block;
+              position: fixed;
+              left: 5vw;
+              width: 20vw;
+            }
+
+            .title {
+              text-align: center;
+            }
+
       
           </style>
 	</head>
 	<body>
-    <span>
-      <h2>City Council District</h2>
-      <ul>
-        <button onclick="switchDistrict(0)">1</button>
-        <button onclick="switchDistrict(1)">2</button>
-        <button onclick="switchDistrict(2)">3</button>
-        <button onclick="switchDistrict(3)">4</button>
-        <button onclick="switchDistrict(4)">5</button>
-        <button onclick="switchDistrict(5)">6</button>
-        <button onclick="switchDistrict(6)">7</button>
-        <button onclick="switchDistrict(7)">8</button>
-        <button onclick="switchDistrict(8)">9</button>
-      </ul>
-    </span>
+    
+    <div id="container"> 
+
+      <div id="sidebar">
+        <div class="title"><h2>choose city council district</h2></div>
+        <div class="button_container">
+          
+          <div><button onclick="switchDistrict(0)">1</button></div>
+          <div><button onclick="switchDistrict(1)">2</button></div>
+          <div><button onclick="switchDistrict(2)">3</button></div>
+          <div><button onclick="switchDistrict(3)">4</button></div>
+          <div><button onclick="switchDistrict(4)">5</button></div>
+          <div><button onclick="switchDistrict(5)">6</button></div>
+          <div><button onclick="switchDistrict(6)">7</button></div>
+          <div><button onclick="switchDistrict(7)">8</button></div>
+          <div><button onclick="switchDistrict(8)">9</button></div>
+          
+        </div>
+        
+        <img id="scroll_map" src="img/citycouncil.jpg" width="100%">
+        
+      </div>
+      
+      <div id="viz_container">
+
+      </div>
+        
+
+    </div>
+    
 		<script type="text/javascript">
 
+    //D3 CODE
     // i use this later on
     const clamp = (num, min, max) => { return Math.min(Math.max(num, min), max) }
 
@@ -45,9 +166,19 @@
     var onTimeData;
     var x, y, color, svg;
 
+    var yAxis_ontime;
+    var xAxis_top = [];
+    var yAxis_top = [];
+
+    
+    color = d3.scaleOrdinal()
+        .domain([0,1])
+        .range(['#377eb8','#4daf4a'])
+
+
     // set the dimensions and margins of the graph
-    var margin = {top: 10, right: 30, bottom: 100, left: 50},
-        w = 600 - margin.left - margin.right,
+    var margin = {top: 40, right: 100, bottom: 40, left: 100},
+        w = 700 - margin.left - margin.right,
         h = 600 - margin.top - margin.bottom;
     Promise.all([
       d3.csv("./csv/1.csv", type),
@@ -62,63 +193,61 @@
     ]).then(function(allData) {
       subgroups = allData[0].columns.slice(1).slice(1,3)
 
-
-      
-
       // Add Y axis
       let y0 = d3.scaleLinear()
-        .domain([0, 10000])
+        .domain([0, 11000])
         .range([ h - margin.bottom, 0 ]);
       let y1 = d3.scaleLinear()
-        .domain([0, 10000])
+        .domain([0, 11000])
         .range([ h - margin.bottom, 0]);
 
       y = [y0, y1];
 
-      // color palette = one color per subgroup
-      color = d3.scaleOrdinal()
-        .domain([0,1])
-        .range(['#377eb8','#4daf4a'])
+
+
 
       for(var i=0; i < allData.length; i++) {
           
+        // top 10 most commonly overdue types of cases
           sortedDataOverdue = allData[i].sort(function(x,y) {
             return d3.descending(x.overdue, y.overdue)
           })
           groupsOverdue = d3.map(sortedDataOverdue.slice(0,10), (d) => {return d.type});
 
-
+        // creates stacked data for overdue
           var stackedDataOverdue = d3.stack()
             .keys(subgroups)
             (sortedDataOverdue)
 
-            sortedDataTotal = allData[i].sort(function(x,y) {
+          // top 10 most common types of cases
+          sortedDataTotal = allData[i].sort(function(x,y) {
             return d3.descending(x.overdue + x.ontime, y.overdue + y.ontime)
           })
           groupsTotal = d3.map(sortedDataTotal.slice(0,10), (d) => {return d.type})
 
-          
+          // creates stacked data for most common
           var stackedDataTotal = d3.stack()
             .keys(subgroups)
-            (sortedDataTotal)
+            (sortedDataTotal);
 
-          // Add X axis
-          xTotal = d3.scaleBand()
-              .domain(groupsTotal)
-              .range([0, w])
-              .padding([0.5]);
-
-              // Add X axis
+          // create X axis scale for overdue
           xOverdue = d3.scaleBand()
               .domain(groupsOverdue)
               .range([0, w])
               .padding([0.5]);
 
+          // create X axis scale for total
+          xTotal = d3.scaleBand()
+              .domain(groupsTotal)
+              .range([0, w])
+              .padding([0.5]);
+
+
+          // store the scales
           allXScalesTotal.push(xTotal)
           allXScalesOverdue.push(xOverdue)
-          console.log(groupsOverdue)
-          console.log(groupsTotal)
-          
+
+          // store the stacked data
           ccd_data_overdue.push(stackedDataOverdue.map((d) => d.slice(0, 10)))
           ccd_data_total.push(stackedDataTotal.map((d) => d.slice(0, 10)))
           
@@ -138,7 +267,7 @@
       d3.csv("./csv/ontime8.csv", typeOnTime),
       d3.csv("./csv/ontime9.csv", typeOnTime),
     ]).then(function(allData) {
-      onTimeData = type(allData)
+      onTimeData = typeOnTime(allData)
       xScaleOnTime = d3.scaleBand()
         .domain(["Ontime", "Overdue"])
         .range([0, w])
@@ -147,76 +276,77 @@
       for(var i = 0; i < onTimeData.length; i++)
       {
         let y = d3.scaleLinear()
-          .domain([0, onTimeData[i][0].count + onTimeData[i][1].count])
+          .domain([onTimeData[i][0].count + onTimeData[i][1].count, 0])
           .range([0, h - margin.bottom])
         yScalesOnTime.push(y)
-        console.log(yScalesOnTime)
       }
-      
+      renderOnTime(onTimeData, 0);
     });
 			
     function switchDistrict(district)
     {
-      
-      d3.select("body").selectAll("svg").remove()
-      render(ccd_data_total, district, allXScalesTotal, 0 )
-      render(ccd_data_overdue, district, allXScalesOverdue, 1)
-      renderOnTime(onTimeData, district);
+
+      updateOnTime(onTimeData, district);
+      update(ccd_data_total, district, allXScalesTotal, 0 )
+      update(ccd_data_overdue, district, allXScalesOverdue, 1)
     }
 
-      function renderOnTime(data, district)
-      {
-        svg = d3.select("body")
+    // renders (initally) the "ontime vs overdue bar chart"
+    function renderOnTime(data, district)
+    {
+      //selects container and appends SVG and a group inside the SVG
+      svg = d3.select("#viz_container")
+        .append("div")
+        .attr("id", "ontime")
           .append("svg")
-            .attr("width", w + margin.left + margin.right)
-            .attr("height", h + margin.top + margin.bottom)
+            .attr("viewBox", "0 0 " + " " + (h + margin.top + margin.bottom) +  " " + (w + margin.left + margin.right))
           .append("g")
             .attr("transform",
                   "translate(" + margin.left + "," + margin.top + ")");
+    
+      // creates and stores axis
+      yAxis_ontime = svg.append("g")
+        .call(d3.axisLeft(yScalesOnTime[district]));
+      // append the svg object to the #container of the page
+
       
-        svg.append("g")
-          .call(d3.axisLeft(yScalesOnTime[district]));
-        // append the svg object to the body of the page
+      // Show the bars
+      svg
+        .selectAll("rect")
+        .data(data[district])
+        .enter().append("rect") 
+          .attr("fill", function(d) { return color((d.time == "Ontime") ? 0 : 1) })
+          .attr("x", function(d) {  return xScaleOnTime(d.time); })
+          .attr("y", function(d) { return h - margin.bottom - yScalesOnTime[district](d.count)})
+          .attr("height", function(d) { return yScalesOnTime[district](d.count); })
+          .attr("width",xScaleOnTime.bandwidth()) 
 
-        // Show the bars
-        svg.append("g")
-          .selectAll("g")
-          // Enter in the stack data = loop key per key = group per group
-          .data(data[district])
-          .enter().append("rect")
-            .attr("fill", function(d) { return color(d.x); })
-            .attr("x", function(d) {  return xScaleOnTime(d.time); })
-            .attr("y", function(d) { return h - margin.bottom - yScalesOnTime[district](d.count)})
-            .attr("height", function(d) { return yScalesOnTime[district](d.count); })
-            .attr("width",xScaleOnTime.bandwidth())
+      //creates y axis
+      svg.append("g")
+        .attr("transform", "translate(0," + (h - margin.bottom)  + ")")
+        .call(d3.axisBottom(xScaleOnTime).tickSizeOuter(0))
+        .selectAll("text")  
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-40)" );
+    }
 
-        
-        svg.append("g")
-          .attr("transform", "translate(0," + (h - margin.bottom)  + ")")
-          .call(d3.axisBottom(xScaleOnTime).tickSizeOuter(0))
-          .selectAll("text")  
-              .style("text-anchor", "end")
-              .attr("dx", "-.8em")
-              .attr("dy", ".15em")
-              .attr("transform", "rotate(-40)" );
-      }
-      // renders the points
-      function render(data, district, xScales, index) {
-
-        svg = d3.select("body")
+    // renders stacked bar chart
+    function render(data, district, xScales, index) {
+      console.log(data);
+      // selects container and adds a div with ID and and SVG
+      svg = d3.select("#viz_container")
+        .append("div")
+        .attr("id", "top10_" + index)
           .append("svg")
-            .attr("width", w + margin.left + margin.right)
-            .attr("height", h + margin.top + margin.bottom)
+            .attr("viewBox", "0 0 " + " " + (h + margin.top + margin.bottom) +  " " + (w + margin.left + margin.right))
           .append("g")
             .attr("transform",
                   "translate(" + margin.left + "," + margin.top + ")");
-      
-        svg.append("g")
-          .call(d3.axisLeft(y[index]));
-        // append the svg object to the body of the page
-
-        // Show the bars
-        svg.append("g")
+      // Show the bars
+      svg.append("g")
+          .classed("bar", true)
           .selectAll("g")
           // Enter in the stack data = loop key per key = group per group
           .data(data[district])
@@ -231,33 +361,131 @@
               .attr("height", function(d) { return y[index](d[0]) - y[index](d[1]); })
               .attr("width",xScales[district].bandwidth())
 
-        
-        svg.append("g")
-          .attr("transform", "translate(0," + (h - margin.bottom)  + ")")
-          .call(d3.axisBottom(xScales[district]).tickSizeOuter(0))
-          .selectAll("text")  
-              .style("text-anchor", "end")
-              .attr("dx", "-.8em")
-              .attr("dy", ".15em")
-              .attr("transform", "rotate(-40)" );
-        
-              
-      }
-      
-      // this is necessary to turn these numeric attributes to js number types, and on time into a boolean
-      function type(d) {
-          d.type = d.type;
-          d.ontime = +d.ontime
-          d.overdue = +d.overdue
-          
-          return d;
-      } 
+      svg.append("g")
+        .call(d3.axisLeft(y[index]));
 
-      function typeOnTime(d) {
-          d.time = (d.ontime == "ONTIME") ? "Ontime" : "Overdue";
-          d.count = +d.count;
-          return d;
-      } 
+      
+
+      
+      svg.append("g")
+        .classed("xaxis", true)
+        .attr("transform", "translate(0," + (h - margin.bottom)  + ")")
+        .call(d3.axisBottom(xScales[district]).tickSizeOuter(0))
+        .selectAll("text")  
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-40)" );
+      
+            
+    }
+
+    function update(data, district, xScales, index) {
+      var bargroups = d3.select("#top10_" + index).select("svg").select("g").select(".bar").selectAll("g")
+        .data(data[district]);
+      var rects = bargroups.selectAll("rect")
+        .data(function(d) { return d; });
+      var xaxis = d3.select("#top10_" + index).select("svg").select("g").select(".xaxis");
+      
+      bargroups
+        .enter()
+        .append("g")
+        .merge(bargroups)
+        .transition()
+        .duration(1000)
+        .attr("fill", function(d) { return color(clamp(d[0][0], 0, 1)); })
+      
+      rects
+          .enter().append("rect")
+            .merge(rects)
+            .transition()
+            .duration(1000)
+            .attr("x", function(d) { if(xScales[district](d.data.type) == undefined) console.log(d.data.type); return xScales[district](d.data.type); })
+            .attr("y", function(d) {  return y[index](d[1]); })
+            .attr("height", function(d) { return y[index](d[0]) - y[index](d[1]); })
+            .attr("width",xScales[district].bandwidth())
+
+      xaxis
+        .transition()
+        .duration(1000)
+        .call(d3.axisBottom(xScales[district]).tickSizeOuter(0))
+        .selectAll("text")  
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-40)" );
+      
+
+    }
+
+    // updates the ontime vs overdue bar chart
+    function updateOnTime(data, district)
+    {
+
+      // transition axis to axis for district
+      yAxis_ontime.transition().duration(1000).call(d3.axisLeft(yScalesOnTime[district]));
+
+      // select bars
+      var bars = d3.select("#ontime").select("svg").select("g").selectAll("rect")
+        .data(data[district]);
+      console.log(bars);
+      // enter the new data
+      bars
+        .enter()
+        .append("rect")
+        .merge(bars)
+        .transition()
+        .duration(1000)
+          .attr("x", function(d) {  return xScaleOnTime(d.time); })
+          .attr("y", function(d) { return h - margin.bottom - yScalesOnTime[district](d.count)})
+          .attr("height", function(d) { return yScalesOnTime[district](d.count); })
+          .attr("width",xScaleOnTime.bandwidth())
+
+    }
+    
+    // this is necessary to turn these numeric attributes to js number types, and on time into a boolean
+    function type(d) {
+        d.type = d.type;
+        d.ontime = +d.ontime
+        d.overdue = +d.overdue
+        
+        return d;
+    } 
+
+    function typeOnTime(d) {
+        d.time = (d.ontime != "ONTIME") ? "Ontime" : "Overdue";
+        d.count = +d.count;
+        return d;
+    } 
+    </script>
+
+    <script type="text/javascript">
+
+    // JQUERY CODE for scrolling section
+    $(document).scroll(function() {
+    var wrapper = $('#container');
+    var box = $('#sidebar');
+
+    var offsetTop = - wrapper.offset().top + $(window).scrollTop();
+    var offsetBottom = wrapper.offset().top - $(window).scrollTop() + wrapper.outerHeight() - box.outerHeight();
+    console.log("height:" + wrapper.outerHeight());
+    console.log("b:" + offsetBottom);
+    console.log("t:" + offsetTop);
+    if (offsetBottom > 0 && offsetTop < 0) {
+      box.css({
+        'top': 0
+      });
+    } else if (offsetBottom > 0 && offsetTop > 0) {
+      box.css({
+        'top': 0 + 'px'
+      });
+    } else {
+      box.offset({
+        'top': $(window).scrollTop() + offsetBottom
+      });
+    }
+
+  });
 
 		</script>
 	</body>
