@@ -3,8 +3,14 @@
 	<head>
 		<meta charset="utf-8">
 		<title>311 Calls</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script src="https://d3js.org/d3.v6.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
 
             @font-face {
@@ -12,106 +18,56 @@
               src: "./fonts/Karrik-Regular.woff";
             }
 
-            @media (max-width: 1200px)
+            
+            @media (min-width: 992px)
             {
-              #top_map {
-                visibility: visible;
+
+              .mobile-buttons {
+                display: none;
               }
 
-              #scroll_map {
-                visibility: hidden;
+              #mobile-map {
+                display: none;
               }
-
-              .button_container > div {
-                width: 80% !important;
-                margin: auto;
-              }
-
               
-              #sidebar {
-                left: 0vw !important;
-                width: 20% !important;
-              }
 
+              .mobile-offset {
+                display: none;
+              }
             }
 
+            @media (max-width: 992px)
+            {
+
+              #sidebar {
+                display: none;
+              }
+
+            
+              .container {
+                max-width: 100% !important;
+              }
+
+
+            }
             h1, h2, h3 {
               font-family: Karrik;
             }
 
-            button {
-              font-family: Karrik;
-              border-radius: 8px;
-              
-              border: 2px solid darkgoldenrod;
-              color: darkgoldenrod;
-              background-color: white;
-              border: none;
-            }
 
-            button:hover {
-              border: 2px solid darkgoldenrod;
-            }
-
-            button:active {
-              color: coral;
-              border: 2px solid coral;
-              
-            }
-                  
-            circle {
-              opacity: 0.5;
-            }
-
-            #container {
-              min-width: 350px;
-              max-width: 700px;
-              margin: auto;
-              display: flex;   
-              justify-content: center;
-              flex-flow: column wrap;
-            }
-
-            #container > div {
-              flex-direction: column;
-            }
-
-            .button_container > div {
-              display: inline-block;
-              display: -moz-inline-box;
-              *display: inline; /* For IE7 */
-              zoom: 1; /* Trigger hasLayout */
-              width: 9%;
-              text-align: center;
-            }
-
-            #viz_container {
-              display: flex;
-              flex-flow: column;
-              
-            }
-
-            .button_container {
-              display: inline-block;
-              display: -moz-inline-box;
-              *display: inline; /* For IE7 */
-              padding-left: 10%;
-              padding-right: 10%;
-            }
-
-            button {
-              width: 80%;
-            }
 
             #sidebar {
-              display: inline-block;
-              position: fixed;
-              left: 5vw;
-              width: 20vw;
+              position: sticky;
+              top: 0px;
             }
+
 
             .title {
               text-align: center;
+            }
+
+            .p {
+              2em;
             }
 
       
@@ -119,34 +75,182 @@
 	</head>
 	<body>
     
-    <div id="container"> 
-
-      <div id="sidebar">
-        <div class="title"><h2>choose city council district</h2></div>
-        <div class="button_container">
+    <div class="container" id="container"> 
+      <div class="row align-items-start" id="sidebar_row">
+        <div id="sidebar" class="col-lg-4">
           
-          <div><button onclick="switchDistrict(0)">1</button></div>
-          <div><button onclick="switchDistrict(1)">2</button></div>
-          <div><button onclick="switchDistrict(2)">3</button></div>
-          <div><button onclick="switchDistrict(3)">4</button></div>
-          <div><button onclick="switchDistrict(4)">5</button></div>
-          <div><button onclick="switchDistrict(5)">6</button></div>
-          <div><button onclick="switchDistrict(6)">7</button></div>
-          <div><button onclick="switchDistrict(7)">8</button></div>
-          <div><button onclick="switchDistrict(8)">9</button></div>
+          <div class="title"><h2>city council district</h2></div>
+          <div class="row">
           
+            <div class="col-8 col-lg-12 text-center">
+              <div class="btn-group btn-group-toggle pb-lg-2" data-toggle="buttons">
+                
+                <label class="btn btn-primary active 1"><input type="radio" name="option" autocomplete="off" checked="" onclick="switchDistrict(0)">1</label>
+                <label class="btn btn-primary 2"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(1)">2</label>
+                <label class="btn btn-primary 3"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(2)">3</label>
+                <label class="btn btn-primary 4"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(3)">4</label>
+                <label class="btn btn-primary 5"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(4)">5</label>
+                <label class="btn btn-primary 6"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(5)">6</label>
+                <label class="btn btn-primary 7"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(6)">7</label>
+                <label class="btn btn-primary 8"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(7)">8</label>
+                <label class="btn btn-primary 9"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(8)">9</label>
+                
+              </div>
+            </div>
+            
+            <div class="col-lg-12">
+              <img id="scroll_map" src="img/citycouncil.jpg" width="100%">
+            </div>
+          </div> 
         </div>
-        
-        <img id="scroll_map" src="img/citycouncil.jpg" width="100%">
-        
+        <div class="col-12 col-lg-8" id="viz_container">
+            
+          <div class="row">
+            <div class="col-12" id="mobile-map">
+              <img src="img/citycouncil.jpg" width="100%">
+            </div>
+            <div class="col-12">
+              <p>City Council members have the power to approve the budget, make decisions over city agencies, and approving legislative proposals. Therefore, they are citizens' point of contact for making a difference in city decisions. Without knowing what their citizens think about city government, they cannot do their jobs well. This visualization shows the most common types of 311 cases in each Boston City Council district, and how many were completed on time. The first chart shows the total amount of cases completed on time and those that weren't. The second graph shows the top 10 most common types of 311 cases in each district, split into cases completed on time and cases that weren't. The third chart shows the top 10 most commonly overdue cases, split in the same fashion.  </p>
+            </div>
+
+            <div class="col-12" id="ontime_container">
+              
+            </div>
+
+            <div class="col-12 text-center mobile-buttons">
+  
+              <div class="btn-group btn-group-toggle pb-lg-2" data-toggle="buttons">
+                
+                <label class="btn btn-primary active 1"><input type="radio" name="option" autocomplete="off" checked="" onclick="switchDistrict(0)">1</label>
+                <label class="btn btn-primary 2"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(1)">2</label>
+                <label class="btn btn-primary 3"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(2)">3</label>
+                <label class="btn btn-primary 4"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(3)">4</label>
+                <label class="btn btn-primary 5"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(4)">5</label>
+                <label class="btn btn-primary 6"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(5)">6</label>
+                <label class="btn btn-primary 7"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(6)">7</label>
+                <label class="btn btn-primary 8"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(7)">8</label>
+                <label class="btn btn-primary 9"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(8)">9</label>
+                
+              </div>
+              
+            </div>
+            
+            <div id="top10_0_container" class="col-12">
+
+            </div>
+
+            <div class="col-12 text-center mobile-buttons">
+                
+              <div class="btn-group btn-group-toggle pb-lg-2" data-toggle="buttons">
+                
+                <label class="btn btn-primary active 1"><input type="radio" name="option" autocomplete="off" checked="" onclick="switchDistrict(0)">1</label>
+                <label class="btn btn-primary 2"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(1)">2</label>
+                <label class="btn btn-primary 3"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(2)">3</label>
+                <label class="btn btn-primary 4"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(3)">4</label>
+                <label class="btn btn-primary 5"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(4)">5</label>
+                <label class="btn btn-primary 6"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(5)">6</label>
+                <label class="btn btn-primary 7"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(6)">7</label>
+                <label class="btn btn-primary 8"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(7)">8</label>
+                <label class="btn btn-primary 9"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(8)">9</label>
+                
+              </div>
+            </div>
+            
+            <div id="top10_1_container" class="col-12">
+
+            </div>
+
+            <div class="col-12 text-center mobile-buttons">
+                  
+              <div class="btn-group btn-group-toggle pb-lg-2" data-toggle="buttons">
+                
+                <label class="btn btn-primary active 1"><input type="radio" name="option" autocomplete="off" checked="" onclick="switchDistrict(0)">1</label>
+                <label class="btn btn-primary 2"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(1)">2</label>
+                <label class="btn btn-primary 3"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(2)">3</label>
+                <label class="btn btn-primary 4"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(3)">4</label>
+                <label class="btn btn-primary 5"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(4)">5</label>
+                <label class="btn btn-primary 6"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(5)">6</label>
+                <label class="btn btn-primary 7"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(6)">7</label>
+                <label class="btn btn-primary 8"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(7)">8</label>
+                <label class="btn btn-primary 9"><input type="radio" name="option" autocomplete="off" onclick="switchDistrict(8)">9</label>
+                
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+      It’ll be your best friend too, if you give it a chance.
+
+      It wants to see you succeed. It cares deeply for what you think and feel. You feel comfortable being yourself around moon, because moon is a video game. 
       
-      <div id="viz_container">
-
-      </div>
-        
-
-    </div>
+      I might sound like a freak right now, but this game is honestly one of the finest screen comforts I’ve ever experienced, despite having collected a lot of screen memories since my birth at the tail end of the 20th century. I was bound to experience a life mediated this way. Oh gosh, I do sound like a freak. Now that it’s established that I am a freak, we can move on with the review.
+      
+       
+      
+      moon spoke to me: it reminded me to slow down and appreciate the little strange and beautiful things about the world and people in it. It is also a landmark video game whose influence transcended a language barrier to reach even those who had not played it, but found the mere concept of the game inspiring.
+      
+       
+      
+      I first played moon in the year 2020, as it had become available to play in English for the first time this year on August 27th. It was originally released solely in Japan for the Sony Playstation in 1997, developed by Love-de-lic, an independent studio made up of former SquareSoft employees, and published by ASCII Corporation. An English version for the Playstation release was planned but scrapped. Some of the game’s creators have since formed Onion Games, an independent studio which handled this re-release on the Nintendo Switch. The English localization was handled by Tim Rogers. 
+      
+       
+      
+      moon begins as a standard Dragon Quest-like RPG you play minimally and mostly watch through a CRT TV fram bearing the studio’s name; the sense of tone and tongue-firmly-in-cheek-ness is immediately established as your cartoon kid avatar skips through the intro’s story exposition faster than you can possibly read it, eager to get to pushing buttons and killing monsters. All of a sudden, your mom pulls the plug, telling you to turn that infernal game off and go to bed. Later at night, or perhaps in a dream, you get pulled into the world of moon through the television.
+      
+       
+      
+      Here is where the Fake moon ends and the Real moon begins. You are not the hero from the game in this world, but merely a ghost of a non-player character with the name you entered on your save file. That’s basically nothing. You put on his clothes, and characters mistake you, a pile of walking clothes, for the fallen boy.
+      
+      At first, you pass out immediately upon the sun setting for lack of love, unless you eat one of your Gramby’s cookies, which allow you to stay up just a little bit later. A circular clock/calendar in the top left of the screen divided into day and night cycles through the seven in-game days alarmingly fast. It is a race against your energy limit to make sure you don’t lose progress by passing out in your Gramby’s front yard--sleeping in a bed is the only way to save the game. From this point on, the game takes on a more adventure game-like flavor. Real moon is confounding at first. It feels like getting used to having no body. You walk everywhere, and thus have to factor getting home time into your plans. The townies don’t say much, except for Yoshida, he’s a true friend who somehow knew you would come here. 
+      
+       
+      
+      As it turns out, the Hero from the intro is here, but he acts like a total jerk: killing defenseless animals indiscriminately for experience points, rummaging through people’s drawers for items, just so that he can get strong enough to defeat a dragon who kidnapped the Queen and taken her to the moon, because that’s how video game stories usually go. This is exactly what you do as the heroes in Dragon Quest: traverse the land as you litter it with colorful corpses on your way to defeat a great evil, check every chest and cabinet and clay pot, and the game rewards you. 
+      
+       
+      
+      It is apparent that video games have simulated some wildly antisocial behavior in pursuit of stimulating interactive entertainment, though moon emphasizes this point on many levels by placing you in the game world yet outside of the Hero’s control; Other NPCs talk about the hero’s reckless behavior at the bar, or his having stolen underpants out of their drawers. You, the player, must recall and reckon with how the boy played the game during the intro. 
+      
+       
+      
+      So, with the hero wreaking havoc on the land, it’s up to you to catch the wandering souls of slaughtered animals and reunite them with their bodies. Each animal has an Animal Log detailing facts about them, which act as subtle hints toward how to catch them. When you catch an animal’s soul by pressing the action button upon sight of an orange sunshine-rimmed glove icon, a synthesized chime plays, and huge clay molded letters of red, green, blue, and yellow reading “catch!” appear and flip around, accompanied by a joyful child’s voice saying the word. An alien in a flying saucer takes the animal to safety and leaves money (Yenom) in its place.
+      
+       
+      
+      This action nets your character LOVE, which levels him up and allots more time to stay up late into the night, something every child wishes for. You can also gain LOVE by helping out other NPCs throughout the world. The Queen comes to you in your dreams to check your level when you get LOVE and encourage you: “Love still dots this world...Collect a lot of it, please.”
+      
+       
+      
+      Everyone in this world has something defining about them you have yet to discover, you just have to be patient and spend the time to learn their schedules and hang out with them. Sometimes all a person needs is someone to listen and hear what they have to say. Every animal has a specific approach that needs to be taken to catch them. Some opportunities only occur once a day, or on select days of the week. You’ll want to take notes, and there is no shame in consulting a guide from time to time. Some of these puzzles depend on deciphering cryptic drawings or even decoding a made-up language.
+      
+       
+      
+      As it should be, love is the Most Important Thing in moon; but getting it is often not so easy. Where your accompanying hints for getting love in descriptions of animals or dialogue are obscure, the Hero’s approach to navigating this world is simple and blunt-force; you are the Chosen One: kill, take, question nothing on your way to the goal. 
+      
+      Your quest as a player in Moon World will require close attention and patience, even sensitivity, along with a seasoned adventure game player’s impulse to Check Everything and Talk To Everyone. You will learn that it’s cool to care about something (anything!), you will learn how to build a rocket, about ecofeminism, about psychedelic mushrooms, about how money is corrupting science, and above all, love.
+      
+       
+      
+      moon is a game drenched in nostalgia, though not for the carefree-ness childhood, but the wonder of the world and discoveries you make as you grow up, inspired by the love of adventure that fueled the creation of the 8- and 16-bit RPGs that inspired moon’s creators to twist their established conventions into a loving critique with that same core spirit.
+      
+       
+      
+      Seeing moon’s cute but otherworldly art and hearing its eclectic background music are what initially drew me to the experience. The game takes a delightful mixed-media approach to its art direction, combining 2D sprites with pre-rendered backgrounds and scanned-in clay models for the animals. 
+      
+      It’s got a record shop and an in-game disc player that allows you to craft your own playlists to listen to while traversing the overworld. A guy called Burrrn sells them to you, he wears a leather jacket and is always practicing this one guitar lick, stopping and restarting the instant he makes a mistake. It is annoying as hell and I love it. 
+      
+      The soundtrack is like an ideal mixtape featuring various artists. The style is heavy on genre fusion: pop, folk, jazz, funk, ambient, noise, and classic RPG Music all feature and fuse together in this soundtrack. It perfectly fits the pop art look of the game and recalls the grab-from-everywhere, cut-and-paste Shibuya-kei pop contemporary to moon’s time of release. Hey, why don’t you check out this insightful interview I found with some of the music supervisors and composers of the game!
+      
+      Some of these songs have become sentimental favorites of mine already, always featuring in my playlists when traversing the world. Particularly, the pair of wistful trip-hop tunes “The Other Jet” by Venus Flytrap and “I’m Waiting For The Night” by Kinglet. They both give a good impression of the game’s overall tone and mood: sweetly melodic and dreamy, hopeful and sorrowful. And I cannot go without mentioning the brilliant use of Debussy’s solo piano piece “Clair de Lune,” which plays at Gramby’s house, applying a thick, cavernous reverb onto it when you step outside to her front yard. This song hits to the emotional core of the game and the player: it’s one of the most gorgeous pieces of music ever, it is spacious and grand as the moon, giving you a few moments to plan your journey at the beginning, and reflect on it at the end.
+      
+       
+      
+      I love this game like I’ve loved few others, old-school quirks and all. I’m pretty sure I was born to love it. It’s just too funny and too unique and too sincere to pass up or harp on its flaws. It certainly plays like an older game, but its blend of art, writing, and design is inspired. “Immersive” finally feels like an apt word for describing a video game; this one literally pulls you into itself at the start, before it gets under your skin and begins to tug at your heartstrings. If you like Earthbound or the original Animal Crossing or Undertale or vintage PC point-and-clicks, you’ll probably find something to like about moon.
+      
+      
+      Even if you’re put off by its apparent obscurity and difficulty at first, it’s worth affording some patience to. Nothing else feels quite like moon, and the English-speaking world is blessed to have such an excellent localization of it now, after 23 years of dreaming. I look forward to playing the games it inspires people to make in the coming decades.
+      
+  </div>
     
 		<script type="text/javascript">
 
@@ -162,7 +266,7 @@
     var groups = [];
     var onTimelabels = [];
     var xScaleOnTime;
-    var yScalesOnTime = [];
+    var yScaleOnTime;
     var onTimeData;
     var x, y, color, svg;
 
@@ -177,7 +281,7 @@
 
 
     // set the dimensions and margins of the graph
-    var margin = {top: 40, right: 100, bottom: 40, left: 100},
+    var margin = {top: 40, right: 100, bottom: 80, left: 120},
         w = 700 - margin.left - margin.right,
         h = 600 - margin.top - margin.bottom;
     Promise.all([
@@ -196,10 +300,10 @@
       // Add Y axis
       let y0 = d3.scaleLinear()
         .domain([0, 11000])
-        .range([ h - margin.bottom, 0 ]);
+        .range([ h, 0 ]);
       let y1 = d3.scaleLinear()
         .domain([0, 11000])
-        .range([ h - margin.bottom, 0]);
+        .range([ h, 0]);
 
       y = [y0, y1];
 
@@ -273,13 +377,10 @@
         .range([0, w])
         .padding([0.5])
 
-      for(var i = 0; i < onTimeData.length; i++)
-      {
-        let y = d3.scaleLinear()
-          .domain([onTimeData[i][0].count + onTimeData[i][1].count, 0])
-          .range([0, h - margin.bottom])
-        yScalesOnTime.push(y)
-      }
+      yScaleOnTime = d3.scaleLinear()
+        .domain([0, 40000])
+        .range([h, 0]);
+      
       renderOnTime(onTimeData, 0);
     });
 			
@@ -289,24 +390,30 @@
       updateOnTime(onTimeData, district);
       update(ccd_data_total, district, allXScalesTotal, 0 )
       update(ccd_data_overdue, district, allXScalesOverdue, 1)
+      
+      $('label.btn').click(function() {
+          $('.btn-group').children('label.btn').removeClass('active');
+          $('.' + (district + 1)).addClass('active');
+      });
     }
 
     // renders (initally) the "ontime vs overdue bar chart"
     function renderOnTime(data, district)
     {
       //selects container and appends SVG and a group inside the SVG
-      svg = d3.select("#viz_container")
+      svg = d3.select("#ontime_container")
         .append("div")
         .attr("id", "ontime")
           .append("svg")
-            .attr("viewBox", "0 0 " + " " + (h + margin.top + margin.bottom) +  " " + (w + margin.left + margin.right))
+            .attr("viewBox", "0 0 " + (w + margin.left + margin.right) +  " " + (h + margin.top + margin.bottom))
           .append("g")
             .attr("transform",
                   "translate(" + margin.left + "," + margin.top + ")");
     
       // creates and stores axis
       yAxis_ontime = svg.append("g")
-        .call(d3.axisLeft(yScalesOnTime[district]));
+        .call(d3.axisLeft(yScaleOnTime))
+        .style("font-size", "1.8em");
       // append the svg object to the #container of the page
 
       
@@ -317,30 +424,27 @@
         .enter().append("rect") 
           .attr("fill", function(d) { return color((d.time == "Ontime") ? 0 : 1) })
           .attr("x", function(d) {  return xScaleOnTime(d.time); })
-          .attr("y", function(d) { return h - margin.bottom - yScalesOnTime[district](d.count)})
-          .attr("height", function(d) { return yScalesOnTime[district](d.count); })
+          .attr("y", function(d) { return yScaleOnTime(d.count)})
+          .attr("height", function(d) { return h - yScaleOnTime(d.count); })
           .attr("width",xScaleOnTime.bandwidth()) 
 
       //creates y axis
       svg.append("g")
-        .attr("transform", "translate(0," + (h - margin.bottom)  + ")")
+        .attr("transform", "translate(0," + (h)  + ")")
         .call(d3.axisBottom(xScaleOnTime).tickSizeOuter(0))
         .selectAll("text")  
-            .style("text-anchor", "end")
-            .attr("dx", "-.8em")
-            .attr("dy", ".15em")
-            .attr("transform", "rotate(-40)" );
+            .style("font-size", "3em")
     }
 
     // renders stacked bar chart
     function render(data, district, xScales, index) {
       console.log(data);
       // selects container and adds a div with ID and and SVG
-      svg = d3.select("#viz_container")
+      svg = d3.select("#top10_" + index + "_container")
         .append("div")
         .attr("id", "top10_" + index)
           .append("svg")
-            .attr("viewBox", "0 0 " + " " + (h + margin.top + margin.bottom) +  " " + (w + margin.left + margin.right))
+            .attr("viewBox", "0 0 " + (w + margin.top + margin.bottom) +  " " + (h + margin.left + margin.right))
           .append("g")
             .attr("transform",
                   "translate(" + margin.left + "," + margin.top + ")");
@@ -362,16 +466,19 @@
               .attr("width",xScales[district].bandwidth())
 
       svg.append("g")
-        .call(d3.axisLeft(y[index]));
+        .call(d3.axisLeft(y[index]))
+        
+        .style("font-size", "1.5em");
 
       
 
       
       svg.append("g")
         .classed("xaxis", true)
-        .attr("transform", "translate(0," + (h - margin.bottom)  + ")")
+        .attr("transform", "translate(0," + (h)  + ")")
         .call(d3.axisBottom(xScales[district]).tickSizeOuter(0))
         .selectAll("text")  
+            .style("font-size", "1.5em")
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
             .attr("dy", ".15em")
@@ -410,6 +517,7 @@
         .duration(1000)
         .call(d3.axisBottom(xScales[district]).tickSizeOuter(0))
         .selectAll("text")  
+            .style("font-size", "1.5em")
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
             .attr("dy", ".15em")
@@ -421,14 +529,14 @@
     // updates the ontime vs overdue bar chart
     function updateOnTime(data, district)
     {
-
+      
       // transition axis to axis for district
-      yAxis_ontime.transition().duration(1000).call(d3.axisLeft(yScalesOnTime[district]));
 
       // select bars
       var bars = d3.select("#ontime").select("svg").select("g").selectAll("rect")
         .data(data[district]);
-      console.log(bars);
+      console.log(data[district][0]);
+      console.log(data[district][1]);
       // enter the new data
       bars
         .enter()
@@ -437,8 +545,8 @@
         .transition()
         .duration(1000)
           .attr("x", function(d) {  return xScaleOnTime(d.time); })
-          .attr("y", function(d) { return h - margin.bottom - yScalesOnTime[district](d.count)})
-          .attr("height", function(d) { return yScalesOnTime[district](d.count); })
+          .attr("y", function(d) { return yScaleOnTime(d.count)})
+          .attr("height", function(d) { return h - yScaleOnTime(d.count); })
           .attr("width",xScaleOnTime.bandwidth())
 
     }
@@ -453,7 +561,7 @@
     } 
 
     function typeOnTime(d) {
-        d.time = (d.ontime != "ONTIME") ? "Ontime" : "Overdue";
+        d.time = (d.ontime == "ONTIME") ? "Ontime" : "Overdue";
         d.count = +d.count;
         return d;
     } 
@@ -471,7 +579,7 @@
     console.log("height:" + wrapper.outerHeight());
     console.log("b:" + offsetBottom);
     console.log("t:" + offsetTop);
-    if (offsetBottom > 0 && offsetTop < 0) {
+    if (offsetBottom > 0 && offsetTop <= 0) {
       box.css({
         'top': 0
       });
@@ -486,6 +594,8 @@
     }
 
   });
+  // code for changing buttons
+  // Change the color of selected radio button
 
 		</script>
 	</body>
