@@ -76,17 +76,11 @@
 					})
 					.attr("text-anchor", "middle")
 					.attr('x',function(d,i){
-						return xScale(i)+padding + 10;
+						return xScale(i)+padding * 2;
 					})
-					.attr('y',40)
+					.attr('y',45)
 					.attr('class','xlabel');
 
-				//styling x-label
-				svg.selectAll('text')
-					.style("text-anchor", "middle")
-					.attr("dx", "-.8em")
-					.attr("dy", ".15em")
-					.attr("transform", "rotate(0)");
 
 				//append axis 
 				svg.append('g')
