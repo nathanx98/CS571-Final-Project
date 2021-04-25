@@ -5,7 +5,13 @@
 		<title>User 4 bar chart</title>
 		<script type="text/javascript" src="./d3.js"></script>
 		<style type="text/css">
-			/* No style rules here yet */
+			.axis { font: 7px sans-serif; 
+					stroke-width: 1px;
+			}
+			.xlabel{
+				font:10px sans-serif;
+				fill:blue;
+			}
 		</style>
 	</head>
 	<body>
@@ -29,8 +35,6 @@
 							.range([0,width-padding]);
 			var yScale = d3.scaleLinear()
 							.range([height - padding,0]);
-			
-			
 							
 
 			d_pairs.then(function(data){
@@ -38,6 +42,12 @@
 				xScale.domain([0,10]);
 				var yAixs = d3.axisLeft()
 								.scale(yScale);
+				var xAxis = d3.axisTop()
+								.scale(xScale)
+								.tickValues([]);
+								// .tickFormat(function(d){
+								// 	return data[d][0];
+								// })
 
 				console.log(data);
 				svg.selectAll('rect')
@@ -55,6 +65,8 @@
 						return yScale(d[1]);
 					});
 
+
+				//xlabel
 				svg.selectAll('text')
 					.data(data)
 					.enter()
@@ -64,18 +76,36 @@
 					})
 					.attr("text-anchor", "middle")
 					.attr('x',function(d,i){
-						return xScale(i)+padding;
+						return xScale(i)+padding + 10;
 					})
-					.attr('y',10)
-					.attr('font-size','10px')
-					.attr('fill','blue');
+					.attr('y',40)
+					.attr('class','xlabel');
 
+				//styleing x-label
+				svg.selectAll('text')
+					.style("text-anchor", "end")
+					.attr("dx", "-.8em")
+					.attr("dy", ".15em")
+					.attr("transform", "rotate(10)");
 
 				//append axis 
 				svg.append('g')
 					.attr('class','axis')
 					.attr("transform","translate(40,50)")
 					.call(yAixs);
+
+				svg.append('g')
+					.attr("class",'axis')
+					.attr('transform','translate(40,49)')
+					.call(xAxis);
+				
+				// xAxis.selectAll("text")
+				// 	.style("font-size", "1.5em")
+				// 	.style("text-anchor", "end")
+				// 	.attr("dx", "-.8em")
+				// 	.attr("dy", ".15em")
+				// 	.attr("transform", "rotate(-40)" );
+
 				// svg.selectAll("text")
 				// 	.data(data)
 				// 	.enter()
