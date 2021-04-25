@@ -12,15 +12,81 @@
 		<svg width="600" height="500"></svg>
 		<script>
 			var padding = 40;
+			var width = d3.selectAll('svg').attr('width');
+			var height = d3.selectAll('svg').attr('height');
+			var svg = d3.selectAll('svg');
+
 			const dataset = d3.csv('neighbourhood_count.csv').then(function(data){
 				return data;
 			});
 			const d_pairs = dataset.then(function(value){
 				return Promise.all(value.map(function(results){
-					return [results., results.Longitude];
+					return [results.neighborhood, results.count];
 				}))
 			});
 
+			var xScale = d3.scaleLinear()
+							.range([0,width-padding]);
+			var yScale = d3.scaleLinear()
+							.range([height - padding,0]);
+							
+
+			d_pairs.then(function(data){
+				yScale.domain([35000,0]);
+				xScale.domain([0,26]);
+
+				console.log(data);
+				svg.selectAll('rect')
+					.data(data)
+					.enter()
+					.append('rect')
+					.attr('x',function(d,i){
+						return xScale(i)+padding;
+					})
+					.attr('y',50)
+					.attr('width',function(d,i){
+						return width/35;
+					})
+					.attr('height',function(d){
+						return yScale(d[1]);
+					});
+
+				svg.selectAll('text')
+					.data(data)
+					.enter()
+					.append("text")
+					.text(function(d){
+						return d[0];
+					})
+					.attr("text-anchor", "middle")
+					.attr('x',function(d,i){
+						return xScale(i)+padding;
+					})
+					.attr('y',10)
+					.attr('font-size','5px')
+					.attr('fill','blue');
+
+				// svg.selectAll("text")
+				// 	.data(data)
+				// 	.enter()
+				// 	.append("text")
+				// 	.text(function(d) {
+				// 			return d[1];
+				// 	})
+				// 	.attr("text-anchor", "middle")
+				// 	.attr("x", function(d, i) {
+				// 			// return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2 + 20;
+				// 			return xScale(i) + padding;
+				// 	})
+				// 	.attr("y", function(d) {
+				// 			// return (d * 4) - barPadding;
+				// 			return yScale(d[1]) + 10;
+				// 	})
+				// 	.attr("font-family", "sans-serif")
+				// 	.attr("font-size", "11px")
+				// 	.attr("fill", "red");
+
+			});
 
 		</script>
 	</body>
