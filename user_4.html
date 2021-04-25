@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>D3: Stack layout stacked bar chart</title>
+		<title>User 4 bar chart</title>
 		<script type="text/javascript" src="./d3.js"></script>
 		<style type="text/css">
 			/* No style rules here yet */
@@ -10,107 +10,17 @@
 	</head>
 	<body>
 		<svg width="600" height="500"></svg>
-
-		<script type="text/javascript">
-			var svg = d3.select('svg');
-			var padding = 20;	
-			var width = svg.attr('width') - padding;
-			var height = svg.attr('height') - padding;
-			
-			// var x = d3.scaleLinear()
-			// 				.range ([0, width]);
-        	// var y = d3.scaleLinear()
-			// 				.range ([0,height]);
-			var xScale = d3.scaleLinear()
-							.range([0,width]);
-
-			var yScale= d3.scaleLinear()
-							.range([0,height]);
-
-			
-			d3.csv("neighbourhood_count.csv", function(error, data) {
-				// if (error) throw error;
-
-				// Scale the range of the data in the domains
-				x.domain([0,35]);
-				y.domain([0,30000]);
-
-				// append the rectangles for the bar chart
-				// svg.selectAll("bar")
-				// 	.data(data)
-				// 	.enter()
-				// 	.append("rect")
-				// 	.attr("class", "bar")
-				// 	.attr("x", function(d) { return x(d.neighbourhood); })
-				// 	.attr("width", 10)
-				// 	.attr("y", function(d) { return y(d.count); })
-				// 	.attr("height", function(d) { return 100; });
-
-				svg.selectAll("rect")
-				 .data(data.count)
-				 .enter()
-				 .append("rect")
-				 .attr("x", function(d, i) {
-				 		// return i * (w / dataset.length) + 20;
-				 		return xScale(i) + 20;
-				 })
-				 .attr("y", function(d) {
-				 		return yScale(d.count);	//why is this happening? 
-				 })
-				 .attr("width", w / data.length)
-				 .attr("height", function(d) {
-				 		// return d * 4;
-				 		return yScale(d);
-				 })
-				 .attr("fill", function(d) {
-					return "rgb(0, 0, " + Math.round(d * 10) + ")";
-				 });
-
-
-				// add the x Axis
-				svg.append("g")
-					.attr("transform", "translate(0," + height + ")")
-					.call(d3.axisBottom(x));
-
-				// add the y Axis
-				svg.append("g")
-					.call(d3.axisLeft(y));
-
+		<script>
+			var padding = 40;
+			const dataset = d3.csv('neighbourhood_count.csv').then(function(data){
+				return data;
+			});
+			const d_pairs = dataset.then(function(value){
+				return Promise.all(value.map(function(results){
+					return [results., results.Longitude];
+				}))
 			});
 
-
-
-
-
-			
-			// var g = svg.append("g")
-            //    .attr("transform", "translate(" + 100 + "," + 100 + ")");
-
-			//read data
-			// d3.csv("./neighbourhood_count.csv",function(data){
-
-			// 	xScale.domain([0,30]);
-			// 	yScale.domain([0, 38644]);
-
-			// 	var xAxis = d3.axisBottom()
-			// 					.scale(xScale);
-
-				
-			// 	svg.selectAll("text")
-			// 		.data(data.neighborhood)
-			// 		.enter()
-			// 		.append("text")
-			// 		.text(function(data) {
-			// 				return data.neighborhood;
-			// 		})
-
-			// 	svg.append('g')
-			// 		.attr('class','axis')
-			// 		// .attr('transform','translate(20,0)')
-			// 		.call(xAxis);
-
-
-			// });
 
 		</script>
 	</body>
