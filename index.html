@@ -3,6 +3,7 @@
   <title>A D3 map</title>
   <script type="text/javascript" src="./d3.js"></script>
   <script src="neighborhoods.js"></script>
+  <script src="groupedBarChart.js"></script>
   <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
   <style>
     #neighborhoods path{
@@ -12,14 +13,28 @@
   float: left;
 }
   </style>
-<div>
-  <svg id="switch_data"> </svg></div>
-</div>
 </head>
+
+<div>
+  <svg  id="switch_data"> </svg>
+</div>
+<div>
+    <input type="text" id="long1" placeholder="Longitude &hellip;">
+    <input type="text" id="lat1" placeholder="Latitude&hellip;">
+    <input name="Plot"  type="submit" value="Plot" onclick= "return submit(1)">
+    <input type="text" id="long2" placeholder="Longitude&hellip;">
+    <input type="text" id="lat2" placeholder="Latitude&hellip;">
+    <input name="Compare"  type="submit" value="Compare"onclick= "return submit(2)" >
+    <input name="Clean"  type="submit" value="Clean"onclick= "return clear_pings()" >
+</div>
+
 <div class ="container"><svg id="map"> </svg></div>
 
 <div class ="container">
   <svg id="my_dataviz2"></svg>
+</div>
+<div id="barchart">
+  
 </div>
 <body>
   <script>
@@ -29,13 +44,80 @@
 var circumference = 6371000 * Math.PI * 2;
 var angle = 1000 / circumference * 360;
 
-var circle = d3.geoCircle().center([-71.1256, 42.2724]).radius(angle);
+function clear_pings(){
+  ping.selectAll("path").remove();
+  d3.selectAll("#barchart g").remove();
+  return false
+}
 
 
+function submit(num_pings){
+  var data = []
+  lat = parseFloat(document.getElementById("lat1").value);
+  long = parseFloat(document.getElementById("long1").value);
+  datum = {"lat":lat,"long":long}
+  data.push(datum)
+  if(num_pings>1){
+    lat = parseFloat(document.getElementById("lat2").value);
+    long = parseFloat(document.getElementById("long2").value);
+    datum = {"lat":lat,"long":long}
+    data.push(datum)
+  }
+  _render_bar_chart(data)
+  draw_pings(data)
+  return false;
+}
 
+function _render_bar_chart(pings){
+  var barchart_data = []
+  pings.forEach(ping => {
+    filtered_data=_filter_by_distance(ping);
+    processed_data = _to_count_dict(filtered_data);
+    barchart_data.push(processed_data);
+  });
+  draw_grouped_bar_chart(barchart_data)
+  
+}
+function _to_count_dict(filtered_data){
+  var counts = filtered_data.reduce((p, c) => {
+  var name = c.type;
+  if (!p.hasOwnProperty(name)) {
+    p[name] = 0;
+  }
+  p[name]++;
+  return p;
+}, {});
 
-
-var width = 400,
+console.log(counts);
+return counts
+}
+function _filter_by_distance(ping){
+  var filtered_data = raw_data.filter(function(d){
+    return distance(d.latitude,d.longitude,ping.lat,ping.long,"K")<=1;
+  })
+  console.log(filtered_data)
+  return filtered_data
+}
+function draw_pings(data){
+  console.log(data)
+  var color = ["red","blue"];
+  var ping_circle =ping.selectAll( "path" )
+  .data(data,function(d){return d.long+""+d.lat;})
+  ping_circle.enter()
+  .append("path")
+  .attr("d", function(d){
+    console.log(d)
+    var circle = d3.geoCircle().center([d.long,d.lat ]).radius(angle);
+    return geoPath(circle())
+  })
+  .style("fill",function(d,i){
+    return color[i]
+  })
+  .attr("opacity","0.5");
+  ping_circle.exit()
+  .remove();
+}
+var width = 350,
     height = 400;
 
 var svg = d3.select( "#map" )
@@ -43,9 +125,11 @@ var svg = d3.select( "#map" )
   .attr( "height", height );
 
 var neighborhoods = svg.append( "g" ).attr( "id", "neighborhoods" );
-
+var ping = svg.append("g").attr("id","ping");
 var svg = d3.select("#my_dataviz2").attr( "width", width ).attr( "height", height );
 var legend = svg.append('g').attr("id","legend")
+
+
 
 var albersProjection = d3.geoAlbers()
   .scale( 100000 )
@@ -64,10 +148,6 @@ neighborhoods.selectAll( "path" )
   .style("stroke", "#fff")
   ;
 
-  neighborhoods.append("path")
-  .attr("d", geoPath(circle()))
-  .style("fill","Red")
-  .attr("opacity","0.5");
 
 
   neighborhoods.selectAll( "text" )
@@ -94,7 +174,11 @@ neighborhoods.selectAll( "path" )
           d.longitude = +d.longitude;
           return d;
       } 
-data = d3.csv("./clean.csv", type).then(render)
+var raw_data;
+d3.csv("./clean.csv", type).then(function(d){
+  raw_data = d;
+  render(d)
+})
 _render_switch_data()
 const remove = new Set()
 
@@ -143,11 +227,17 @@ function _render_switch_data(){
           var isclean = d3.select(this).attr('id') == "clean"
           if (isclean){
             d3.select("#quiet").style("fill","white")
-            d3.csv("./clean.csv").then(render)
+            d3.csv("./clean.csv").then(function(d){
+  raw_data = d;
+  render(d)
+})
           }
           else{
             d3.select("#clean").style("fill","white")
-            d3.csv("./quiet.csv").then(render)
+            d3.csv("./quiet.csv").then(function(d){
+  raw_data = d;
+  render(d)
+})
           }
         }
     }
@@ -156,6 +246,7 @@ function _render_switch_data(){
 
 
 function _render_map(new_data,color,zoom_transform){
+  raw_data = new_data
   console.log(zoom_transform)
 var circles = neighborhoods.selectAll("circle").attr('transform',zoom_transform.trans).data(new_data,function(d) { return(d); });
 circles.enter()
@@ -169,7 +260,8 @@ circles.enter()
   .attr("r", 2)
   .attr("fill",d=>color(d.type)).style("opacity", 0.8)
 
-  .on( "click", function(){
+  .on( "click", function(event,d){
+    console.log([d.longitude,d.latitude]);
     d3.select(this)
       .attr("opacity",1)
       .transition()
@@ -257,7 +349,8 @@ function render(data) {
               .scaleExtent([1, 10])
               .on('zoom', function(event,d) {
                 zoom_transform.trans=event.transform
-                
+                ping.selectAll('path')
+                  .attr('transform', event.transform);
                 neighborhoods.selectAll('path')
                   .attr('transform', event.transform);
                   neighborhoods.selectAll("circle")
