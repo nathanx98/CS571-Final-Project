@@ -31,15 +31,20 @@
 				}))
 			});
 
-			var xScale = d3.scaleLinear()
-							.range([0,width-padding]);
-			var yScale = d3.scaleLinear()
-							.range([height - padding,0]);
+			// var xScale = d3.scaleLinear()
+			// 				.range([0,width-padding]);
+			// var yScale = d3.scaleLinear()
+			// 				.range([height - padding,0]);
 							
 
 			d_pairs.then(function(data){
-				yScale.domain([35000,0]);
-				xScale.domain([0,10]);
+				var xScale = d3.scaleLinear()
+								.domain([0,10])
+								.range([0,width-padding]);
+				var yScale = d3.scaleLinear()
+								.domain([35000,0])
+								.range([height - padding,0]);
+
 				var yAixs = d3.axisLeft()
 								.scale(yScale);
 				var xAxis = d3.axisTop()
@@ -57,7 +62,9 @@
 					.attr('x',function(d,i){
 						return xScale(i)+padding+10;
 					})
-					.attr('y',50)
+					.attr('y',function(d){
+						return height-d;
+					})
 					.attr('width',function(d,i){
 						return width/15;
 					})
@@ -76,9 +83,9 @@
 					})
 					.attr("text-anchor", "middle")
 					.attr('x',function(d,i){
-						return xScale(i)+padding * 2;
+						return xScale(i)+padding + 30;
 					})
-					.attr('y',45)
+					.attr('y',40)
 					.attr('class','xlabel');
 
 
