@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>stacked bar chart</title>
+		<script type="text/javascript" src="https://d3js.org/d3.v6.min.js"></script>
+		<style type="text/css">
+			rect:hover {
+				stroke-width: 2;
+				stroke: black;
+
+			}
+            svg {
+                font: 10px sans-serif;
+                shape-rendering: crispEdges;
+            }
+
+            .axis path,
+            .axis line {
+                fill: none;
+                stroke: #000;
+            }
+ 
+            path.domain {
+                stroke: none;
+            }
+ 
+            .y .tick line {
+                 stroke: #ddd;
+            }
+
+		</style>
+	</head>
+	<body>
+        
+		<script type="text/javascript">
+			
+			//Width and height
+            var margin = {top: 20, right: 160, bottom: 35, left: 30};
+
+            var w = 960 - margin.left - margin.right,
+                h = 500 - margin.top - margin.bottom;
+            var padding = 40;
+
+
+            Promise.all([
+    			d3.csv("type_by_month.csv"),
+    			d3.csv("ontime_by_month.csv"),
+				]).then(function(files) {
+
+				var dataset = files[0];
+				var keys = Object.keys(dataset[0]);
+				dataset.forEach(function(d){ 
+					keys.forEach(function(k){
+						d[k] = +d[k]; });
+				});
+
+      			// Transpose the data into layers
+                var stack = d3.stack()
+						  .keys(keys)
+						  .order(d3.stackOrderDescending);  // <-- Flipped stacking order
+                
+                //Data, stacked
+			    var series = stack(dataset);
+                
+                //Set up scales
+			    var xScale = d3.scaleBand()
+				    .domain(d3.range(dataset.length))
+				    .range([padding, w-padding])
+				    .paddingInner(0.05);
+		
+                var yScale = d3.scaleLinear()
+				    .domain([0,				
+					d3.max(dataset, function(d) {
+						return Object.values(d).reduce((a,b) => a + b, 0);
+					})
+				])
+				    .range([h-padding, 0]);
+
+
+
+				var x = d3.scaleTime()
+    				.domain([new Date(2012, 0, 1), new Date(2012, 11, 31)])
+    				.range([padding + xScale.bandwidth()/2, w-padding + xScale.bandwidth()/2]);
+				
+				// Define X and YAxis
+				var xAxis = d3.axisBottom()
+    				.scale(x)
+    				.ticks(12)
+    				.tickFormat(d3.timeFormat("%B"));
+
+			    var yAxis = d3.axisLeft()
+						.scale(yScale)
+						.ticks(10)
+
+
+                // //Easy colors accessible via a 10-step ordinal scale
+			    var colors = d3.scaleOrdinal(d3.schemePaired);
+                
+                var svg = d3.select("body")
+                        .append("svg")
+                        .attr("width", w + margin.left + margin.right)
+                        .attr("height", h + margin.top + margin.bottom)
+                        .append("g")
+                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	
+			
+			    // Add a group for each row of data
+			    var groups = svg.selectAll("g")
+				    .data(series)
+				    .enter()
+				    .append("g")
+					.attr("class", "bar")
+				    .style("fill", function(d, i) {
+					    return colors(i);
+				});
+
+                var rects = groups.selectAll("rect")
+				    .data(function(d) { return d; })
+				    .enter()
+				    .append("rect")
+				    .attr("x", function(d, i) {
+					    return xScale(i);
+				    })
+				    .attr("y", function(d) {
+                        
+					    return yScale(d[1]);  // <-- Changed y value
+				    })
+				    .attr("height", function(d) {
+					    return yScale(d[0]) - yScale(d[1]);  // <-- Changed height value
+				    })
+				    .attr("width", xScale.bandwidth())
+				    .on("mouseover", function() { tooltip.style("display", null); })
+                    .on("mouseout", function() { tooltip.style("display", "none"); })
+                    .on("mousemove", function(event,d) {
+                        var xPosition = event.x -55;
+                        var yPosition = event.y -25;
+                        tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+                        tooltip.select("text").text(d[1] -d[0]);
+                    });
+
+               
+				//Create X axis
+                svg.append("g")
+	   				.attr("class", "axis")
+	   				.attr("transform", "translate(0," + (h - padding) + ")")
+	   				.call(xAxis);
+	   			
+
+                 //Create Y axis
+				svg.append("g")
+					.attr("class", "axis")
+					.attr("transform", "translate(" + padding + ",0)")
+					.call(yAxis);
+
+                    // Prep the tooltip bits, initial display is hidden
+            	var tooltip = svg.append("g")
+                	.attr("class", "tooltip")
+                	.style("display", "none");
+    
+            	tooltip.append("rect")
+                	.attr("width", 30)
+                	.attr("height", 20)
+                	.attr("fill", "white")
+                	.style("opacity", 0.5);
+
+            	tooltip.append("text")
+                	.attr("x", 15)
+                	.attr("dy", "1.2em")
+                	.style("text-anchor", "middle")
+                	.attr("font-size", "12px")
+                	.attr("font-weight", "bold");
+
+
+				     // Draw legend
+				var legend = svg.selectAll(".legend")
+  					.data(keys)
+  					.enter().append("g")
+  					.attr("class", "legend")
+  					.attr("transform", function(d, i) { return "translate(30," + i * 19 + ")"; });
+ 
+				legend.append("rect")
+  					.attr("x", w - 18)
+  					.attr("width", 18)
+  					.attr("height", 18)
+  					.attr("fill", function(d,i) { return colors(i);});
+ 
+				legend.append("text")
+  					.attr("x", w + 5)
+  					.attr("y", 9)
+  					.attr("dy", ".35em")
+  					.style("text-anchor", "start")
+  					.text(function(d, i) { 
+    					return keys[i];
+  					});
+
+				svg.append("text")
+        			.attr("transform", "translate(" + (w / 2) + " ," + (h + margin.bottom) + ")")
+        			.style("text-anchor", "middle")
+					.attr("font-size", 15)
+        			.text("Month");
+
+    
+    			// Add the text label for the Y axis
+    			svg.append("text")
+        			.attr("transform", "rotate(-90)")
+        			.attr("y", 0 - margin.left)
+        			.attr("x",0 - (h / 2))
+        			.attr("dy", "1em")
+        			.style("text-anchor", "middle")
+					.attr("font-size", 15)
+        			.text("Number of cases");
+
+
+							 //Ation on selection
+				var dropdownChange = function() {
+        			curOpt = d3.select(this).property('value');
+        			if (curOpt=="Type") {
+            			curOptIndex=0;
+        			}
+        			if (curOpt=="OnTime") {
+            			curOptIndex=1;
+        			}
+        			d3.select("svg").remove();
+        			change_data(files,curOptIndex)
+    			};
+
+    				//options
+				var options = ["Type", "OnTime"];
+    			//Make drop down
+    			var dropdown = d3.select("body")
+            		.insert("select", "svg")
+            		.attr("style", "position:relative; left:" + (margin.left+720) + "px;")
+            		.on("change", dropdownChange);
+        
+    			dropdown.selectAll("option")
+        			.data(options)
+        			.enter().append("option")
+        			.attr("value", function (d) { return d; })
+        			.text(function (d) {
+            			return d
+        		}); 
+
+
+				function change_data(files,curDropIndex){
+
+				var dataset = files[curDropIndex];
+				var keys = Object.keys(dataset[0]);
+				dataset.forEach(function(d){ 
+					keys.forEach(function(k){
+						d[k] = +d[k]; });
+				});
+
+      			// Transpose the data into layers
+                var stack = d3.stack()
+						  .keys(keys)
+						  .order(d3.stackOrderDescending);  // <-- Flipped stacking order
+                
+                //Data, stacked
+			    var series = stack(dataset);
+                
+                //Set up scales
+			    var xScale = d3.scaleBand()
+				    .domain(d3.range(dataset.length))
+				    .range([padding, w-padding])
+				    .paddingInner(0.05);
+		
+                var yScale = d3.scaleLinear()
+				    .domain([0,				
+					d3.max(dataset, function(d) {
+						return Object.values(d).reduce((a,b) => a + b, 0);
+					})
+				])
+				    .range([h-padding, 0]);
+
+
+
+				var x = d3.scaleTime()
+    				.domain([new Date(2012, 0, 1), new Date(2012, 11, 31)])
+    				.range([padding + xScale.bandwidth()/2, w-padding + xScale.bandwidth()/2]);
+				
+				// Define X and YAxis
+				var xAxis = d3.axisBottom()
+    				.scale(x)
+    				.ticks(12)
+    				.tickFormat(d3.timeFormat("%B"));
+
+			    var yAxis = d3.axisLeft()
+						.scale(yScale)
+						.ticks(10)
+
+
+                // //Easy colors accessible via a 10-step ordinal scale
+				if (curDropIndex == 1)
+					var colors = d3.scaleOrdinal(d3.schemeSet1)
+				else
+			    	var colors = d3.scaleOrdinal(d3.schemePaired);
+				
+                
+                var svg = d3.select("body")
+                        .append("svg")
+                        .attr("width", w + margin.left + margin.right)
+                        .attr("height", h + margin.top + margin.bottom)
+                        .append("g")
+                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	
+			    // Add a group for each row of data
+			    var groups = svg.selectAll("g")
+				    .data(series)
+				    .enter()
+				    .append("g")
+					.attr("class", "bar")
+				    .style("fill", function(d, i) {
+					    return colors(i);
+				});
+
+                var rects = groups.selectAll("rect")
+				    .data(function(d) { return d; })
+				    .enter()
+				    .append("rect")
+				    .attr("x", function(d, i) {
+					    return xScale(i);
+				    })
+				    .attr("y", function(d) {
+                        
+					    return yScale(d[1]);  // <-- Changed y value
+				    })
+				    .attr("height", function(d) {
+					    return yScale(d[0]) - yScale(d[1]);  // <-- Changed height value
+				    })
+				    .attr("width", xScale.bandwidth())
+				    .on("mouseover", function() { tooltip.style("display", null); })
+                    .on("mouseout", function() { tooltip.style("display", "none"); })
+                    .on("mousemove", function(event,d) {
+                        var xPosition = event.x;
+                        var yPosition = event.y
+                        tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+                        tooltip.select("text").text(d[1] -d[0]);
+                    });
+               
+				//Create X axis
+                svg.append("g")
+	   				.attr("class", "axis")
+	   				.attr("transform", "translate(0," + (h - padding) + ")")
+	   				.call(xAxis);
+	   			
+
+                 //Create Y axis
+				svg.append("g")
+					.attr("class", "axis")
+					.attr("transform", "translate(" + padding + ",0)")
+					.call(yAxis);
+
+                    // Prep the tooltip bits, initial display is hidden
+            	var tooltip = svg.append("g")
+                	.attr("class", "tooltip")
+                	.style("display", "none");
+    
+            	tooltip.append("rect")
+                	.attr("width", 30)
+                	.attr("height", 20)
+                	.attr("fill", "white")
+                	.style("opacity", 0.5);
+
+            	tooltip.append("text")
+                	.attr("x", 15)
+                	.attr("dy", "1.2em")
+                	.style("text-anchor", "middle")
+                	.attr("font-size", "12px")
+                	.attr("font-weight", "bold");
+
+
+				     // Draw legend
+				var legend = svg.selectAll(".legend")
+  					.data(keys)
+  					.enter().append("g")
+  					.attr("class", "legend")
+  					.attr("transform", function(d, i) { return "translate(30," + i * 19 + ")"; });
+ 
+				legend.append("rect")
+  					.attr("x", w - 18)
+  					.attr("width", 18)
+  					.attr("height", 18)
+  					.attr("fill", function(d,i) { return colors(i);});
+ 
+				legend.append("text")
+  					.attr("x", w + 5)
+  					.attr("y", 9)
+  					.attr("dy", ".35em")
+  					.style("text-anchor", "start")
+  					.text(function(d, i) { 
+    					return keys[i];
+  					});
+
+				svg.append("text")
+        			.attr("transform", "translate(" + (w / 2) + " ," + (h + margin.bottom) + ")")
+        			.style("text-anchor", "middle")
+        			.text("Month");
+
+    
+    			// Add the text label for the Y axis
+    			svg.append("text")
+        			.attr("transform", "rotate(-90)")
+        			.attr("y", 0 - margin.left)
+        			.attr("x",0 - (h / 2))
+        			.attr("dy", "1em")
+        			.style("text-anchor", "middle")
+        			.text("Value");
+
+    			
+
+				};
+
+        });
+	
+       
+					
+		</script>
+	</body>
+</html>
