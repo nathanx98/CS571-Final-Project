@@ -75,6 +75,7 @@
 	</head>
 	<body>
     
+    <div id="tooltip"></div>
     <div class="container" id="container"> 
       <div class="row align-items-start" id="sidebar_row">
         <div id="sidebar" class="col-lg-4">
@@ -274,6 +275,8 @@
     var xAxis_top = [];
     var yAxis_top = [];
 
+    var Tooltip, mouseover, mousemove, mouseleave, setTooltip, touch, touchClear;
+
     
     color = d3.scaleOrdinal()
         .domain([0,1])
@@ -356,8 +359,93 @@
           ccd_data_total.push(stackedDataTotal.map((d) => d.slice(0, 10)))
           
       }
+
+      // TOOL TIP CODE
+
+      // creates tool tip
+      Tooltip = d3.select("#tooltip")
+        .style("opacity", 0)
+        .attr("class", "tooltip")
+        .style("background-color", "white")
+        .style("border", "solid")
+        .style("border-width", "2px")
+        .style("border-radius", "5px")
+        .style("padding", "5px")
+
+      // mouse over event. set opacity to 1, outline bar
+      mouseover = function(event) {
+        Tooltip 
+          .style("opacity", 1)
+        d3.select(this)
+          .style("stroke", "black")
+          .style("opacity", 1)
+      }
+
+      // mouse move event, move tooltip to mouse location, choose side of bar to place tooltip
+      mousemove = function(event, d) {
+        console.log(d.data.type.length)
+        var offset;
+        if(d3.pointer(event)[0] > 5 * w / 8)
+          offset = -100 + -1 * Math.pow(d.data.type.length, 1.4);
+        else
+          offset = 20;
+        Tooltip
+          .html(d.data.type)
+          .style("left", (event.pageX+offset) + "px")
+          .style("top", (event.pageY) + "px")
+      }
+
+      // mouse leave event, set opacity to 0, unoutline bar
+      mouseleave = function(event) {
+        Tooltip
+          .style("opacity", 0)
+        d3.select(this)
+          .style("stroke", "none")
+      }
+
+      // touch event (set to onclick)
+      touch = function(event, d) {
+
+        // remove all outlines from all rects
+        d3.selectAll(".stacked_rect").style("stroke", "none");
+        
+        
+        // set opacity to 1, outline bar
+        Tooltip 
+          .style("opacity", 1)
+        d3.select(this)
+          .style("stroke", "black")
+          .style("opacity", 1)
+          
+        // choose offset, place tooltip
+        var offset;
+        if(d3.pointer(event)[0] > 5 * w / 8)
+          offset = -100 + -1 * Math.pow(d.data.type.length, 1.4);
+        else
+          offset = 20;
+        Tooltip
+          .html(d.data.type)
+          .style("left", (event.pageX+offset) + "px")
+          .style("top", (event.pageY) + "px")
+
+        event.stopPropagation();
+      }
+      
+      touchClear = function() {
+        
+        d3.selectAll(".stacked_rect").style("stroke", "none");
+        
+        Tooltip
+          .style("opacity", 0)
+          
+      }
+      
+      // add an event listener for REMOVING tooltips when clicking anywhere else
+      document.addEventListener("click", touchClear);
+
       render(ccd_data_total, 0, allXScalesTotal, 0 )
       render(ccd_data_overdue, 0, allXScalesOverdue, 1)
+
     });
     
     Promise.all([
@@ -460,10 +548,17 @@
             // enter a second time = loop subgroup per subgroup to add all rectangles
             .data(function(d) { return d; })
             .enter().append("rect")
+              .attr("class", "stacked_rect")
               .attr("x", function(d) { if(xScales[district](d.data.type) == undefined) console.log(d.data.type); return xScales[district](d.data.type); })
               .attr("y", function(d) {  return y[index](d[1]); })
               .attr("height", function(d) { return y[index](d[0]) - y[index](d[1]); })
               .attr("width",xScales[district].bandwidth())
+              .attr("stroke-width", "2px")
+              // add tooltip events
+              .on("mouseover", mouseover)
+              .on("mousemove", mousemove)
+              .on("mouseleave", mouseleave)
+              .on("click", touch);
 
       svg.append("g")
         .call(d3.axisLeft(y[index]))
@@ -487,13 +582,18 @@
             
     }
 
+
+    // updates the data
     function update(data, district, xScales, index) {
+
+      // selects necessary elements
       var bargroups = d3.select("#top10_" + index).select("svg").select("g").select(".bar").selectAll("g")
         .data(data[district]);
       var rects = bargroups.selectAll("rect")
         .data(function(d) { return d; });
       var xaxis = d3.select("#top10_" + index).select("svg").select("g").select(".xaxis");
       
+      // add new data
       bargroups
         .enter()
         .append("g")
@@ -502,6 +602,7 @@
         .duration(1000)
         .attr("fill", function(d) { return color(clamp(d[0][0], 0, 1)); })
       
+      // create new rectangles and transition them
       rects
           .enter().append("rect")
             .merge(rects)
@@ -512,16 +613,21 @@
             .attr("height", function(d) { return y[index](d[0]) - y[index](d[1]); })
             .attr("width",xScales[district].bandwidth())
 
+      // transition the x axis
       xaxis
         .transition()
         .duration(1000)
         .call(d3.axisBottom(xScales[district]).tickSizeOuter(0))
         .selectAll("text")  
-            .style("font-size", "1.5em")
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
             .attr("dy", ".15em")
             .attr("transform", "rotate(-40)" );
+
+      // in a separate call so the font size doesn't have a transformation
+      xaxis
+        .selectAll("text")  
+            .style("font-size", "1.5em")
       
 
     }
