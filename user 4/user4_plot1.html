@@ -43,10 +43,9 @@
 				</div>
 			</svg>
 		</div>
-		<button onclick="update(sorted_data)">Sort by Neighborhood</button>
-		<button onclick="update(unsorted_data)">Sort by Count</button>
+		<button onclick="update(sorted_data)">Sort by Count</button>
+		<button onclick="update(unsorted_data)">Sort by Neighborhood</button>
 
-		
 		<script>
 			var padding = 40;
 			var width = d3.selectAll('svg').attr('width');
@@ -57,6 +56,7 @@
 			var sorted_data = 'neighbourhood_count.csv';
 			
 			var xScale, yScale, xAxis, yAxis;
+			//update bars 
 			function update(name)
 			{
 				var dataset = d3.csv(name).then(function(data)
@@ -85,8 +85,6 @@
 					 xAxis = d3.axisTop()
 									.scale(xScale)
 									.tickValues([]);
-
-
 									
 					var rect = svg.selectAll('rect')
 						.data(data)
@@ -110,25 +108,6 @@
 						.attr('height',function(d){
 							return yScale(d[1]);
 						})
-						// .on('mouseover',function(){
-						// 	d3.select(this)
-						// 		.attr('stroke','rgb(0, 104, 107)')
-						// 		.transition()
-						// 		.attr('stroke-width',2.5);
-						// })
-						// .on('mouseout',function(){
-						// 	d3.select(this)
-						// 		.attr('fill','black')
-						// 		.transition()
-						// 		.attr('stroke-width',0);
-						// })
-						// .on('click',function(){
-						// 	d3.select(this)
-						// 		.transition()
-						// 		.attr('stroke-width',5)
-						// 		.transition()
-						// 		.attr('stroke-width',0);
-						// })
 
 						svg.selectAll('rect')
 							.on('mouseover',function(){
@@ -151,8 +130,6 @@
 									.attr('stroke-width',0);
 							})
 
-
-
 					//xlabel
 					var xtext = svg.selectAll('text')
 						.data(data);
@@ -174,7 +151,6 @@
 						})
 						.attr('class','xlabel');
 
-
 					//append axis 
 					svg.append('g')
 						.attr('class','axis')
@@ -189,8 +165,6 @@
 			}
 
 			update("neighbourhood_count.csv");
-
-			
 		</script>
 	</body>
 </html>

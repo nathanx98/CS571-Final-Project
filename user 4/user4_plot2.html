@@ -34,113 +34,141 @@
 		</style>
 	</head>
 	<body>
-		<svg width="800" height="300" class = 'plot2'>
-			<div class = 'title2'>
-				<text class = 'titleText'>
-					Case Count Per Time Period
-				</text>
-			</div>
-		</svg>
+		
+
+		<div id='myplot'>
+			<svg width="800" height="300" class = 'plot2'>
+				<div class = 'title2'>
+					<text class = 'titleText'>
+						Case Count Per Time Period
+					</text>
+				</div>
+			</svg>
+		</div>
+		<button onclick="update(sorted_data)">Sort by Count</button>
+		<button onclick="update(unsorted_data)">Sort by Time</button>
+
 		<script>
 			var svg2 = d3.selectAll('.plot2');
 			var width2 = svg2.attr('width');
 			var height2 = svg2.attr('height');
             var padding = 40;
 
-			const dataset2 = d3.csv('time_count.csv').then(function(data){
-				return data;
-			});
-			const d_pairs2 = dataset2.then(function(value){
-				return Promise.all(value.map(function(results){
-					return [results.time, results.count];
-				}))
-			});
-			d_pairs2.then(function(data){
+			var sorted_data = 'time_count.csv';
+			var unsorted_data = 'time_count_unsorted.csv';
+			var xScale, yScale, xAxis, yAxis;
 
-				var xScale = d3.scaleLinear()
-								.domain([0,24])
-								.range([0,width2-padding]);
-				var yScale = d3.scaleLinear()
-								.domain([0,24465])
-								.range([0,height2 - 2*padding]);
-				var yAxisScale = d3.scaleLinear()
+			function update(name)
+			{
+				const dataset2 = d3.csv(name).then(function(data){
+					return data;
+				});
+				const d_pairs2 = dataset2.then(function(value){
+					return Promise.all(value.map(function(results){
+						return [results.time, results.count];
+					}))
+				});
+				d_pairs2.then(function(data){
+
+					var xScale = d3.scaleLinear()
+									.domain([0,24])
+									.range([0,width2-padding]);
+					var yScale = d3.scaleLinear()
 									.domain([0,24465])
-									.range([height2 - 2*padding,0]);
-				var yAixs = d3.axisLeft()
-								.scale(yAxisScale);
-				var xAxis = d3.axisTop()
-								.scale(xScale)
-								.tickValues([]);
+									.range([0,height2 - 2*padding]);
+					var yAxisScale = d3.scaleLinear()
+										.domain([0,24465])
+										.range([height2 - 2*padding,0]);
+					var yAixs = d3.axisLeft()
+									.scale(yAxisScale);
+					var xAxis = d3.axisTop()
+									.scale(xScale)
+									.tickValues([]);
 
-				//bars
-				var rect = svg2.selectAll('rect')
-					.data(data)
-					.enter()
-					.append('rect')
-					.attr('class','rect')
-					.attr('x',function(d,i){
-						return xScale(i)+padding+10;
-					})
-					.attr('y',function(d){
-						return height2 - yScale(d[1]) - padding/2;
-					})
-					.attr('width',function(d,i){
-						return width2/28;
-					})
-					.attr('height',function(d){
-						return yScale(d[1]);
-					})
-					.on('mouseover',function(){
-						d3.select(this)
-							.attr('stroke','rgb(0, 104, 107)')
-							.transition()
-							.attr('stroke-width',2.5);
-					})
-					.on('mouseout',function(){
-						d3.select(this)
-							.attr('fill','black')
-							.transition()
-							.attr('stroke-width',0);
-					})
-					.on('click',function(){
-						d3.select(this)
-							.transition()
-							.attr('stroke-width',5)
-							.transition()
-							.attr('stroke-width',0);
-					})
+					//bars
+					var rect = svg2.selectAll('rect')
+						.data(data);
+					
+					rect
+						.enter()
+						.append('rect')
+						.merge(rect)
+						.transition()
+						.duration(1000)
+						.attr('class','rect')
+						.attr('x',function(d,i){
+							return xScale(i)+padding+10;
+						})
+						.attr('y',function(d){
+							return height2 - yScale(d[1]) - padding/2;
+						})
+						.attr('width',function(d,i){
+							return width2/28;
+						})
+						.attr('height',function(d){
+							return yScale(d[1]);
+						})
 
-
-				//xlabel
-				svg2.selectAll('text')
-					.data(data)
-					.enter()
-					.append("text")
-					.text(function(d){
-						return d[0];
-					})
-					.attr("text-anchor", "middle")
-					.attr('x',function(d,i){
-						return xScale(i)+padding + 20;
-					})
-					.attr('y',function(d){
-						return height2 ;
-					})
-					.attr('class','xlabel');
+					//add interactivity
+					svg2.selectAll('rect')
+						.on('mouseover',function(){
+							d3.select(this)
+								.attr('stroke','rgb(0, 104, 107)')
+								.transition()
+								.attr('stroke-width',2.5);
+						})
+						.on('mouseout',function(){
+							d3.select(this)
+								.attr('fill','black')
+								.transition()
+								.attr('stroke-width',0);
+						})
+						.on('click',function(){
+							d3.select(this)
+								.transition()
+								.attr('stroke-width',5)
+								.transition()
+								.attr('stroke-width',0);
+						})
 
 
-				//append axis 
-				svg2.append('g')
-					.attr('class','axis')
-					.attr("transform","translate("+40+","+(padding + 20)+")")
-					.call(yAixs);
 
-				svg2.append('g')
-					.attr("class",'axis')
-					.attr('transform','translate('+40+','+ (height2 - padding/2)+')')
-					.call(xAxis);
+					//xlabel
+					var xtext = svg2.selectAll('text')
+						.data(data);
 
-			});
+					xtext
+						.enter()
+						.append("text")
+						.merge(xtext)
+						.transition()
+						.text(function(d){
+							return d[0];
+						})
+						.attr("text-anchor", "middle")
+						.attr('x',function(d,i){
+							return xScale(i)+padding + 20;
+						})
+						.attr('y',function(d){
+							return height2 ;
+						})
+						.attr('class','xlabel');
+
+						//append axis 
+					svg2.append('g')
+						.attr('class','axis')
+						.attr("transform","translate("+40+","+(padding + 20)+")")
+						.call(yAixs);
+
+					svg2.append('g')
+						.attr("class",'axis')
+						.attr('transform','translate('+40+','+ (height2 - padding/2)+')')
+						.call(xAxis);
+				});
+			};
+
+			update('time_count_unsorted.csv')
+
 		</script>
 	</body>
 </html>
