@@ -1,0 +1,23 @@
+body {
+    background-color: #fcecdd;
+}
+
+a {
+    color: #ff6701;
+}
+
+label {
+    background-color: #ff6701 !important;
+    border-color: #ff6701 !important;
+    
+}
+
+label:active {
+    background-color: #b14700 !important;
+    border-color: #b14700 !important;
+}
+
+label.active {
+    background-color: #b14700 !important;
+    border-color: #b14700 !important;
+}

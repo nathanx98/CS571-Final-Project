@@ -1,0 +1,61 @@
+@font-face {
+    font-family: Karrik;
+    src: "./fonts/Karrik-Regular.woff";
+  }
+
+  
+  @media (min-width: 992px)
+  {
+
+    .mobile-buttons {
+      display: none;
+    }
+
+    #mobile-map {
+      display: none;
+    }
+    
+
+    .mobile-offset {
+      display: none;
+    }
+  }
+
+  @media (max-width: 992px)
+  {
+
+    #sidebar {
+      display: none;
+    }
+
+  
+    .container {
+      max-width: 100% !important;
+    }
+
+
+  }
+  
+  h1, h2, h3 {
+    font-family: Karrik;
+  }
+
+
+
+  #sidebar {
+    position: sticky;
+    top: 0px;
+  }
+
+
+  .title {
+    text-align: center;
+  }
+
+  .h-divider{
+    margin-top:10px;
+    margin-bottom:10px;
+    height:1px;
+    width:100%;
+    border-top:1px solid gray;
+  }
