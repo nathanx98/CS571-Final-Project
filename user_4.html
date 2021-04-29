@@ -13,10 +13,10 @@
 				fill:black;
 			}
 			.rect{
-				fill:rgb(40, 181, 185);
+				fill:rgb(40, 180, 185, 0.8);
 			}
 			.stuff{
-				fill:rgb(0, 104, 107);
+				fill:rgb(0, 164, 170);
 			}
 			.title1{
 				position: relative;
@@ -107,23 +107,29 @@
 						return yScale(d[1]);
 					})
 					.on('mouseover',function(){
+						console.log('hi')
 						d3.select(this)
 							.attr('stroke','rgb(0, 104, 107)')
 							.transition()
-							.attr('stroke-width',2.5);
+							.attr('stroke-width',2.5)
+							.attr("fill",'black')
+							.transition()
+							.style('fill','rgb(0, 164, 170)')
 					})
 					.on('mouseout',function(){
 						d3.select(this)
-							.attr('fill','black')
 							.transition()
-							.attr('stroke-width',0);
+							.style('fill','rgb(40, 180, 185, 0.8)')
+							.transition()
+							.attr('stroke-width',0)
 					})
 					.on('click',function(){
 						d3.select(this)
+							.attr('stroke','rgb(0, 104, 107)')
 							.transition()
-							.attr('stroke-width',5)
+							.attr('stroke-width',3.5)
 							.transition()
-							.attr('stroke-width',0);
+							.attr('stroke-width',1);
 					})
 
 
@@ -158,103 +164,103 @@
 			});
 
 			//second plot........................
-			var svg2 = d3.selectAll('.plot2');
-			var width2 = svg2.attr('width');
-			var height2 = svg2.attr('height');
+			// var svg2 = d3.selectAll('.plot2');
+			// var width2 = svg2.attr('width');
+			// var height2 = svg2.attr('height');
 
-			const dataset2 = d3.csv('time_count.csv').then(function(data){
-				return data;
-			});
-			const d_pairs2 = dataset2.then(function(value){
-				return Promise.all(value.map(function(results){
-					return [results.time, results.count];
-				}))
-			});
-			d_pairs2.then(function(data){
-				var xScale = d3.scaleLinear()
-								.domain([0,24])
-								.range([0,width2-padding]);
-				var yScale = d3.scaleLinear()
-								.domain([0,24465])
-								.range([0,height2 - 2*padding]);
-				var yAxisScale = d3.scaleLinear()
-									.domain([0,24465])
-									.range([height2 - 2*padding,0]);
-				var yAixs = d3.axisLeft()
-								.scale(yAxisScale);
-				var xAxis = d3.axisTop()
-								.scale(xScale)
-								.tickValues([]);
+			// const dataset2 = d3.csv('time_count.csv').then(function(data){
+			// 	return data;
+			// });
+			// const d_pairs2 = dataset2.then(function(value){
+			// 	return Promise.all(value.map(function(results){
+			// 		return [results.time, results.count];
+			// 	}))
+			// });
+			// d_pairs2.then(function(data){
+			// 	var xScale = d3.scaleLinear()
+			// 					.domain([0,24])
+			// 					.range([0,width2-padding]);
+			// 	var yScale = d3.scaleLinear()
+			// 					.domain([0,24465])
+			// 					.range([0,height2 - 2*padding]);
+			// 	var yAxisScale = d3.scaleLinear()
+			// 						.domain([0,24465])
+			// 						.range([height2 - 2*padding,0]);
+			// 	var yAixs = d3.axisLeft()
+			// 					.scale(yAxisScale);
+			// 	var xAxis = d3.axisTop()
+			// 					.scale(xScale)
+			// 					.tickValues([]);
 
-				//bars
-				var rect = svg2.selectAll('rect')
-					.data(data)
-					.enter()
-					.append('rect')
-					.attr('class','rect')
-					.attr('x',function(d,i){
-						return xScale(i)+padding+10;
-					})
-					.attr('y',function(d){
-						return height2 - yScale(d[1]) - padding/2;
-					})
-					.attr('width',function(d,i){
-						return width2/28;
-					})
-					.attr('height',function(d){
-						return yScale(d[1]);
-					})
-					.on('mouseover',function(){
-						d3.select(this)
-							.attr('stroke','rgb(0, 104, 107)')
-							.transition()
-							.attr('stroke-width',2.5);
-					})
-					.on('mouseout',function(){
-						d3.select(this)
-							.attr('fill','black')
-							.transition()
-							.attr('stroke-width',0);
-					})
-					.on('click',function(){
-						d3.select(this)
-							.transition()
-							.attr('stroke-width',5)
-							.transition()
-							.attr('stroke-width',0);
-					})
-
-
-				//xlabel
-				svg2.selectAll('text')
-					.data(data)
-					.enter()
-					.append("text")
-					.text(function(d){
-						return d[0];
-					})
-					.attr("text-anchor", "middle")
-					.attr('x',function(d,i){
-						return xScale(i)+padding + 20;
-					})
-					.attr('y',function(d){
-						return height2 ;
-					})
-					.attr('class','xlabel');
+			// 	//bars
+			// 	var rect = svg2.selectAll('rect')
+			// 		.data(data)
+			// 		.enter()
+			// 		.append('rect')
+			// 		.attr('class','rect')
+			// 		.attr('x',function(d,i){
+			// 			return xScale(i)+padding+10;
+			// 		})
+			// 		.attr('y',function(d){
+			// 			return height2 - yScale(d[1]) - padding/2;
+			// 		})
+			// 		.attr('width',function(d,i){
+			// 			return width2/28;
+			// 		})
+			// 		.attr('height',function(d){
+			// 			return yScale(d[1]);
+			// 		})
+			// 		.on('mouseover',function(){
+			// 			d3.select(this)
+			// 				.attr('stroke','rgb(0, 104, 107)')
+			// 				.transition()
+			// 				.attr('stroke-width',2.5);
+			// 		})
+			// 		.on('mouseout',function(){
+			// 			d3.select(this)
+			// 				.attr('fill','black')
+			// 				.transition()
+			// 				.attr('stroke-width',0);
+			// 		})
+			// 		.on('click',function(){
+			// 			d3.select(this)
+			// 				.transition()
+			// 				.attr('stroke-width',5)
+			// 				.transition()
+			// 				.attr('stroke-width',0);
+			// 		})
 
 
-				//append axis 
-				svg2.append('g')
-					.attr('class','axis')
-					.attr("transform","translate("+40+","+(padding + 20)+")")
-					.call(yAixs);
+			// 	//xlabel
+			// 	svg2.selectAll('text')
+			// 		.data(data)
+			// 		.enter()
+			// 		.append("text")
+			// 		.text(function(d){
+			// 			return d[0];
+			// 		})
+			// 		.attr("text-anchor", "middle")
+			// 		.attr('x',function(d,i){
+			// 			return xScale(i)+padding + 20;
+			// 		})
+			// 		.attr('y',function(d){
+			// 			return height2 ;
+			// 		})
+			// 		.attr('class','xlabel');
 
-				svg2.append('g')
-					.attr("class",'axis')
-					.attr('transform','translate('+40+','+ (height2 - padding/2)+')')
-					.call(xAxis);
 
-			});
+			// 	//append axis 
+			// 	svg2.append('g')
+			// 		.attr('class','axis')
+			// 		.attr("transform","translate("+40+","+(padding + 20)+")")
+			// 		.call(yAixs);
+
+			// 	svg2.append('g')
+			// 		.attr("class",'axis')
+			// 		.attr('transform','translate('+40+','+ (height2 - padding/2)+')')
+			// 		.call(xAxis);
+
+			// });
 
 
 		</script>
