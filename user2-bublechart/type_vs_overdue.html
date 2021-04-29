@@ -20,7 +20,7 @@
 
         dataset = {"children": dataset};
 
-        var diameter = 600;
+        var diameter = 500;
 
         var colors = d3.scaleOrdinal(d3.schemePaired);
         
@@ -122,8 +122,8 @@
             })
             .attr("fill", "black");
 
-        d3.select(self.frameElement)
-            .style("height", diameter + "px");
+        // d3.select(self.frameElement)
+        //     .style("height", diameter + "px");
             
         });
 
