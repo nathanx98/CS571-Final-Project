@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>User 4 bar chart</title>
+		<script type="text/javascript" src="../d3.js"></script>
+		<style type="text/css">
+			.axis { font: 7px sans-serif; 
+					stroke-width: 1px;
+			}
+			.xlabel{
+				font:10px sans-serif;
+				fill:black;
+			}
+			.rect{
+				fill:rgb(40, 181, 185);
+			}
+			.stuff{
+				fill:rgb(0, 104, 107);
+			}
+			.title1{
+				position: relative;
+				left :230px;
+				top: -370px;
+			}
+			.title2{
+				position: relative;
+				left :300px;
+				top: -275px;
+			}
+			.titleText{
+				font:20px sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<div id='myplot'>
+			<svg width="600" height="400" class = 'plot1'>
+				<div class = 'title1'>
+					<text class = 'titleText'>
+						Neighborhood Case Count
+					</text>
+				</div>
+			</svg>
+		</div>
+		<button onclick="update(sorted_data)">Sort by Neighborhood</button>
+		<button onclick="update(unsorted_data)">Sort by Count</button>
+
+		
+		<script>
+			var padding = 40;
+			var width = d3.selectAll('svg').attr('width');
+			var height = d3.selectAll('svg').attr('height');
+			var svg = d3.selectAll('.plot1');
+
+			var unsorted_data = 'neighbourhood_unsorted.csv';
+			var sorted_data = 'neighbourhood_count.csv';
+			
+			var xScale, yScale, xAxis, yAxis;
+			function update(name)
+			{
+				var dataset = d3.csv(name).then(function(data)
+				{
+					return data;
+				});
+				var d_pairs = dataset.then(function(value)
+				{
+					return Promise.all(value.map(function(results){
+						return [results.neighborhood, results.count];
+					}));
+				});
+				d_pairs.then(function(data)
+				{
+					 xScale = d3.scaleLinear()
+									.domain([0,9])
+									.range([0,width-padding]);
+					 yScale = d3.scaleLinear()
+									.domain([0,38644])
+									.range([0,height - 2*padding]);
+					var yAxisScale = d3.scaleLinear()
+										.domain([0,38644])
+										.range([height - 2*padding,0]);
+					 yAixs = d3.axisLeft()
+									.scale(yAxisScale);
+					 xAxis = d3.axisTop()
+									.scale(xScale)
+									.tickValues([]);
+
+
+									
+					var rect = svg.selectAll('rect')
+						.data(data)
+					
+					rect
+						.enter()
+						.append('rect')
+						.merge(rect)
+						.transition()
+						.duration(1000)
+						.attr('class','rect')
+						.attr('x',function(d,i){
+							return xScale(i)+padding+10;
+						})
+						.attr('y',function(d){
+							return height - yScale(d[1]) - padding/2;
+						})
+						.attr('width',function(d,i){
+							return width/15;
+						})
+						.attr('height',function(d){
+							return yScale(d[1]);
+						})
+						// .on('mouseover',function(){
+						// 	d3.select(this)
+						// 		.attr('stroke','rgb(0, 104, 107)')
+						// 		.transition()
+						// 		.attr('stroke-width',2.5);
+						// })
+						// .on('mouseout',function(){
+						// 	d3.select(this)
+						// 		.attr('fill','black')
+						// 		.transition()
+						// 		.attr('stroke-width',0);
+						// })
+						// .on('click',function(){
+						// 	d3.select(this)
+						// 		.transition()
+						// 		.attr('stroke-width',5)
+						// 		.transition()
+						// 		.attr('stroke-width',0);
+						// })
+
+						svg.selectAll('rect')
+							.on('mouseover',function(){
+								d3.select(this)
+									.attr('stroke','rgb(0, 104, 107)')
+									.transition()
+									.attr('stroke-width',2.5);
+							})
+							.on('mouseout',function(){
+								d3.select(this)
+									.attr('fill','black')
+									.transition()
+									.attr('stroke-width',0);
+							})
+							.on('click',function(){
+								d3.select(this)
+									.transition()
+									.attr('stroke-width',5)
+									.transition()
+									.attr('stroke-width',0);
+							})
+
+
+
+					//xlabel
+					var xtext = svg.selectAll('text')
+						.data(data);
+
+					xtext
+						.enter()
+						.append("text")
+						.merge(xtext)
+						.transition()
+						.text(function(d){
+							return d[0];
+						})
+						.attr("text-anchor", "middle")
+						.attr('x',function(d,i){
+							return xScale(i)+padding + 30;
+						})
+						.attr('y',function(d){
+							return height ;
+						})
+						.attr('class','xlabel');
+
+
+					//append axis 
+					svg.append('g')
+						.attr('class','axis')
+						.attr("transform","translate("+40+","+(padding + 20)+")")
+						.call(yAixs);
+
+					svg.append('g')
+						.attr("class",'axis')
+						.attr('transform','translate('+40+','+ (height - padding/2)+')')
+						.call(xAxis);
+				});
+			}
+
+			update("neighbourhood_count.csv");
+
+			
+		</script>
+	</body>
+</html>

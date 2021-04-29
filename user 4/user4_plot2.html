@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>User 4 bar chart</title>
-		<script type="text/javascript" src="./d3.js"></script>
+		<script type="text/javascript" src="../d3.js"></script>
 		<style type="text/css">
 			.axis { font: 7px sans-serif; 
 					stroke-width: 1px;
@@ -34,55 +34,46 @@
 		</style>
 	</head>
 	<body>
-		<!-- <div id='plot1'></div> -->
-		<svg width="600" height="400" class = 'plot1'>
-			<div class = 'title1'>
+		<svg width="800" height="300" class = 'plot2'>
+			<div class = 'title2'>
 				<text class = 'titleText'>
-					Neighborhood Case Count
+					Case Count Per Time Period
 				</text>
 			</div>
 		</svg>
 		<script>
-			var padding = 40;
-			var width = d3.selectAll('svg').attr('width');
-			var height = d3.selectAll('svg').attr('height');
-			var svg = d3.selectAll('.plot1');
-			// d3.selectAll('.plot1').attr('visibility','hidden');
+			var svg2 = d3.selectAll('.plot2');
+			var width2 = svg2.attr('width');
+			var height2 = svg2.attr('height');
+            var padding = 40;
 
-			const dataset = d3.csv('neighbourhood_count.csv').then(function(data){
+			const dataset2 = d3.csv('time_count.csv').then(function(data){
 				return data;
 			});
-			const d_pairs = dataset.then(function(value){
+			const d_pairs2 = dataset2.then(function(value){
 				return Promise.all(value.map(function(results){
-					return [results.neighborhood, results.count];
+					return [results.time, results.count];
 				}))
 			});
+			d_pairs2.then(function(data){
 
-			// var xScale = d3.scaleLinear()
-			// 				.range([0,width-padding]);
-			// var yScale = d3.scaleLinear()
-			// 				.range([height - padding,0]);
-			d_pairs.then(function(data){
 				var xScale = d3.scaleLinear()
-								.domain([0,9])
-								.range([0,width-padding]);
+								.domain([0,24])
+								.range([0,width2-padding]);
 				var yScale = d3.scaleLinear()
-								.domain([0,38644])
-								.range([0,height - 2*padding]);
+								.domain([0,24465])
+								.range([0,height2 - 2*padding]);
 				var yAxisScale = d3.scaleLinear()
-									.domain([0,38644])
-									.range([height - 2*padding,0]);
+									.domain([0,24465])
+									.range([height2 - 2*padding,0]);
 				var yAixs = d3.axisLeft()
 								.scale(yAxisScale);
 				var xAxis = d3.axisTop()
 								.scale(xScale)
 								.tickValues([]);
 
-								// .tickFormat(function(d){
-								// 	return data[d][0];
-								// })
-
-				var rect = svg.selectAll('rect')
+				//bars
+				var rect = svg2.selectAll('rect')
 					.data(data)
 					.enter()
 					.append('rect')
@@ -91,10 +82,10 @@
 						return xScale(i)+padding+10;
 					})
 					.attr('y',function(d){
-						return height - yScale(d[1]) - padding/2;
+						return height2 - yScale(d[1]) - padding/2;
 					})
 					.attr('width',function(d,i){
-						return width/15;
+						return width2/28;
 					})
 					.attr('height',function(d){
 						return yScale(d[1]);
@@ -121,7 +112,7 @@
 
 
 				//xlabel
-				svg.selectAll('text')
+				svg2.selectAll('text')
 					.data(data)
 					.enter()
 					.append("text")
@@ -130,24 +121,25 @@
 					})
 					.attr("text-anchor", "middle")
 					.attr('x',function(d,i){
-						return xScale(i)+padding + 30;
+						return xScale(i)+padding + 20;
 					})
 					.attr('y',function(d){
-						return height ;
+						return height2 ;
 					})
 					.attr('class','xlabel');
 
 
 				//append axis 
-				svg.append('g')
+				svg2.append('g')
 					.attr('class','axis')
 					.attr("transform","translate("+40+","+(padding + 20)+")")
 					.call(yAixs);
 
-				svg.append('g')
+				svg2.append('g')
 					.attr("class",'axis')
-					.attr('transform','translate('+40+','+ (height - padding/2)+')')
+					.attr('transform','translate('+40+','+ (height2 - padding/2)+')')
 					.call(xAxis);
+
 			});
 		</script>
 	</body>
