@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>User 4 bar chart</title>
+		<script type="text/javascript" src="./d3.js"></script>
+		<style type="text/css">
+			.axis { font: 7px sans-serif; 
+					stroke-width: 1px;
+			}
+			.xlabel{
+				font:10px sans-serif;
+				fill:black;
+			}
+			.rect{
+				fill:rgb(40, 181, 185);
+			}
+			.stuff{
+				fill:rgb(0, 104, 107);
+			}
+			.title1{
+				position: relative;
+				left :230px;
+				top: -370px;
+			}
+			.title2{
+				position: relative;
+				left :300px;
+				top: -275px;
+			}
+			.titleText{
+				font:20px sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<svg width="800" height="300" class = 'plot2'>
+			<div class = 'title2'>
+				<text class = 'titleText'>
+					Case Count Per Time Period
+				</text>
+			</div>
+		</svg>
+		<script>
+			var svg2 = d3.selectAll('.plot2');
+			var width2 = svg2.attr('width');
+			var height2 = svg2.attr('height');
+            var padding = 40;
+
+			const dataset2 = d3.csv('time_count.csv').then(function(data){
+				return data;
+			});
+			const d_pairs2 = dataset2.then(function(value){
+				return Promise.all(value.map(function(results){
+					return [results.time, results.count];
+				}))
+			});
+			d_pairs2.then(function(data){
+				var xScale = d3.scaleLinear()
+								.domain([0,24])
+								.range([0,width2-padding]);
+				var yScale = d3.scaleLinear()
+								.domain([0,24465])
+								.range([0,height2 - 2*padding]);
+				var yAxisScale = d3.scaleLinear()
+									.domain([0,24465])
+									.range([height2 - 2*padding,0]);
+				var yAixs = d3.axisLeft()
+								.scale(yAxisScale);
+				var xAxis = d3.axisTop()
+								.scale(xScale)
+								.tickValues([]);
+
+				//bars
+				var rect = svg2.selectAll('rect')
+					.data(data)
+					.enter()
+					.append('rect')
+					.attr('class','rect')
+					.attr('x',function(d,i){
+						return xScale(i)+padding+10;
+					})
+					.attr('y',function(d){
+						return height2 - yScale(d[1]) - padding/2;
+					})
+					.attr('width',function(d,i){
+						return width2/28;
+					})
+					.attr('height',function(d){
+						return yScale(d[1]);
+					})
+					.on('mouseover',function(){
+						d3.select(this)
+							.attr('stroke','rgb(0, 104, 107)')
+							.transition()
+							.attr('stroke-width',2.5);
+					})
+					.on('mouseout',function(){
+						d3.select(this)
+							.attr('fill','black')
+							.transition()
+							.attr('stroke-width',0);
+					})
+					.on('click',function(){
+						d3.select(this)
+							.transition()
+							.attr('stroke-width',5)
+							.transition()
+							.attr('stroke-width',0);
+					})
+
+
+				//xlabel
+				svg2.selectAll('text')
+					.data(data)
+					.enter()
+					.append("text")
+					.text(function(d){
+						return d[0];
+					})
+					.attr("text-anchor", "middle")
+					.attr('x',function(d,i){
+						return xScale(i)+padding + 20;
+					})
+					.attr('y',function(d){
+						return height2 ;
+					})
+					.attr('class','xlabel');
+
+
+				//append axis 
+				svg2.append('g')
+					.attr('class','axis')
+					.attr("transform","translate("+40+","+(padding + 20)+")")
+					.call(yAixs);
+
+				svg2.append('g')
+					.attr("class",'axis')
+					.attr('transform','translate('+40+','+ (height2 - padding/2)+')')
+					.call(xAxis);
+
+			});
+		</script>
+	</body>
+</html>
