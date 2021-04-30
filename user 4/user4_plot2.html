@@ -88,7 +88,6 @@
 					//bars
 					var rect = svg2.selectAll('rect')
 						.data(data);
-					
 					rect
 						.enter()
 						.append('rect')
@@ -110,31 +109,6 @@
 						})
 
 
-					//add interactivity
-					svg2.selectAll('rect')
-							.on('mouseover',function(){
-							d3.select(this)
-								.attr('stroke','rgb(0, 104, 107)')
-								.attr('stroke-width',1.5)
-								.transition()
-								.style('fill','rgb(0, 164, 170)')
-								
-							})
-							.on('mouseout',function(){
-							d3.select(this)
-								.transition()
-								.style('fill','rgb(40, 180, 185, 0.8)')
-								.attr('stroke-width',0)
-							})
-							.on('click',function(){
-							d3.select(this)
-								.transition()
-								.attr('stroke-width',3.5)
-								.transition()
-								.attr('stroke-width',1.5);
-							})
-
-
 					//xlabel
 					var xtext = svg2.selectAll('text')
 						.data(data);
@@ -152,11 +126,11 @@
 							return xScale(i)+padding + 20;
 						})
 						.attr('y',function(d){
-							return height2 ;
+							return height2 - 10;
 						})
 						.attr('class','xlabel');
 
-						//append axis 
+					//append axis 
 					svg2.append('g')
 						.attr('class','axis')
 						.attr("transform","translate("+40+","+(padding + 20)+")")
@@ -166,7 +140,61 @@
 						.attr("class",'axis')
 						.attr('transform','translate('+40+','+ (height2 - padding/2)+')')
 						.call(xAxis);
+
+					// creating tooltip
+					var tooltip = svg2.append('g')
+						.attr('class','tooltip')
+						.style('display','none')
+					
+					tooltip.append("rect")
+						.attr("width", 35)
+						.attr("height", 20)
+						.attr("fill", "white")
+						.style("opacity", 0.7)
+						.style("stroke", "black")
+						.style('stroke-width',0.1)
+
+						
+					tooltip.append("text")
+						.attr("x", 2)
+						.attr("dy", "1.2em")
+						.style("text-anchor", "left")
+						.attr("font-size", "12px")
+						.attr("font-weight", "bold");
+
+
+					svg2.selectAll('rect')
+						.data(data)
+						.on("mouseover", function(d,i){
+							d3.select(this)
+								.attr('stroke','rgb(0, 104, 107)')
+								.attr('stroke-width',1)
+								.transition()
+								.style('fill','rgb(0, 164, 170)')
+							tooltip.style("display", null)
+						})
+						.on("mouseout", function(){
+							d3.select(this)
+								.transition()
+								.style('fill','rgb(40, 180, 185, 0.8)')
+								.attr('stroke-width',0)
+							tooltip.style("display", "none");
+						})
+						.on("click", function(){
+							d3.select(this)
+								.transition()
+								.attr('stroke-width',3.5)
+								.transition()
+								.attr('stroke-width',1);
+						})
+						.on('mousemove',function(event, i){
+							var xPosition = event.x;
+							var yPosition = event.y
+							tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+							tooltip.select("text").text(i[1]);
+						})
 				});
+
 			};
 
 			update('time_count_unsorted.csv')

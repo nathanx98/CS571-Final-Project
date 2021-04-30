@@ -88,15 +88,12 @@
 									
 					var rect = svg.selectAll('rect')
 						.data(data)
-					
-
-
 					rect
 						.enter()
 						.append('rect')
 						.merge(rect)
 						.transition()
-						.duration(1000)
+						.duration(650)
 						.attr('class','rect')
 						.attr('x',function(d,i){
 							return xScale(i)+padding+10;
@@ -151,7 +148,7 @@
 						.style('display','none')
 					
 					tooltip.append("rect")
-						.attr("width", 60)
+						.attr("width", 35)
 						.attr("height", 20)
 						.attr("fill", "white")
 						.style("opacity", 0.7)
@@ -168,7 +165,8 @@
 
 					
 					svg.selectAll('rect')
-						.on("mouseover", function(){
+						.data(data)
+						.on("mouseover", function(d,i){
 							d3.select(this)
 								.attr('stroke','rgb(0, 104, 107)')
 								.attr('stroke-width',1)
@@ -190,11 +188,11 @@
 								.transition()
 								.attr('stroke-width',1);
 						})
-						.on('mousemove',function(event, d){
+						.on('mousemove',function(event, i){
 							var xPosition = event.x;
 							var yPosition = event.y
 							tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-							tooltip.select("text").text("hello world");
+							tooltip.select("text").text(i[1]);
 						})
 				});
 			}
