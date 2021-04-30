@@ -13,10 +13,10 @@
 				fill:black;
 			}
 			.rect{
-				fill:rgb(40, 181, 185);
+				fill:rgb(40, 180, 185, 0.8);
 			}
 			.stuff{
-				fill:rgb(0, 104, 107);
+				fill:rgb(0, 90, 94);
 			}
 			.title1{
 				position: relative;
@@ -71,24 +71,26 @@
 				});
 				d_pairs.then(function(data)
 				{
-					 xScale = d3.scaleLinear()
+					xScale = d3.scaleLinear()
 									.domain([0,9])
 									.range([0,width-padding]);
-					 yScale = d3.scaleLinear()
+					yScale = d3.scaleLinear()
 									.domain([0,38644])
 									.range([0,height - 2*padding]);
 					var yAxisScale = d3.scaleLinear()
 										.domain([0,38644])
 										.range([height - 2*padding,0]);
-					 yAixs = d3.axisLeft()
+					yAixs = d3.axisLeft()
 									.scale(yAxisScale);
-					 xAxis = d3.axisTop()
+					xAxis = d3.axisTop()
 									.scale(xScale)
 									.tickValues([]);
 									
 					var rect = svg.selectAll('rect')
 						.data(data)
 					
+
+
 					rect
 						.enter()
 						.append('rect')
@@ -109,26 +111,6 @@
 							return yScale(d[1]);
 						})
 
-						svg.selectAll('rect')
-							.on('mouseover',function(){
-								d3.select(this)
-									.attr('stroke','rgb(0, 104, 107)')
-									.transition()
-									.attr('stroke-width',2.5);
-							})
-							.on('mouseout',function(){
-								d3.select(this)
-									.attr('fill','black')
-									.transition()
-									.attr('stroke-width',0);
-							})
-							.on('click',function(){
-								d3.select(this)
-									.transition()
-									.attr('stroke-width',5)
-									.transition()
-									.attr('stroke-width',0);
-							})
 
 					//xlabel
 					var xtext = svg.selectAll('text')
@@ -161,6 +143,59 @@
 						.attr("class",'axis')
 						.attr('transform','translate('+40+','+ (height - padding/2)+')')
 						.call(xAxis);
+
+
+					// creating tooltip
+					var tooltip = svg.append('g')
+						.attr('class','tooltip')
+						.style('display','none')
+					
+					tooltip.append("rect")
+						.attr("width", 60)
+						.attr("height", 20)
+						.attr("fill", "white")
+						.style("opacity", 0.7)
+						.style("stroke", "black")
+						.style('stroke-width',0.1)
+
+						
+					tooltip.append("text")
+						.attr("x", 2)
+						.attr("dy", "1.2em")
+						.style("text-anchor", "left")
+						.attr("font-size", "12px")
+						.attr("font-weight", "bold");
+
+					
+					svg.selectAll('rect')
+						.on("mouseover", function(){
+							d3.select(this)
+								.attr('stroke','rgb(0, 104, 107)')
+								.attr('stroke-width',1)
+								.transition()
+								.style('fill','rgb(0, 164, 170)')
+							tooltip.style("display", null)
+						})
+						.on("mouseout", function(){
+							d3.select(this)
+								.transition()
+								.style('fill','rgb(40, 180, 185, 0.8)')
+								.attr('stroke-width',0)
+							tooltip.style("display", "none");
+						})
+						.on("click", function(){
+							d3.select(this)
+								.transition()
+								.attr('stroke-width',3.5)
+								.transition()
+								.attr('stroke-width',1);
+						})
+						.on('mousemove',function(event, d){
+							var xPosition = event.x;
+							var yPosition = event.y
+							tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+							tooltip.select("text").text("hello world");
+						})
 				});
 			}
 

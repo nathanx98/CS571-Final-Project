@@ -13,10 +13,10 @@
 				fill:black;
 			}
 			.rect{
-				fill:rgb(40, 181, 185);
+				fill:rgb(40, 180, 185, 0.8);
 			}
 			.stuff{
-				fill:rgb(0, 104, 107);
+				fill:rgb(0, 90, 94);
 			}
 			.title1{
 				position: relative;
@@ -109,28 +109,30 @@
 							return yScale(d[1]);
 						})
 
+
 					//add interactivity
 					svg2.selectAll('rect')
-						.on('mouseover',function(){
+							.on('mouseover',function(){
 							d3.select(this)
 								.attr('stroke','rgb(0, 104, 107)')
+								.attr('stroke-width',1.5)
 								.transition()
-								.attr('stroke-width',2.5);
-						})
-						.on('mouseout',function(){
-							d3.select(this)
-								.attr('fill','black')
-								.transition()
-								.attr('stroke-width',0);
-						})
-						.on('click',function(){
+								.style('fill','rgb(0, 164, 170)')
+								
+							})
+							.on('mouseout',function(){
 							d3.select(this)
 								.transition()
-								.attr('stroke-width',5)
+								.style('fill','rgb(40, 180, 185, 0.8)')
+								.attr('stroke-width',0)
+							})
+							.on('click',function(){
+							d3.select(this)
 								.transition()
-								.attr('stroke-width',0);
-						})
-
+								.attr('stroke-width',3.5)
+								.transition()
+								.attr('stroke-width',1.5);
+							})
 
 
 					//xlabel
