@@ -72,7 +72,7 @@
 				d_pairs.then(function(data)
 				{
 					xScale = d3.scaleLinear()
-									.domain([0,9])
+									.domain([0,10])
 									.range([0,width-padding]);
 					yScale = d3.scaleLinear()
 									.domain([0,38644])
@@ -129,7 +129,7 @@
 							return xScale(i)+padding + 30;
 						})
 						.attr('y',function(d){
-							return height ;
+							return height - 10 ;
 						})
 						.attr('class','xlabel');
 

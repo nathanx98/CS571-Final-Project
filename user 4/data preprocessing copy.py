@@ -22,3 +22,4 @@ n_time = time.value_counts()
 n_neighborhood.to_csv("neighbourhood_count.csv")
 n_time.to_csv("time_count.csv")
 useful_cols.to_csv("useful_cols.csv")
+
