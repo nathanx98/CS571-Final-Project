@@ -170,7 +170,7 @@
 								.attr('stroke','rgb(0, 104, 107)')
 								.attr('stroke-width',1)
 								.transition()
-								.style('fill','rgb(0, 164, 170)')
+								.style('fill','rgb(35, 139, 146)')
 							tooltip.style("display", null)
 						})
 						.on("mouseout", function(){
@@ -190,7 +190,7 @@
 						.on('mousemove',function(event, i){
 							var xPosition = event.x;
 							var yPosition = event.y
-							tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+							tooltip.attr("transform", "translate(" + (xPosition + 5) + "," + (yPosition + 5) + ")");
 							tooltip.select("text").text(i[1]);
 						})
 				});

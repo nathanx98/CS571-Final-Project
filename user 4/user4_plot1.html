@@ -16,7 +16,7 @@
 				fill:rgb(40, 180, 185, 0.8);
 			}
 			.stuff{
-				fill:rgb(0, 90, 94);
+				fill:rgb(35, 139, 146);
 			}
 			.title1{
 				position: relative;
@@ -93,7 +93,7 @@
 						.append('rect')
 						.merge(rect)
 						.transition()
-						.duration(650)
+						.duration(900)
 						.attr('class','rect')
 						.attr('x',function(d,i){
 							return xScale(i)+padding+10;
@@ -102,7 +102,7 @@
 							return height - yScale(d[1]) - padding/2;
 						})
 						.attr('width',function(d,i){
-							return width/15;
+							return width/13;
 						})
 						.attr('height',function(d){
 							return yScale(d[1]);
@@ -171,7 +171,7 @@
 								.attr('stroke','rgb(0, 104, 107)')
 								.attr('stroke-width',1)
 								.transition()
-								.style('fill','rgb(0, 164, 170)')
+								.style('fill','rgb(35, 139, 146)')
 							tooltip.style("display", null)
 						})
 						.on("mouseout", function(){
