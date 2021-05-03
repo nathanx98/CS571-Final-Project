@@ -43,7 +43,7 @@
 // https://stackoverflow.com/questions/45421774/how-to-draw-circles-with-radii-given-in-kilometers-accurately-on-world-map
 var circumference = 6371000 * Math.PI * 2;
 var angle = 1000 / circumference * 360;
-
+var zoom_transform ={trans:null};
 function clear_pings(){
   ping.selectAll("path").remove();
   d3.selectAll("#barchart g").remove();
@@ -100,6 +100,7 @@ function _filter_by_distance(ping){
 }
 function draw_pings(data){
   console.log(data)
+
   var color = ["red","blue"];
   var ping_circle =ping.selectAll( "path" )
   .data(data,function(d){return d.long+""+d.lat;})
@@ -116,6 +117,7 @@ function draw_pings(data){
   .attr("opacity","0.5");
   ping_circle.exit()
   .remove();
+  ping.selectAll( "path" ).attr('transform',zoom_transform.trans);
 }
 var width = 350,
     height = 400;
@@ -166,7 +168,7 @@ neighborhoods.selectAll( "path" )
   .text(function(d){ return d.properties.Name})
   .raise();
 
-  var zoom_transform ={trans:null};
+  
 
 
   function type(d) {
