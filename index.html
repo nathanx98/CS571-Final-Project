@@ -21,7 +21,7 @@
             <header><h1>Boston 311 Cases 2020</h1></header>
             <h4>Hannah Huynh, Judge Russell, Nathan Xuan, Andy Zhao</h4>
         </div>
-            <div class="nav-scroller mb-4">
+            <div class="nav-scroller mb-4 px-2 border border-info rounded">
                 <nav class="nav d-flex justify-content-between">
                     <a class="p-1" href="#neighborhoods"><b>Neighborhood Overview</b></a>
                     <a class="p-1" href="#city_council"><b>City Council Districts</b></a>
@@ -32,15 +32,24 @@
             </div>
 
 
-
+        <div id="intro">
+          <h1>Introduction</h1>
+          <div class="h-divider"></div>
+          <p>According to the <a href="https://www.cityofboston.gov/311/">City of Boston Website</a>, </p>
+          <p style="margin-left: 10%; margin-top: 15px; margin-bottom: 15px;"><em>"311 is an easy-to-remember telephone number that connects you with highly-trained Constituent Service Center representatives who are ready to help you with requests for non-emergency City services and information."</em></p>
+          <p>The line is 24/7, and can also be reached with a <a href="https://www.boston.gov/departments/innovation-and-technology/city-boston-apps">mobile application</a>. Boston City Government releases a <a href="https://data.boston.gov/dataset/311-service-requests">dataset</a> containing every 311 call during each calendar year. This page is based off the data from 2020, the most recent full year dataset available. This dataset includes information for each case such as time, location, category, completed, and ontime completion. It provides a view of the city created by its citizens and our visualization hopes to provide a small town view of the happenings of New England's largest city. </p>
+        </div>
         
         <!-- Neighborhood Overview  -->
         <div id="neighborhoods">
           
           <h1>Neighborhood Overview</h1>
           <div class="h-divider"></div>
-          <iframe id="neighborhood_svg" class="p-4" allowtransparency="true" frameborder="0" overflow="hidden" scrolling="no" src="./user4/user4_plot1.html" height="500px" width="100%"></iframe>
-        
+          <p>
+            Below is a chart showing the amount of cases in each neighborhood of the city. Keep in mind that these neighborhoods' areas are not equal, and some (like Dorchester) are much larger than others (like Downtown).
+          </p>
+          <iframe id="neighborhood_svg" class="p-4" allowtransparency="true" frameborder="0" overflow="hidden" scrolling="no" src="./user4/user4_plot1.html" height="550px" width="100%"></iframe>
+          
             
         </div>
         
@@ -169,7 +178,10 @@
         <div id="overdue" class="py-4">
             <h1>Overdue Cases by Type</h1>
             <div class="h-divider"></div>
-            <iframe id="overdue" class="p-4" allowtransparency="true" frameborder="0" overflow="hidden" scrolling="no" src="./user2-bublechart/type_vs_overdue.html" height="550px" width="100%"></iframe>
+            <p>
+              Cases that were completed in an untimely fashion are reported by this dataset, and it is an interesting category to look into. Below are the most commonly overdue types of cases across the whole city, with the circles' area representing their size. Does the city consider these kinds of cases to be a lower priority? Are there simply too many to handle? Is the city 311 department understaffed? The answers to those questions we can't know from the dataset, but there is something to gain from seeing what isn't being taken care of in Boston.
+            </p>
+            <iframe id="overdue" class="p-4" allowtransparency="true" frameborder="0" overflow="hidden" scrolling="no" src="./user2-bublechart/type_vs_overdue.html" height="600px" width="100%"></iframe>
         </div>
 
         <!-- Cases Throughout Time -->
@@ -177,13 +189,16 @@
 
           <h1>A Day's Cases</h1>
           <div class="h-divider"></div>
+          <p>
+            These 311 cases come from ordinary citizens going about their every day life. Below is a chart showing when these cases come in over the course of a day.
+          </p>
           <iframe id="hours_svg" class="p-4" allowtransparency="true" frameborder="0" overflow="hidden" scrolling="no" src="./user4/user4_plot2.html" height="500px" width="100%"></iframe>
         
             
           <h1>Cases Per Month</h1>
           <div class="h-divider"></div>
           <p>
-            There was an exact moment in 2020 when everything changed. From a quick look at the cases filed per month, one can gather when that was. Besides that dip in cases at the start of US lockdown, one can gain an insight of the seasonal needs of the city. Unshoveled sidewalk is a very common case during the cold New England winter months, and improper trash storage gets on people's nerves more during the hot summer months.
+            There was an exact moment in 2020 when everything changed. The dip in cases in April is the most immediate feature of this graph. Besides that fall in cases showing the start of US lockdown, one can gain an insight of the seasonal needs of the city. Unshoveled sidewalks is a very common case during the cold New England winter months, and improper trash storage gets on people's nerves more during the hot summer months.
           </p>
           <iframe id="months_svg" class="p-4" allowtransparency="true" frameborder="0" overflow="hidden" scrolling="no" src="./user2-stackbar/311_2_merge.html" height="500px" width="100%"></iframe>
         
@@ -194,7 +209,7 @@
         <div id="quiet_clean">
             <h1>Quiet and Clean Neighborhoods</h1>
             <div class="h-divider"></div>
-            This 311 data is a portrait of the city from a wide lens, which can be useful to incoming residents. Everybody wants to live in a clean, quiet neighborhood, and the amount of 311 cases can tell you where that is. This interactive map shows points representing cases of unsavory conditions. Scrolling the mouse wheel will zoom, and clicking and dragging will move the map. Clicking on the names of the categories to the right will enable or disable them. Locations can be searched by latitude and longitude, and two different locations can be compared. 
+            The 311 data is a portrait of the city through a wide lens, something not only useful to current citizens, but to incoming residents as well. Everybody wants to live in a clean, quiet neighborhood, and the various noise complaints and sanitary complaints in this dataset can show where that place is (or isn't). This interactive map shows points representing cases of unsavory conditions. Scrolling the mouse wheel will zoom, and clicking and dragging will move the map. Clicking on the names of the categories to the right will enable or disable them. Locations can be searched by latitude and longitude, and two different locations can be compared. 
             <iframe id="quiet_clean_svg" class="p-4" allowtransparency="true" frameborder="0" overflow="hidden" scrolling="no" src="./quiet_map.html" height="500px" width="100%"></iframe>
         
         </div>
