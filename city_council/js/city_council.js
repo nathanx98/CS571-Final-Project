@@ -283,10 +283,19 @@ function renderOnTime(data, district)
     svg.append("text")
         .attr("class", "y label")
         .attr("text-anchor", "end")
-        .attr("y", 6)
-        .attr("x", -50)
+        .attr("y", -1 * h / 4)
+        .attr("x", -1 * w / 3)
         .attr("dy", ".75em")
+        .attr("transform", "rotate(-90)")
         .text("Case Count");
+
+        
+    svg.append("text")
+        .attr("class", "x label")
+        .attr("y", h * 10 / 9)
+        .attr("x", w / 3)
+        .attr("dy", ".75em")
+        .text("Case Completed Status");
 }
 
 // renders stacked bar chart
@@ -344,7 +353,22 @@ function render(data, district, xScales, yScales, index) {
         .attr("dy", ".15em")
         .attr("transform", "rotate(-40)" );
     
+    svg.append("text")
+        .attr("class", "y label")
+        .attr("text-anchor", "end")
+        .attr("y", -1 * w / 4)
+        .attr("x", -1 * h / 3)
+        .attr("dy", ".75em")
+        .attr("transform", "rotate(-90)")
+        .text("Case Count");
+
         
+    svg.append("text")
+        .attr("class", "x label")
+        .attr("y", h * 4 / 3)
+        .attr("x", w / 3)
+        .attr("dy", ".75em")
+        .text("Case Category");
 }
 
 
