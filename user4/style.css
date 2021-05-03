@@ -1,9 +1,17 @@
-body {
-    background-color: #fcecdd;
+button {
+    background-color: #ff6701 !important;
+    border-color: #ff6701 !important;
+    
 }
 
-a {
-    color: #ff6701;
+button:active {
+    background-color: #b14700 !important;
+    border-color: #b14700 !important;
+}
+
+button.active {
+    background-color: #b14700 !important;
+    border-color: #b14700 !important;
 }
 
 label {

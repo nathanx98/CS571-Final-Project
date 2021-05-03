@@ -279,6 +279,14 @@ function renderOnTime(data, district)
     .call(d3.axisBottom(xScaleOnTime).tickSizeOuter(0))
     .selectAll("text")  
         .style("font-size", "3em")
+
+    svg.append("text")
+        .attr("class", "y label")
+        .attr("text-anchor", "end")
+        .attr("y", 6)
+        .attr("x", -50)
+        .attr("dy", ".75em")
+        .text("Case Count");
 }
 
 // renders stacked bar chart
