@@ -4,7 +4,6 @@
 		<meta charset="utf-8">
 		<title>User 4 bar chart</title>
 		<script type="text/javascript" src="../d3.js"></script>
-		<link rel="stylesheet" href="./style.css">
 		<style type="text/css">
 			.axis { font: 7px sans-serif; 
 					stroke-width: 1px;
@@ -32,6 +31,26 @@
 			.titleText{
 				font:20px sans-serif;
 			}
+			button{
+				background-color: orange;
+				color: white;
+				border: 2px solid orange; /* Green */
+				transition-duration: 0.4s;
+				padding: 10px 25px;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				font-size: 16px;
+				margin: 4px 2px;
+				border-radius:.3cm;
+  				cursor: pointer;
+			}
+			button:hover {
+				background-color: white; /* Green */
+				color: black;
+			}
+
+
 		</style>
 	</head>
 	<body>
@@ -44,8 +63,8 @@
 				</div>
 			</svg>
 		</div>
-		<button type="button" class="btn btn-warning" onclick="update(sorted_data)">Sort by Count</button>
-		<button type="button" class="btn btn-warning" onclick="update(unsorted_data)">Sort by Neighborhood</button>
+		<button type="button" onclick="update(sorted_data)">Sort by Count</button>
+		<button type="button" onclick="update(unsorted_data)">Sort by Neighborhood</button>
 
 		<script>
 			var padding = 40;
