@@ -46,7 +46,7 @@ var angle = 1000 / circumference * 360;
 var zoom_transform ={trans:null};
 function clear_pings(){
   ping.selectAll("path").remove();
-  d3.selectAll("#barchart g").remove();
+  d3.selectAll("#barchart svg").remove();
   return false
 }
 
