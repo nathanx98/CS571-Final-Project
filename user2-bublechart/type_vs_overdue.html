@@ -20,7 +20,7 @@
 
         dataset = {"children": dataset};
 
-        var diameter = 500;
+        var diameter = 700;
 
         var colors = d3.scaleOrdinal(d3.schemePaired);
         
@@ -49,11 +49,7 @@
                 return "translate(" + d.x + "," + d.y + ")";
             });
 
-        node.append("title")
-            .text(function(d) {
-                return d.type + ": " + d.count;
-            });
-
+        
         node.append("circle")
             .attr("r", function(d) {
                 return d.r;
@@ -99,7 +95,7 @@
             .style("text-anchor", "middle")
             .style("font-weight","bold")
             .text(function(d) {
-                if (d.r > 25)
+                if (d.r > 40)
                     return d.data.type;
                 
             })
@@ -113,7 +109,7 @@
             .attr("dy", "1.3em")
             .style("text-anchor", "middle")
             .text(function(d) {
-                if (d.r > 25)
+                if (d.r > 35)
                     return d.data.count;
             })
             .attr("font-family",  "Gill Sans", "Gill Sans MT")
