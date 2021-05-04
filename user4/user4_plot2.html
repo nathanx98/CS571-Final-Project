@@ -4,7 +4,6 @@
 		<meta charset="utf-8">
 		<title>User 4 bar chart</title>
 		<script type="text/javascript" src="../d3.js"></script>
-		<link rel="stylesheet" href="./style.css">
 		<style type="text/css">
 			.axis { font: 7px sans-serif; 
 					stroke-width: 1px;
@@ -53,8 +52,6 @@
 		</style>
 	</head>
 	<body>
-		
-
 		<div id='myplot'>
 			<svg width="800" height="300" class = 'plot2'>
 				<div class = 'title2'>
@@ -64,8 +61,8 @@
 				</div>
 			</svg>
 		</div>
-		<button onclick="update(sorted_data)">Sort by Count</button>
-		<button onclick="update(unsorted_data)">Sort by Time</button>
+		<button type="button" onclick="update(sorted_data)">Sort by Count</button>
+		<button type="button" onclick="update(unsorted_data)">Sort by Time</button>
 
 		<script>
 			var svg2 = d3.selectAll('.plot2');
